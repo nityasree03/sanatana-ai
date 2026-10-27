@@ -1,0 +1,290 @@
+[
+  {
+    "id": "bhagavad-gita",
+    "title": "Bhagavad Gita",
+    "description": "Krishna's teaching to Arjuna on the battlefield of Kurukshetra.",
+    "companions": [
+      "krishna"
+    ],
+    "passageCount": 701,
+    "sections": [
+      "Chapter 1: The Despondency Of Arjuna",
+      "Chapter 2: Yoga By The Sankhya",
+      "Chapter 3: The Yoga Of Action",
+      "Chapter 4: The Yoga Of Wisdom",
+      "Chapter 5: The Yoga Of The Renunciation Of Action",
+      "Chapter 6: The Yoga Of Self-Subdual",
+      "Chapter 7: The Yoga Of Discriminative Knowledge",
+      "Chapter 8: The Yoga Of The Indesctructible Supreme Eternal",
+      "Chapter 9: The Yoga Of The Kingly Science And The Kingly Secret",
+      "Chapter 10: The Yoga Of Sovereignty",
+      "Chapter 11: The Yoga Of The Vision Of The Universal Form",
+      "Chapter 12: The Yoga Of Devotion",
+      "Chapter 13: The Yoga Of The Distinction Between The Field And The Knower Of The Field",
+      "Chapter 14: The Yoga Of Separation From The Three Qualities",
+      "Chapter 15: The Yoga Of Attaining The Supreme Spirit",
+      "Chapter 16: The Yoga Of Division Between The Divine And The Demoniacal",
+      "Chapter 17: The Yoga Of The Division Of Threefold Faith",
+      "Chapter 18: The Yoga Of Liberation By Renunciation. श्रीकृष्णार्पणमस्तु ॥ शुभं भवतु ॥"
+    ],
+    "sources": [
+      {
+        "id": "gita-sanskrit",
+        "title": "Bhagavad Gita — Sanskrit verses (gita/gita open dataset)",
+        "translator": null,
+        "edition": "gita/gita data/verse.json",
+        "year": "ancient text; dataset 2020s",
+        "license": "Unlicense (public-domain dedication); the verse text itself is ancient",
+        "rightsNote": "Only the Devanagari verse text is used. The dataset's English translations, word meanings and transliterations are NOT used (modern, possibly copyrighted).",
+        "url": "https://github.com/gita/gita",
+        "scanUrl": null,
+        "language": "Sanskrit"
+      },
+      {
+        "id": "gita-besant",
+        "title": "The Bhagavad-Gita, translated by Annie Besant (4th edition)",
+        "translator": "Annie Besant",
+        "edition": "4th edition, G. A. Natesan & Co., Madras, 1922 (via Wikisource)",
+        "year": "1922",
+        "license": "Public domain",
+        "rightsNote": "Published before 1931 (public domain in the US); translator died 1933 (public domain in life+92-or-shorter countries).",
+        "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)",
+        "scanUrl": null,
+        "language": "English"
+      }
+    ]
+  },
+  {
+    "id": "valmiki-ramayana",
+    "title": "Valmiki Ramayana",
+    "description": "Book V (Sundar): Hanuman's leap to Lanka and his search for Sita.",
+    "companions": [
+      "hanuman"
+    ],
+    "passageCount": 232,
+    "sections": [
+      "Book V (Sundar), Canto 1: Hanumán’s Leap",
+      "Book V (Sundar), Canto 2: Lanká",
+      "Book V (Sundar), Canto 3: The Guardian Goddess",
+      "Book V (Sundar), Canto 4: Within The City",
+      "Book V (Sundar), Canto 6: The Court",
+      "Book V (Sundar), Canto 7: Rávan’s Palace",
+      "Book V (Sundar), Canto 8: The Enchanted Car",
+      "Book V (Sundar), Canto 9: The Ladies’ Bower",
+      "Book V (Sundar), Canto 10: Rávan Asleep",
+      "Book V (Sundar), Canto 11: The Banquet Hall",
+      "Book V (Sundar), Canto 12: The Search Renewed",
+      "Book V (Sundar), Canto 13: Despair And Hope",
+      "Book V (Sundar), Canto 14: The Asoka Grove",
+      "Book V (Sundar), Canto 15: Sítá",
+      "Book V (Sundar), Canto 16: Hanumán’s Lament",
+      "Book V (Sundar), Canto 17: Sítá’s Guard",
+      "Book V (Sundar), Canto 18: Rávan",
+      "Book V (Sundar), Canto 19: Sítá’s Fear",
+      "Book V (Sundar), Canto 20: Rávan’s Wooing",
+      "Book V (Sundar), Canto 21: Sítá’s Scorn",
+      "Book V (Sundar), Canto 22: Rávan’s Threat",
+      "Book V (Sundar), Canto 23: The Demons’ Threats",
+      "Book V (Sundar), Canto 24: Sítá’s Reply",
+      "Book V (Sundar), Canto 25: Sítá’s Lament",
+      "Book V (Sundar), Canto 26: Sítá’s Lament",
+      "Book V (Sundar), Canto 27: Trijatá’s Dream",
+      "Book V (Sundar), Canto 30: Hanumán’s Deliberation",
+      "Book V (Sundar), Canto 31: Hanumán’s Speech",
+      "Book V (Sundar), Canto 32: Sítá’s Doubt",
+      "Book V (Sundar), Canto 33: The Colloquy",
+      "Book V (Sundar), Canto 34: Hanumán’s Speech",
+      "Book V (Sundar), Canto 35: Hanumán’s Speech",
+      "Book V (Sundar), Canto 36: Ráma’s Ring",
+      "Book V (Sundar), Canto 37: Sítá’s Speech",
+      "Book V (Sundar), Canto 38: Sítá’s Gem",
+      "Book V (Sundar), Canto 41: The Ruin Of The Grove",
+      "Book V (Sundar), Canto 42: The Giants Roused",
+      "Book V (Sundar), Canto 43: The Ruin Of The Temple",
+      "Book V (Sundar), Canto 44: Jambumáli’s Death",
+      "Book V (Sundar), Canto 45: The Seven Defeated",
+      "Book V (Sundar), Canto 46: The Captains",
+      "Book V (Sundar), Canto 47: The Death Of Aksha",
+      "Book V (Sundar), Canto 48: Hanumán Captured",
+      "Book V (Sundar), Canto 49: Rávan",
+      "Book V (Sundar), Canto 50: Prahasta’s Questions",
+      "Book V (Sundar), Canto 51: Hanumán’s Reply",
+      "Book V (Sundar), Canto 52: Vibhishan’s Speech",
+      "Book V (Sundar), Canto 53: The Punishment",
+      "Book V (Sundar), Canto 54: The Burning Of Lanká",
+      "Book V (Sundar), Canto 55: Fear For Sítá",
+      "Book V (Sundar), Canto 56: Mount Arishta",
+      "Book V (Sundar), Canto 57: Hanumán’s Return",
+      "Book V (Sundar), Canto 58: The Feast Of Honey",
+      "Book V (Sundar), Canto 65: The Tidings",
+      "Book V (Sundar), Canto 66: Ráma’s Speech"
+    ],
+    "sources": [
+      {
+        "id": "ramayana-griffith",
+        "title": "The Rámáyan of Válmíki, translated into English verse by Ralph T. H. Griffith",
+        "translator": "Ralph T. H. Griffith",
+        "edition": "Trübner & Co. / E. J. Lazarus, 1870–1874 (Project Gutenberg eBook #24869)",
+        "year": "1870–1874",
+        "license": "Public domain",
+        "rightsNote": "Project Gutenberg: public domain in the USA; translator died 1906.",
+        "url": "https://www.gutenberg.org/ebooks/24869",
+        "scanUrl": null,
+        "language": "English"
+      }
+    ]
+  },
+  {
+    "id": "isa-upanishad",
+    "title": "Isa Upanishad",
+    "description": "A short Upanishad on seeing the Lord in all things.",
+    "companions": [
+      "shiva"
+    ],
+    "passageCount": 18,
+    "sections": [
+      "Verses"
+    ],
+    "sources": [
+      {
+        "id": "upanishads-paramananda",
+        "title": "The Upanishads (Isa, Katha, Kena), translated by Swami Paramananda",
+        "translator": "Swami Paramananda",
+        "edition": "The Vedanta Centre, Boston, 1919 (Project Gutenberg eBook #3283)",
+        "year": "1919",
+        "license": "Public domain",
+        "rightsNote": "Published 1919 (public domain in the US); translator died 1940. Only the translated verses are used, not the translator's commentary.",
+        "url": "https://www.gutenberg.org/ebooks/3283",
+        "scanUrl": null,
+        "language": "English"
+      }
+    ]
+  },
+  {
+    "id": "katha-upanishad",
+    "title": "Katha Upanishad",
+    "description": "Nachiketas questions Yama, the Ruler of Death, about the Self.",
+    "companions": [
+      "shiva"
+    ],
+    "passageCount": 119,
+    "sections": [
+      "Chapter 1, Valli 1",
+      "Chapter 1, Valli 2",
+      "Chapter 1, Valli 3",
+      "Chapter 2, Valli 1",
+      "Chapter 2, Valli 2",
+      "Chapter 2, Valli 3"
+    ],
+    "sources": [
+      {
+        "id": "upanishads-paramananda",
+        "title": "The Upanishads (Isa, Katha, Kena), translated by Swami Paramananda",
+        "translator": "Swami Paramananda",
+        "edition": "The Vedanta Centre, Boston, 1919 (Project Gutenberg eBook #3283)",
+        "year": "1919",
+        "license": "Public domain",
+        "rightsNote": "Published 1919 (public domain in the US); translator died 1940. Only the translated verses are used, not the translator's commentary.",
+        "url": "https://www.gutenberg.org/ebooks/3283",
+        "scanUrl": null,
+        "language": "English"
+      }
+    ]
+  },
+  {
+    "id": "kena-upanishad",
+    "title": "Kena Upanishad",
+    "description": "On the power behind mind and senses; includes the appearance of Uma Haimavati.",
+    "companions": [
+      "parvati",
+      "shiva"
+    ],
+    "passageCount": 34,
+    "sections": [
+      "Part 1",
+      "Part 2",
+      "Part 3",
+      "Part 4"
+    ],
+    "sources": [
+      {
+        "id": "upanishads-paramananda",
+        "title": "The Upanishads (Isa, Katha, Kena), translated by Swami Paramananda",
+        "translator": "Swami Paramananda",
+        "edition": "The Vedanta Centre, Boston, 1919 (Project Gutenberg eBook #3283)",
+        "year": "1919",
+        "license": "Public domain",
+        "rightsNote": "Published 1919 (public domain in the US); translator died 1940. Only the translated verses are used, not the translator's commentary.",
+        "url": "https://www.gutenberg.org/ebooks/3283",
+        "scanUrl": null,
+        "language": "English"
+      }
+    ]
+  },
+  {
+    "id": "svetasvatara-upanishad",
+    "title": "Svetasvatara Upanishad",
+    "description": "An Upanishad praising Rudra-Siva as the one God.",
+    "companions": [
+      "shiva"
+    ],
+    "passageCount": 106,
+    "sections": [
+      "Chapter 1",
+      "Chapter 2",
+      "Chapter 3",
+      "Chapter 4",
+      "Chapter 5",
+      "Chapter 6"
+    ],
+    "sources": [
+      {
+        "id": "svetasvatara-muller",
+        "title": "The Svetasvatara Upanishad, translated by F. Max Müller (Sacred Books of the East, vol. 15)",
+        "translator": "F. Max Müller",
+        "edition": "Clarendon Press, Oxford, 1884 (scan via Internet Archive, item wg915)",
+        "year": "1884",
+        "license": "Public domain",
+        "rightsNote": "Published 1884; translator died 1900. Text taken from OCR of the scan and cleaned.",
+        "url": "https://archive.org/details/wg915",
+        "scanUrl": "https://archive.org/details/wg915",
+        "language": "English"
+      }
+    ]
+  },
+  {
+    "id": "devi-gita",
+    "title": "Devi Gita (Srimad Devi Bhagavatam)",
+    "description": "The Goddess teaches the Himalaya king about Herself, knowledge, yoga and devotion.",
+    "companions": [
+      "parvati"
+    ],
+    "passageCount": 131,
+    "sections": [
+      "Book VII, Chapter 31: On The Birth Of PARVAii In The House Of Himalayas",
+      "Book VII, Chapter 32: On Self-Realization, Spoken By The World Mother",
+      "Book VII, Chapter 33: On The DevI’s Virat Rupa",
+      "Book VII, Chapter 34: On The Knowledge And Final Emancipation",
+      "Book VII, Chapter 35: On The Yoga And Mantra Siddhi",
+      "Book VII, Chapter 36: On The Highest Knowledge Of Brahma",
+      "Book VII, Chapter 37: On Bhakti Yoga",
+      "Book VII, Chapter 38: The Vows And The Sacred Places Of The Devi I- 2. The Himalayas said \"O Devi! Describe the places on this earth that are prominent, sacred, and worth visiting and which Thou likest best. O Mother! Also sanctify us by describing the vows and utsabs that are pleasing to Thee, and by performing which, men become blessed and get themselves satisfied.",
+      "Book VII, Chapter 39: The Worship Of The World Mother",
+      "Book VII, Chapter 40: The External Worship Of The Devi"
+    ],
+    "sources": [
+      {
+        "id": "devi-gita-vijnanananda",
+        "title": "The Devi Gita (Srimad Devi Bhagavatam, Book VII, chapters 31–40), translated by Swami Vijnanananda",
+        "translator": "Swami Vijnanananda (Hari Prasanna Chatterji)",
+        "edition": "Sacred Books of the Hindus, Panini Office, Allahabad, 1921–1923",
+        "year": "1921–1923",
+        "license": "Public domain",
+        "rightsNote": "Published before 1931 (public domain in the US). Text from a clean transcription of the 1921–23 translation (Global Grey 2018 ebook, archive.org item the-srimad-devi-bhagawatam-swami-vijnanananda); every passage is checked against OCR of the original printed scan (Digital Library of India, archive.org item in.ernet.dli.2015.463317).",
+        "url": "https://archive.org/details/in.ernet.dli.2015.463317",
+        "scanUrl": "https://archive.org/details/in.ernet.dli.2015.463317",
+        "language": "English"
+      }
+    ]
+  }
+]

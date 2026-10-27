@@ -1,3 +1,9 @@
-# Scripture pipeline (offline tools). Heavier packages such as
-# sentence-transformers are added in Phase 3 when retrieval is built.
-pytest>=8
+# Scripture pipeline (offline tools; never deployed). Versions tested in Phase 3.
+beautifulsoup4==4.15.0      # parse Wikisource HTML (Besant Gita)
+lxml==6.1.3                 # HTML parser backend
+indic-transliteration==2.3.82  # Devanagari -> IAST
+rapidfuzz==3.14.6           # compare Devi Gita transcription with the scan OCR
+onnxruntime==1.29.0         # run the MiniLM embedding model
+tokenizers==0.23.3          # MiniLM tokenizer
+numpy==2.5.3
+pytest==9.1.1

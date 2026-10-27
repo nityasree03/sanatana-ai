@@ -11,7 +11,7 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 | 0      | Project setup: Next.js + TypeScript + Tailwind, tests (Vitest, Playwright, pytest), docs, GitHub                                                        | DONE        |
 | 1 (M1) | Foundation: visual system, all routes and navigation, companion selection, left-avatar/right-chat layout, composer with honest "AI not connected" label | DONE        |
 | 2 (M2) | Four animated 2D avatars, browser speech-to-text and text-to-speech, stop/replay, fallbacks                                                             | DONE        |
-| 3 (M3) | Rights-cleared scripture collections, Python importer and validation, hybrid retrieval, Scripture Explorer                                              | NOT STARTED |
+| 3 (M3) | Rights-cleared scripture collections, Python importer and validation, hybrid retrieval, Scripture Explorer                                              | DONE        |
 | 4 (M4) | Gemini provider adapter (server-only key), persona styles, grounded multi-turn chat, citations and abstention                                           | NOT STARTED |
 | 5 (M5) | Companion handoff, Divine Council, Scripture Truth Lens, four Living Leela experiences                                                                  | NOT STARTED |
 | 6 (M6) | Life Journey Memory, Wisdom Tree, Karma Reflection Mirror, Daily Sankalpa                                                                               | NOT STARTED |
@@ -27,7 +27,7 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 | 2   | Companion handoff with shared-context choice                    | /chat                          | NOT STARTED                                                                                                          |
 | 3   | Divine Council                                                  | /divine-council                | NOT STARTED                                                                                                          |
 | 4   | Scripture Truth Lens                                            | (in chat, council, Dharma Lab) | NOT STARTED                                                                                                          |
-| 5   | Scripture Explorer                                              | /scriptures                    | NOT STARTED                                                                                                          |
+| 5   | Scripture Explorer                                              | /scriptures                    | DONE (7 texts, 1341 passages; keyword + experimental meaning search)                                                 |
 | 6   | Living Leela (one per companion)                                | /living-leela                  | NOT STARTED                                                                                                          |
 | 7   | Life Journey Memory                                             | /my-journey                    | NOT STARTED                                                                                                          |
 | 8   | Wisdom Tree                                                     | /my-journey                    | NOT STARTED                                                                                                          |
@@ -41,6 +41,22 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 | 16  | Sanatana Kids / Talking Storybook (4 full stories)              | /kids                          | NOT STARTED                                                                                                          |
 | 17  | Engineering Evaluation page                                     | /evaluation                    | NOT STARTED                                                                                                          |
 | 18  | About / Privacy / Transparency pages                            | /about                         | NOT STARTED                                                                                                          |
+
+## Phase 3 evidence
+
+- Seven public-domain texts, 1341 passages: Bhagavad Gita 701 (Sanskrit + IAST + Besant), Ramayana
+  Sundara Kanda 232 (Griffith), Isa 18 / Katha 119 / Kena 34 (Paramananda), Svetasvatara 106 of 113
+  (Müller, OCR-cleaned), Devi Gita 131 (Vijnanananda, 128 checked against the scan). Register and
+  caveats: docs/data_sources.md.
+- Python pipeline: fetch with checksums, importers, validation (0 problems), build, embeddings.
+- Scripture Explorer: search with text and companion filters, ~100 prerendered chapter pages, verse
+  cards with Devanagari, IAST, English and a "Source and licence" panel; real 404s for unknown pages.
+- Search: BM25 keyword (default) + opt-in meaning search in the browser, fused by rank. Measured on
+  24 labelled questions: keyword Hit@5 0.83, meaning 0.67, hybrid 0.79 (docs/evaluation.md).
+- Fixed along the way: a contrast failure on search results (found by axe), the hidden third-party
+  CDN download in transformers.js, the meaning-search fallback message being overwritten, and a
+  capital-V transcription artifact in the Devi Gita ("IsVara" → "Isvara").
+- Checks: 51 unit, 22 Python, 79 browser tests (+1 phone-only skip), retrieval evaluation.
 
 ## Phase 2 evidence
 

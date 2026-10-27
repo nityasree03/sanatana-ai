@@ -4,24 +4,25 @@ A scripture-grounded conversational and learning website. Four AI companions ins
 tradition (Krishna, Shiva, Hanuman and Parvati) appear as animated avatars on the left, with a
 ChatGPT-style text and voice chat on the right.
 
-> **Status: Phase 2 complete.** All pages and navigation work; the four companions are animated
-> and you can talk (speech-to-text) and listen (text-to-speech) in supported browsers. The AI and
-> scripture features are not connected yet; every page shows an honest status label. See [`docs/project_status.md`](docs/project_status.md).
+> **Status: Phase 3 complete.** All pages and navigation work; the four companions are animated
+> and you can talk and listen in supported browsers. The **Scripture Explorer** holds seven
+> public-domain texts (1341 passages) with full source and licence details and search. AI answers
+> arrive in Phase 4; every page shows an honest status label. See [`docs/project_status.md`](docs/project_status.md).
 
 The companions are **AI simulations inspired by tradition**. They are not the deities themselves
 and do not offer divine contact, predictions or guaranteed outcomes.
 
 ## Tech stack
 
-| Area                | Tools                                                               |
-| ------------------- | ------------------------------------------------------------------- |
-| Website             | Next.js (App Router), React, TypeScript, Tailwind CSS               |
-| Server & validation | Next.js route handlers, Zod (Phase 4)                               |
-| AI                  | Gemini free tier behind a swappable provider adapter (Phase 4)      |
-| Scripture data      | Python offline pipeline, versioned JSON, hybrid retrieval (Phase 3) |
-| Speech & avatars    | Browser Web Speech APIs, layered 2D SVG/React animation (Phase 2)   |
-| Tests               | Vitest, Playwright, pytest                                          |
-| Hosting             | GitHub + Vercel Hobby (Phase 9)                                     |
+| Area                | Tools                                                                |
+| ------------------- | -------------------------------------------------------------------- |
+| Website             | Next.js (App Router), React, TypeScript, Tailwind CSS                |
+| Server & validation | Next.js route handlers, Zod, in-memory rate limit                    |
+| AI                  | Gemini free tier behind a swappable provider adapter (Phase 4)       |
+| Scripture data      | Python offline pipeline, versioned JSON, BM25 + MiniLM hybrid search |
+| Speech & avatars    | Browser Web Speech APIs, illustrated expression portraits (Phase 2)  |
+| Tests               | Vitest, Playwright, pytest                                           |
+| Hosting             | GitHub + Vercel Hobby (Phase 9)                                      |
 
 ## Run it on your computer
 
@@ -42,6 +43,19 @@ npm run build        # production build
 npx playwright install chromium   # first time only
 npm run test:e2e     # browser tests (Playwright, desktop + mobile)
 npm run test:py      # Python pipeline tests (pytest)
+npm run eval:scripture   # retrieval evaluation → evaluation/scripture-retrieval/results.json
+```
+
+## Rebuild the scripture data (optional)
+
+The processed data is already in `src/data/scripture/`. To rebuild it from the original sources:
+
+```bash
+cd scripture-pipeline
+pip install -r requirements.txt
+python -m sanatana_pipeline.fetch    # download sources (checksummed)
+python -m sanatana_pipeline.build    # import, validate, write JSON
+python -m sanatana_pipeline.embed    # meaning-search vectors
 ```
 
 ## Project layout

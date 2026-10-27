@@ -83,7 +83,7 @@ export const ROUTES: readonly SiteRoute[] = [
     description:
       "Search and browse licensed verses with full source, translator and license details.",
     group: "Learn",
-    status: "planned",
+    status: "ready",
     phase: 3,
   },
   {

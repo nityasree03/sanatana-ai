@@ -101,6 +101,22 @@ export default function AboutPage() {
           the right to publish are included. If a source can&apos;t be verified or legally included,
           the site says so.
         </p>
+        <p>
+          The{" "}
+          <Link href="/scriptures" className="text-accent underline">
+            Scripture Explorer
+          </Link>{" "}
+          currently holds seven public-domain texts: the Bhagavad Gita (Sanskrit with Annie
+          Besant&apos;s 1922 translation), the Sundara Kanda of the Ramayana (Ralph Griffith,
+          1870s), the Isa, Katha and Kena Upanishads (Swami Paramananda, 1919), the Svetasvatara
+          Upanishad (Max Müller, 1884) and the Devi Gita (Swami Vijnanananda, 1921–23). These are
+          old translations, so their English can sound archaic, and two of them were cleaned up from
+          scanned pages; each verse card says exactly how its text was checked.
+        </p>
+        <p>
+          Sanskrit transliteration (IAST) is generated automatically from the Devanagari, not typed
+          by a scholar.
+        </p>
       </Section>
 
       <Section id="privacy" title="Privacy">
@@ -121,6 +137,14 @@ export default function AboutPage() {
           example Google in Chrome, Microsoft in Edge or Apple in Safari) to turn it into text. If
           you&apos;d rather not, simply type. Spoken replies use voices installed on your device,
           and they never start playing on their own.
+        </p>
+        <p>
+          <strong>Scripture search:</strong> keyword search sends your search words to this
+          site&apos;s server and nothing is stored. The optional &quot;search by meaning&quot;
+          downloads a small open-source language model (all-MiniLM-L6-v2, about 23 MB) from Hugging
+          Face and its engine from this site into your browser, once. Your search words are turned
+          into numbers on your own device; only those numbers and the words are sent to our server
+          to find passages. Hugging Face sees that your browser downloaded the model.
         </p>
         <p>When later features arrive, these rules apply:</p>
         <ul className="list-disc space-y-1 pl-5">

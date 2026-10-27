@@ -1,0 +1,146 @@
+{
+  "besant_01.html": {
+    "bytes": 190853,
+    "sha256": "9e53f87bbd20da9d4f17df6bdbeef935a2ad4b4b541d83e3e6b1ed5e2bf9fc4b",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_1"
+  },
+  "besant_02.html": {
+    "bytes": 269987,
+    "sha256": "91f43d080c512925f762be91197c09cbd7604755f8fbf9d2ec4f9c85f7a7b25d",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_2"
+  },
+  "besant_03.html": {
+    "bytes": 179732,
+    "sha256": "d0c9c67e7567fcac4aa22c542de77b7d7aaafbe0e6c8ca90d9f75efcec34495b",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_3"
+  },
+  "besant_04.html": {
+    "bytes": 169748,
+    "sha256": "e63204ffe5ee7be8ce589864d65b1c0a24c4e378c023167adaf0dcf51f8c50ae",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_4"
+  },
+  "besant_05.html": {
+    "bytes": 139531,
+    "sha256": "7b72b5c31310c89108ddc543cfa71810c18cb36ff811df078d044979761bfb38",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_5"
+  },
+  "besant_06.html": {
+    "bytes": 187136,
+    "sha256": "b604a39c3e6adf967432946f1cadd8d090e609b4d3b8fcfcee51c449f96a5e8f",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_6"
+  },
+  "besant_07.html": {
+    "bytes": 143840,
+    "sha256": "dd9f2428ed065054555ea073352e9a50147f622e31305334e4617b2e75bd02e6",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_7"
+  },
+  "besant_08.html": {
+    "bytes": 146629,
+    "sha256": "324ea706975561bfc674393b032d648b02f6e8fc25e954e98bed3ff6cd5ed8b3",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_8"
+  },
+  "besant_09.html": {
+    "bytes": 153111,
+    "sha256": "5b2b277113ad98e4cc723b6867622792d0dc1f5d030f746125312a117a02e7bc",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_9"
+  },
+  "besant_10.html": {
+    "bytes": 172946,
+    "sha256": "9e35f59dc1ee03edf10b1f9503ccc802604c570ef0c71f831fcdd0c13b7f81e7",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_10"
+  },
+  "besant_11.html": {
+    "bytes": 235170,
+    "sha256": "6b6b41756826d6cb17f3dc794499b4a94d2c1a2080642402cde57b07dca792ac",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_11"
+  },
+  "besant_12.html": {
+    "bytes": 113517,
+    "sha256": "ed4f91aed188bee32bf133635128630a57c42e568e941f60877c2b674f3f4f71",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_12"
+  },
+  "besant_13.html": {
+    "bytes": 160290,
+    "sha256": "8ddca122885da7b7626cd99ff8fd62a6ce9d92647b68e7ac41b5bc891b073166",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_13"
+  },
+  "besant_14.html": {
+    "bytes": 136624,
+    "sha256": "82d2510a9db17dc401ecc5553dd76abd539115266ac9a12cfb8699ce6753418f",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_14"
+  },
+  "besant_15.html": {
+    "bytes": 120095,
+    "sha256": "7717a1c549397dc85b12ec6f44463b98e5447b5d1c759becfa930d7e9fdd8365",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_15"
+  },
+  "besant_16.html": {
+    "bytes": 117163,
+    "sha256": "a1d62db81f2e1c6a8d9f4236a24fed98e8bfa6a11b8c65bd4303bb71969742e5",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_16"
+  },
+  "besant_17.html": {
+    "bytes": 133665,
+    "sha256": "89843ae4929bd57d79cef7f41aca4b15f1293df2094f9cc81a88d94de0b41120",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_17"
+  },
+  "besant_18.html": {
+    "bytes": 273393,
+    "sha256": "a7c1ba28ec347a3ad2fa002f1a5a7f0445a419224e3690c1557b1b265e5141fb",
+    "source": "gita-besant",
+    "url": "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)/Discourse_18"
+  },
+  "devi_clean.txt": {
+    "bytes": 3160017,
+    "sha256": "0d6b8e9d2a8d8d6c634bc3af101892af9c39b7048bebb3ed3b4fe6302f6bad96",
+    "source": "devi-gita-vijnanananda",
+    "url": "https://archive.org/stream/the-srimad-devi-bhagawatam-swami-vijnanananda/The%20Srimad%20Devi%20Bhagawatam%20-%20Swami%20Vijnanananda_djvu.txt"
+  },
+  "devi_scan.txt": {
+    "bytes": 1621382,
+    "sha256": "c49a8e1452d13d3fe404a754177a3bdb580b784d5691ca0f2f08dd6f38f6f9c5",
+    "source": "devi-gita-vijnanananda",
+    "url": "https://archive.org/stream/in.ernet.dli.2015.463317/2015.463317.The-Srimad_djvu.txt"
+  },
+  "gita_verse.json": {
+    "bytes": 659295,
+    "sha256": "bb599e666e552bd65080f1f8da6d488f067237f64091ab265978861cf3fadec7",
+    "source": "gita-sanskrit",
+    "url": "https://raw.githubusercontent.com/gita/gita/main/data/verse.json"
+  },
+  "pg24869.txt": {
+    "bytes": 2395956,
+    "sha256": "4310b710a9c6942490bf8270a8a6620f314dcc2adf7b413833596ca9aaebca6f",
+    "source": "ramayana-griffith",
+    "url": "https://www.gutenberg.org/cache/epub/24869/pg24869.txt"
+  },
+  "pg3283.txt": {
+    "bytes": 125461,
+    "sha256": "2ffc941173d8fd10c16eea7bfb4ab2ace13cf9e734228c71f367402f9236aa46",
+    "source": "upanishads-paramananda",
+    "url": "https://www.gutenberg.org/cache/epub/3283/pg3283.txt"
+  },
+  "sbe15.txt": {
+    "bytes": 732250,
+    "sha256": "54239fc8f17c8e8ad8184a005f2fb1976e61156b8f3be7625cd7ea799e53904d",
+    "source": "svetasvatara-muller",
+    "url": "https://archive.org/stream/wg915/WG915-1884%20-The%20Sacred%20Books%20of%20East%20-%20Vol%2015%20of%2050%20-%20The%20Upanishads%20Part%202%20of%202_djvu.txt"
+  }
+}

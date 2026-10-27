@@ -1,0 +1,165 @@
+{
+  "description": "Scripture retrieval test set. Each query lists the passage ids that answer it. Relevance was labelled by reading the passage text in src/data/scripture/passages.json (Phase 3, by Claude for the project owner). It has not yet been reviewed by a scholar; treat the numbers as a regression baseline, not a quality claim.",
+  "version": "1.1.0",
+  "queries": [
+    {
+      "id": "q01",
+      "style": "life",
+      "query": "how do I do my duty without worrying about the results",
+      "relevant": ["bg-2.47", "bg-2.48", "bg-3.19", "bg-6.1"]
+    },
+    {
+      "id": "q02",
+      "style": "life",
+      "query": "is the soul destroyed when the body dies",
+      "relevant": ["bg-2.19", "bg-2.20", "bg-2.23", "katha-1.2.18", "katha-1.2.19"]
+    },
+    {
+      "id": "q03",
+      "style": "topic",
+      "query": "God comes to earth whenever righteousness declines",
+      "relevant": ["bg-4.7", "bg-4.8"]
+    },
+    {
+      "id": "q04",
+      "style": "topic",
+      "query": "abandon all duties and take refuge in me",
+      "relevant": ["bg-18.66"]
+    },
+    {
+      "id": "q05",
+      "style": "topic",
+      "query": "the Lord dwells in the heart of all beings",
+      "relevant": ["bg-18.61", "svet-3.11", "svet-3.13", "svet-3.20", "svet-4.17"]
+    },
+    {
+      "id": "q06",
+      "style": "life",
+      "query": "how much should I eat and sleep if I practise yoga",
+      "relevant": ["bg-6.16", "bg-6.17"]
+    },
+    {
+      "id": "q07",
+      "style": "life",
+      "query": "how should I sit when I meditate",
+      "relevant": ["bg-6.11", "bg-6.12", "bg-6.13", "svet-2.8"]
+    },
+    {
+      "id": "q08",
+      "style": "life",
+      "query": "how can I stay calm whether things go well or badly",
+      "relevant": ["bg-2.48", "bg-2.55", "bg-2.56", "bg-2.57"]
+    },
+    {
+      "id": "q09",
+      "style": "topic",
+      "query": "Arjuna overwhelmed with grief refuses to fight",
+      "relevant": ["bg-1.28", "bg-1.29", "bg-1.30", "bg-2.9"]
+    },
+    {
+      "id": "q10",
+      "style": "life",
+      "query": "should I choose what is good for me or what feels pleasant",
+      "relevant": ["katha-1.2.1", "katha-1.2.2"]
+    },
+    {
+      "id": "q11",
+      "style": "topic",
+      "query": "the body is a chariot and the self is its lord",
+      "relevant": ["katha-1.3.3", "katha-1.3.4"]
+    },
+    {
+      "id": "q12",
+      "style": "topic",
+      "query": "Nachiketas refuses the wealth and pleasures offered by Death",
+      "relevant": ["katha-1.1.25", "katha-1.1.26", "katha-1.1.27"]
+    },
+    {
+      "id": "q13",
+      "style": "life",
+      "query": "I keep wanting what other people have",
+      "relevant": ["isa-1"]
+    },
+    {
+      "id": "q14",
+      "style": "topic",
+      "query": "what makes the eye see and the mind think",
+      "relevant": ["kena-1.1", "kena-1.2", "kena-1.3", "kena-1.4", "kena-1.6"]
+    },
+    {
+      "id": "q15",
+      "style": "topic",
+      "query": "the goddess Uma teaches Indra about Brahman",
+      "relevant": ["kena-3.12", "kena-4.1"]
+    },
+    {
+      "id": "q16",
+      "style": "topic",
+      "query": "there is only one Rudra who rules all the worlds",
+      "relevant": ["svet-3.2", "svet-3.4", "svet-4.12"]
+    },
+    {
+      "id": "q17",
+      "style": "life",
+      "query": "a prayer asking Shiva to be gentle and protect me",
+      "relevant": ["svet-3.5", "svet-4.21"]
+    },
+    {
+      "id": "q18",
+      "style": "life",
+      "query": "how do I control my breathing in meditation",
+      "relevant": ["svet-2.9", "bg-5.27", "bg-4.29"]
+    },
+    {
+      "id": "q19",
+      "style": "topic",
+      "query": "Hanuman leaps across the ocean to Lanka",
+      "relevant": ["ram-5.1.1", "ram-5.1.33", "ram-5.1.41", "ram-5.1.143", "ram-5.1.273"]
+    },
+    {
+      "id": "q20",
+      "style": "topic",
+      "query": "the mountain Mainaka rises from the sea to rest Hanuman",
+      "relevant": ["ram-5.1.57", "ram-5.1.73", "ram-5.1.77", "ram-5.1.93", "ram-5.1.109"]
+    },
+    {
+      "id": "q21",
+      "style": "topic",
+      "query": "Hanuman sets Lanka on fire with his burning tail",
+      "relevant": ["ram-5.53.13", "ram-5.54.9", "ram-5.54.25", "ram-5.54.29"]
+    },
+    {
+      "id": "q22",
+      "style": "topic",
+      "query": "the Goddess reveals her cosmic universal form",
+      "relevant": [
+        "devi-7.33.20.1",
+        "devi-7.33.21-41.1",
+        "devi-7.33.21-41.2",
+        "devi-7.33.54-56.1",
+        "devi-7.34.1-22.1"
+      ]
+    },
+    {
+      "id": "q23",
+      "style": "life",
+      "query": "what does pure love and devotion for the Divine Mother look like",
+      "relevant": [
+        "devi-7.37.11-20.1",
+        "devi-7.37.11-20.2",
+        "devi-7.37.21-30.1",
+        "devi-7.37.21-30.2"
+      ]
+    },
+    {
+      "id": "q24",
+      "style": "topic",
+      "query": "the three paths to liberation: action, knowledge and devotion",
+      "relevant": ["devi-7.37.2-10.1"]
+    }
+  ],
+  "labelling": [
+    "v1.0.0: relevant passages chosen by searching the dataset text and reading each passage.",
+    "v1.1.0: after the first run, the top 5 of every mode were read (pooling) and passages that clearly answer the query were added: q01 + bg-6.1."
+  ]
+}

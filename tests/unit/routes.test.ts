@@ -2,6 +2,7 @@ import { readdirSync, statSync, existsSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { PRIMARY_NAV, ROUTE_GROUPS, ROUTES, getRoute } from "@/lib/routes";
+import { SITE } from "@/lib/site";
 
 const APP_DIR = path.resolve(__dirname, "../../src/app");
 
@@ -55,6 +56,6 @@ describe("route registry", () => {
 
   it("never marks a page ready before its phase", () => {
     for (const r of ROUTES.filter((r) => r.status === "ready"))
-      expect(r.phase).toBeLessThanOrEqual(1);
+      expect(r.phase).toBeLessThanOrEqual(SITE.currentPhase);
   });
 });

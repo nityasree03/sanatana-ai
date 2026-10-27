@@ -14,6 +14,15 @@
   maker's speech service (for example Google in Chrome). This is disclosed on the About page.
 - Spoken replies use voices on the device and never autoplay.
 
+## Scripture search
+
+- Keyword search sends the search words to our server; nothing is stored (only an in-memory
+  per-IP counter for rate limiting).
+- Meaning search is off unless the person ticks it. It downloads the MiniLM model from Hugging Face
+  (Hugging Face sees the download) and the ONNX Runtime engine from this site. The query is turned
+  into a vector on the device; the words and the vector are sent to our server to find passages.
+- Disclosed under the search box and on the About page.
+
 ## Kids (Sanatana Kids)
 
 - Caregiver-operated, curated stories and guided choices. No open-ended child AI chat.
