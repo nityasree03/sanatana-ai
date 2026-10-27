@@ -9,7 +9,7 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 | Phase  | Scope                                                                                                                                                   | Status      |
 | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
 | 0      | Project setup: Next.js + TypeScript + Tailwind, tests (Vitest, Playwright, pytest), docs, GitHub                                                        | DONE        |
-| 1 (M1) | Foundation: visual system, all routes and navigation, companion selection, left-avatar/right-chat layout, composer with honest "AI not connected" label | NOT STARTED |
+| 1 (M1) | Foundation: visual system, all routes and navigation, companion selection, left-avatar/right-chat layout, composer with honest "AI not connected" label | DONE        |
 | 2 (M2) | Four animated 2D avatars, browser speech-to-text and text-to-speech, stop/replay, fallbacks                                                             | NOT STARTED |
 | 3 (M3) | Rights-cleared scripture collections, Python importer and validation, hybrid retrieval, Scripture Explorer                                              | NOT STARTED |
 | 4 (M4) | Gemini provider adapter (server-only key), persona styles, grounded multi-turn chat, citations and abstention                                           | NOT STARTED |
@@ -42,6 +42,19 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 | 17  | Engineering Evaluation page                                     | /evaluation                    | NOT STARTED |
 | 18  | About / Privacy / Transparency pages                            | /about                         | NOT STARTED |
 
+## Phase 1 evidence
+
+- All 17 routes exist and come from one registry (`src/lib/routes.ts`). Planned pages say honestly
+  when they become functional.
+- Visual system: ivory "Temple lamp" day theme, "Kailash night" theme (remembered), per-companion
+  accent colours, temple-arch frame with AI aura and constellation, palm-leaf source cards,
+  self-hosted fonts including Devanagari. All motion respects reduced-motion settings.
+- Chat: companion from the URL or last choice, switching with a notice, text composer
+  (Enter / Shift+Enter, 2000-character limit, clear errors), honest "not connected" reply,
+  microphone button explains voice arrives in Phase 2, compact collapsible companion on phones.
+- Checks: lint, typecheck, 16 unit tests, production build, 47 browser tests on desktop and
+  phone including automated WCAG 2 A/AA scans (axe) of every page and of the chat in night theme.
+
 ## Phase 0 evidence
 
 - `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`, `npm run test:e2e` and
@@ -49,6 +62,10 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 - Home page is a placeholder that says "AI chat is not connected yet".
 
 ## Decisions and notes
+
+- Design (approved 2026-10-27): ivory base, temple-arch companion frame, palm-leaf scripture cards,
+  per-companion accents, AI aura / waveform / "wisdom thread", optional night theme, softer lotus
+  look for Kids. Avatars: original art only; cute style for Kids, gentler grown-up style for chat.
 
 - Google Fonts are not used (the build could not download them, and self-hosting avoids sending
   visitors' requests to Google). Self-hosted fonts arrive in Phase 1.

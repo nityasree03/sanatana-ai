@@ -24,5 +24,10 @@ Offline: scripture-pipeline/ (Python) â†’ validated, licensed passages + index â
 
 ## Folder layout
 
-See the README. Each route lives in `src/app/<route>/page.tsx`. A central route registry is added
-in Phase 1.
+See the README. Each route lives in `src/app/<route>/page.tsx` and is listed once in
+`src/lib/routes.ts` (the route registry). Companion profiles live in `src/lib/companions.ts`.
+
+Key components (`src/components/`): `SiteHeader` / `SiteFooter` (navigation from the registry),
+`ThemeToggle`, `ArchAvatar` (temple-arch frame; Phase 2 adds the animated portrait inside it),
+`CompanionCard`, `ChatScreen` (conversation state, composer, honest placeholder replies until
+Phase 4) and `ComingSoon` (honest placeholder pages).

@@ -4,8 +4,9 @@ A scripture-grounded conversational and learning website. Four AI companions ins
 tradition (Krishna, Shiva, Hanuman and Parvati) appear as animated avatars on the left, with a
 ChatGPT-style text and voice chat on the right.
 
-> **Status: Phase 0 (project setup).** The site currently shows a placeholder page. No AI,
-> avatars or scripture features are working yet. See [`docs/project_status.md`](docs/project_status.md).
+> **Status: Phase 1 (foundation) complete.** All pages, navigation, companion selection and the chat
+> layout work. The AI, animated avatars, speech and scripture features are not connected yet; every
+> page shows an honest status label. See [`docs/project_status.md`](docs/project_status.md).
 
 The companions are **AI simulations inspired by tradition**. They are not the deities themselves
 and do not offer divine contact, predictions or guaranteed outcomes.
