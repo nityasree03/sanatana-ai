@@ -283,6 +283,48 @@ body {
 [data-avatar-state="error"] .portrait .p-brow-normal {
   opacity: 0;
 }
+/* ---------- Illustrated portraits (stacked expression images) ---------- */
+@keyframes ill-blink {
+  0%,
+  93%,
+  100% {
+    opacity: 0;
+  }
+  94%,
+  97% {
+    opacity: 1;
+  }
+}
+@keyframes ill-talk {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+.illustrated .ill-layer {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.illustrated .ill-happy {
+  opacity: 1;
+}
+[data-avatar-state="idle"] .illustrated .ill-blinking {
+  animation: ill-blink 5s infinite;
+  transition: none;
+}
+[data-avatar-state="speaking"] .illustrated .ill-speaking {
+  opacity: 1;
+  animation: ill-talk 0.44s steps(1) infinite;
+  transition: none;
+}
+[data-avatar-state="listening"] .illustrated .ill-listening,
+[data-avatar-state="thinking"] .illustrated .ill-thinking,
+[data-avatar-state="error"] .illustrated .ill-concerned {
+  opacity: 1;
+}
+
 .wave-bar {
   transform-origin: center;
   animation: wave-bar 0.9s ease-in-out infinite;

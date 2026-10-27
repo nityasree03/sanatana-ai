@@ -1,4 +1,6 @@
 import { getCompanion, type CompanionId } from "@/lib/companions";
+import { SITE } from "@/lib/site";
+import { IllustratedPortrait } from "./avatars/IllustratedPortrait";
 import { Portrait } from "./avatars/Portrait";
 
 export type AvatarState = "idle" | "listening" | "thinking" | "speaking" | "error";
@@ -35,11 +37,14 @@ export function ArchAvatar({
   state = "idle",
   size = "lg",
   showState = true,
+  variant = SITE.avatarStyle,
 }: {
   companionId: CompanionId;
   state?: AvatarState;
   size?: "sm" | "lg" | "responsive";
   showState?: boolean;
+  /** "illustrated" = expression artwork (default), "classic" = drawn SVG portraits. */
+  variant?: "illustrated" | "classic";
 }) {
   const companion = getCompanion(companionId);
   // "responsive" = compact on phones, full size from tablet width up.
@@ -77,10 +82,18 @@ export function ArchAvatar({
         </svg>
         {/* Temple arch with the portrait inside */}
         <div className="absolute inset-3 overflow-hidden rounded-t-full rounded-b-xl border-4 border-double border-gold bg-accent-soft">
-          <Portrait
-            companionId={companionId}
-            className="absolute inset-x-0 bottom-0 h-full w-full"
-          />
+          {variant === "illustrated" ? (
+            <IllustratedPortrait
+              companionId={companionId}
+              animated={showState}
+              priority={showState}
+            />
+          ) : (
+            <Portrait
+              companionId={companionId}
+              className="absolute inset-x-0 bottom-0 h-full w-full"
+            />
+          )}
         </div>
       </div>
       <figcaption className="flex flex-col items-center text-center">

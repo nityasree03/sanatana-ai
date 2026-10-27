@@ -20,8 +20,8 @@ Only real, observed measurements are reported here. Nothing has been measured ye
 
 | Check                                         | Result                                                                                                                                                                         |
 | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Unit tests (Vitest)                           | 26/26 pass (Phase 2)                                                                                                                                                           |
-| Browser tests (Playwright, desktop + Pixel 7) | 61/61 pass; 1 phone-only test skipped on desktop (Phase 2)                                                                                                                     |
+| Unit tests (Vitest)                           | 27/27 pass (Phase 2 + illustrated portraits)                                                                                                                                   |
+| Browser tests (Playwright, desktop + Pixel 7) | 63/63 pass; 1 phone-only test skipped on desktop                                                                                                                               |
 | Automated accessibility (axe, WCAG 2 A/AA)    | 0 violations on all 17 routes, both viewports; chat scanned in night theme and while speaking                                                                                  |
 | Avatar states                                 | idle, listening, thinking, speaking and error verified for all four companions (screenshots); animation stops with reduced motion                                              |
 | Voice                                         | Tested with a controllable fake microphone and voice in Chromium. Real microphones and installed voices vary by browser and device; real-device testing is planned for Phase 9 |

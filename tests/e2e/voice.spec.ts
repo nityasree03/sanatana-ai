@@ -88,8 +88,25 @@ test("reduced motion: portraits stop animating", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/chat");
   const iterations = await page
-    .locator(".portrait .p-eye")
+    .locator(".illustrated .ill-blinking")
     .first()
     .evaluate((el) => getComputedStyle(el).animationIterationCount);
   expect(iterations).toBe("1");
+});
+
+test("the portrait shows the right expression for each state", async ({ page }) => {
+  await installSpeechFakes(page);
+  await page.goto("/chat?companion=hanuman");
+  const visible = (expr: string) =>
+    page
+      .locator(`.illustrated .ill-${expr}`)
+      .first()
+      .evaluate((el) => Number(getComputedStyle(el).opacity) > 0.5);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.getByRole("button", { name: "Start voice input" }).click();
+  await expect.poll(() => visible("listening")).toBe(true);
+  await page.getByRole("button", { name: "Stop voice input" }).click();
+  await expect.poll(() => visible("listening")).toBe(false);
+  await page.getByRole("button", { name: "Listen to Hanuman's reply" }).click();
+  await expect.poll(() => visible("speaking")).toBe(true);
 });

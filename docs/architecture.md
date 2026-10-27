@@ -29,7 +29,7 @@ See the README. Each route lives in `src/app/<route>/page.tsx` and is listed onc
 
 Key components (`src/components/`): `SiteHeader` / `SiteFooter` (navigation from the registry),
 `ThemeToggle`, `ArchAvatar` (temple-arch frame; Phase 2 adds the animated portrait inside it),
-`CompanionCard`, `avatars/Portrait` (four original SVG portraits sharing one animated face rig), `ChatScreen` (conversation state, composer, honest placeholder replies until
+`CompanionCard`, `avatars/IllustratedPortrait` (default: stacked expression images switched by CSS state) and `avatars/Portrait` (fallback SVG portraits), `ChatScreen` (conversation state, composer, honest placeholder replies until
 Phase 4) and `ComingSoon` (honest placeholder pages).
 
 ## Speech (Phase 2)

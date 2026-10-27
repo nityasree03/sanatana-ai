@@ -44,6 +44,9 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 
 ## Phase 2 evidence
 
+- Update (2026-10-27): the default portraits are now the owner's illustrated artwork (24 expression
+  images, see docs/data_sources.md); the drawn SVG portraits remain as a fallback style.
+
 - Four original SVG portraits (gentle grown-up style): Krishna (blue skin, crown, peacock feather,
   tilak, garland), Shiva (jata with crescent moon and Ganga, tripundra, rudraksha, snake), Hanuman
   (crown, sindoor tilak, kundal, mace), Parvati (tiara, sindoor, maang tikka, bindi, saree).

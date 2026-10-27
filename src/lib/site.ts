@@ -11,6 +11,8 @@ export const SITE = {
   aiDisclosure:
     "The companions are AI simulations inspired by tradition. They are not the deities themselves and do not offer divine contact.",
   repoUrl: "https://github.com/nityasree03/sanatana-ai",
+  /** Which portrait set the site uses: "illustrated" artwork or the drawn "classic" SVGs. */
+  avatarStyle: "illustrated" as "illustrated" | "classic",
   /** The build phase the website is currently in. */
   currentPhase: 2,
 } as const;

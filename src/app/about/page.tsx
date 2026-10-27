@@ -79,7 +79,10 @@ export default function AboutPage() {
             They won&apos;t encourage secrecy or ask you to rely on them instead of the people in
             your life.
           </li>
-          <li>Their portraits are original artwork made for this project.</li>
+          <li>
+            Their portraits were created for this project by its owner using AI image generation
+            (ChatGPT). They are artistic representations, not traditional or authoritative images.
+          </li>
         </ul>
       </Section>
 
