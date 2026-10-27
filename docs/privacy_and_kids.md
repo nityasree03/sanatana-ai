@@ -7,6 +7,13 @@
 - Saved journal or reflection text is never sent to an AI without a user action and a clear notice.
 - No cross-device sync is promised (data stays in one browser).
 
+## Voice
+
+- The microphone only starts when the person presses it; nothing is recorded or stored by the site.
+- Speech-to-text uses the browser's built-in recognition, which may send audio to the browser
+  maker's speech service (for example Google in Chrome). This is disclosed on the About page.
+- Spoken replies use voices on the device and never autoplay.
+
 ## Kids (Sanatana Kids)
 
 - Caregiver-operated, curated stories and guided choices. No open-ended child AI chat.

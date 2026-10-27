@@ -7,12 +7,12 @@ vi.mock("next/navigation", () => ({
 }));
 
 import { ChatScreen, MAX_MESSAGE_LENGTH, NOT_CONNECTED_REPLY } from "@/components/ChatScreen";
+import { fakeInput, fakeOutput } from "./fakeSpeech";
 
 beforeEach(() => {
   vi.useFakeTimers();
   localStorage.clear();
   query = "";
-  Element.prototype.scrollIntoView = vi.fn();
 });
 afterEach(() => vi.useRealTimers());
 
@@ -71,10 +71,110 @@ describe("ChatScreen", () => {
     expect(screen.getByText(/You're now talking with Parvati/)).toBeInTheDocument();
     expect(localStorage.getItem("sanatana-companion")).toBe("parvati");
   });
+});
 
-  it("explains honestly that voice input is not ready yet", () => {
-    render(<ChatScreen />);
-    fireEvent.click(screen.getByRole("button", { name: /voice input/i }));
-    expect(screen.getByRole("status")).toHaveTextContent(/arrives in Phase 2/);
+function avatarState() {
+  return document.querySelector("[data-avatar-state]")?.getAttribute("data-avatar-state");
+}
+
+describe("ChatScreen voice", () => {
+  it("puts spoken words into the box for editing, without sending", () => {
+    const mic = fakeInput();
+    render(<ChatScreen speechInput={mic.adapter} speechOutput={fakeOutput().adapter} />);
+    fireEvent.change(input(), { target: { value: "Please" } });
+    fireEvent.click(screen.getByRole("button", { name: "Start voice input" }));
+    expect(avatarState()).toBe("listening");
+    expect(screen.getByRole("button", { name: "Stop voice input" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    act(() => mic.interim("help me"));
+    expect(input()).toHaveValue("Please help me");
+    act(() => mic.final("help me decide"));
+    act(() => mic.end());
+    expect(input()).toHaveValue("Please help me decide");
+    expect(avatarState()).toBe("idle");
+    // Nothing was sent automatically
+    expect(within(screen.getByRole("log")).queryByText("Please help me decide")).toBeNull();
+  });
+
+  it("explains when voice input is not supported, and typing still works", () => {
+    render(
+      <ChatScreen speechInput={fakeInput(false).adapter} speechOutput={fakeOutput().adapter} />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Start voice input" }));
+    expect(screen.getByRole("status")).toHaveTextContent(/isn't available in this browser/);
+    fireEvent.change(input(), { target: { value: "Typed" } });
+    fireEvent.click(screen.getByRole("button", { name: "Send message" }));
+    expect(within(screen.getByRole("log")).getByText("Typed")).toBeInTheDocument();
+  });
+
+  it("shows a friendly message and the error state when the microphone is blocked", () => {
+    const mic = fakeInput();
+    render(<ChatScreen speechInput={mic.adapter} speechOutput={fakeOutput().adapter} />);
+    fireEvent.click(screen.getByRole("button", { name: "Start voice input" }));
+    act(() => mic.error("not-allowed"));
+    act(() => mic.end());
+    expect(screen.getByRole("status")).toHaveTextContent(/microphone is blocked/);
+    expect(avatarState()).toBe("error");
+    act(() => vi.advanceTimersByTime(3100));
+    expect(avatarState()).toBe("idle");
+  });
+
+  it("never speaks on its own; Listen speaks with the companion's voice settings and Stop stops", () => {
+    const voice = fakeOutput();
+    query = "companion=shiva";
+    render(<ChatScreen speechInput={fakeInput().adapter} speechOutput={voice.adapter} />);
+    expect(voice.spoken).toHaveLength(0);
+
+    fireEvent.click(screen.getByRole("button", { name: "Listen to Shiva's reply" }));
+    expect(voice.spoken[0]).toMatchObject({ rate: 0.88, pitch: 0.85 });
+    expect(avatarState()).toBe("speaking");
+
+    fireEvent.click(screen.getByRole("button", { name: "Stop reading Shiva's reply" }));
+    expect(avatarState()).toBe("idle");
+
+    // Replay works
+    fireEvent.click(screen.getByRole("button", { name: "Listen to Shiva's reply" }));
+    expect(voice.spoken).toHaveLength(2);
+    act(() => voice.finish());
+    expect(avatarState()).toBe("idle");
+  });
+
+  it("reads new replies aloud only after 'Speak replies' is switched on, and mutes when off", () => {
+    const voice = fakeOutput();
+    render(<ChatScreen speechInput={fakeInput().adapter} speechOutput={voice.adapter} />);
+    fireEvent.change(input(), { target: { value: "One" } });
+    fireEvent.click(screen.getByRole("button", { name: "Send message" }));
+    act(() => vi.advanceTimersByTime(800));
+    expect(voice.spoken).toHaveLength(0);
+
+    fireEvent.click(screen.getByRole("button", { name: "Speak replies: off" }));
+    fireEvent.change(input(), { target: { value: "Two" } });
+    fireEvent.click(screen.getByRole("button", { name: "Send message" }));
+    act(() => vi.advanceTimersByTime(800));
+    expect(voice.spoken.map((s) => s.text)).toEqual([NOT_CONNECTED_REPLY]);
+    expect(avatarState()).toBe("speaking");
+
+    fireEvent.click(screen.getByRole("button", { name: "Speak replies: on" }));
+    expect(avatarState()).toBe("idle");
+  });
+
+  it("stops speaking when the microphone starts (interruption)", () => {
+    const voice = fakeOutput();
+    render(<ChatScreen speechInput={fakeInput().adapter} speechOutput={voice.adapter} />);
+    fireEvent.click(screen.getByRole("button", { name: "Listen to Krishna's reply" }));
+    expect(avatarState()).toBe("speaking");
+    fireEvent.click(screen.getByRole("button", { name: "Start voice input" }));
+    expect(avatarState()).toBe("listening");
+  });
+
+  it("explains when spoken replies are not supported", () => {
+    render(
+      <ChatScreen speechInput={fakeInput().adapter} speechOutput={fakeOutput(false).adapter} />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Listen to Krishna's reply" }));
+    expect(screen.getByRole("status")).toHaveTextContent(/Spoken replies aren't available/);
+    expect(avatarState()).toBe("idle");
   });
 });

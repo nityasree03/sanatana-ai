@@ -10,13 +10,20 @@ import {
   type CompanionId,
 } from "@/lib/companions";
 import { STORAGE_KEYS } from "@/lib/site";
-import { ArchAvatar, type AvatarState } from "./ArchAvatar";
+import type { SpeechInputAdapter, SpeechOutputAdapter } from "@/lib/speech/types";
+import { SPEECH_INPUT_MESSAGES, SPEECH_LANG, VOICE_SETTINGS } from "@/lib/speech/voices";
+import { createWebSpeechInput } from "@/lib/speech/webSpeechInput";
+import { createWebSpeechOutput } from "@/lib/speech/webSpeechOutput";
+import { ArchAvatar, VoiceWaveform, type AvatarState } from "./ArchAvatar";
 
 export const MAX_MESSAGE_LENGTH = 2000;
 
 /** Text of the honest reply shown until the AI is connected in Phase 4. */
 export const NOT_CONNECTED_REPLY =
   "I'm not connected to the AI yet, so I can't give you a real answer. Scripture-grounded replies arrive in Phase 4. Your message stayed in this browser tab and was not sent anywhere.";
+
+const SPEECH_OUTPUT_UNSUPPORTED =
+  "Spoken replies aren't available in this browser. You can still read every reply here.";
 
 type Message =
   | { id: number; role: "user"; text: string }
@@ -28,6 +35,8 @@ type Message =
       notConnected?: boolean;
     }
   | { id: number; role: "notice"; text: string };
+
+type CompanionMessage = Extract<Message, { role: "companion" }>;
 
 function readSavedCompanion(): CompanionId | null {
   try {
@@ -46,9 +55,26 @@ function saveCompanion(id: CompanionId) {
   }
 }
 
-export function ChatScreen() {
+function joinText(...parts: string[]) {
+  return parts
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .join(" ");
+}
+
+export function ChatScreen({
+  speechInput,
+  speechOutput,
+}: {
+  /** Optional replacements for the browser speech engines (used by tests). */
+  speechInput?: SpeechInputAdapter;
+  speechOutput?: SpeechOutputAdapter;
+} = {}) {
   const searchParams = useSearchParams();
   const fromUrl = searchParams.get("companion");
+
+  const [input] = useState(() => speechInput ?? createWebSpeechInput());
+  const [output] = useState(() => speechOutput ?? createWebSpeechOutput());
 
   const [companionId, setCompanionId] = useState<CompanionId>(() =>
     isCompanionId(fromUrl) ? fromUrl : (readSavedCompanion() ?? DEFAULT_COMPANION_ID),
@@ -60,17 +86,30 @@ export function ChatScreen() {
   const [draft, setDraft] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
-  const [avatarState, setAvatarState] = useState<AvatarState>("idle");
+  const [thinking, setThinking] = useState(false);
+  const [listening, setListening] = useState(false);
+  const [speakingId, setSpeakingId] = useState<number | null>(null);
+  const [speakReplies, setSpeakReplies] = useState(false);
+  const [errorFlash, setErrorFlash] = useState(false);
   const [panelOpen, setPanelOpen] = useState(true);
 
   const replyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const errorTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const logRef = useRef<HTMLDivElement>(null);
   const inputId = useId();
   const errorId = useId();
   const panelId = useId();
 
   const companion = getCompanion(companionId);
-  const thinking = avatarState === "thinking";
+  const avatarState: AvatarState = errorFlash
+    ? "error"
+    : listening
+      ? "listening"
+      : thinking
+        ? "thinking"
+        : speakingId !== null
+          ? "speaking"
+          : "idle";
 
   useEffect(() => {
     saveCompanion(companionId);
@@ -82,19 +121,112 @@ export function ChatScreen() {
     if (log) log.scrollTop = log.scrollHeight;
   }, [messages, thinking]);
 
+  // Stop timers, speech and listening when leaving the page.
   useEffect(
     () => () => {
       if (replyTimer.current) clearTimeout(replyTimer.current);
+      if (errorTimer.current) clearTimeout(errorTimer.current);
+      input.stop();
+      output.stop();
     },
-    [],
+    [input, output],
   );
 
   function newId() {
     return nextId.current++;
   }
 
+  function flashError() {
+    setErrorFlash(true);
+    if (errorTimer.current) clearTimeout(errorTimer.current);
+    errorTimer.current = setTimeout(() => setErrorFlash(false), 3000);
+  }
+
+  /* ---------- Speaking (text-to-speech) ---------- */
+
+  function stopSpeaking() {
+    output.stop();
+    setSpeakingId(null);
+  }
+
+  function speak(m: CompanionMessage) {
+    if (!output.isSupported()) {
+      setNotice(SPEECH_OUTPUT_UNSUPPORTED);
+      return;
+    }
+    stopListening();
+    setSpeakingId(m.id);
+    output.speak(m.text, {
+      ...VOICE_SETTINGS[m.companionId],
+      lang: SPEECH_LANG,
+      onStart: () => setSpeakingId(m.id),
+      onEnd: () => setSpeakingId((current) => (current === m.id ? null : current)),
+      onError: () => {
+        setSpeakingId(null);
+        setNotice("The reply couldn't be spoken. You can still read it here.");
+        flashError();
+      },
+    });
+  }
+
+  function toggleSpeakReplies() {
+    if (speakReplies) {
+      stopSpeaking();
+      setSpeakReplies(false);
+      return;
+    }
+    if (!output.isSupported()) {
+      setNotice(SPEECH_OUTPUT_UNSUPPORTED);
+      return;
+    }
+    setSpeakReplies(true);
+    setNotice("New replies will be read aloud. Turn this off any time to mute.");
+  }
+
+  /* ---------- Listening (speech-to-text) ---------- */
+
+  function stopListening() {
+    input.stop();
+    setListening(false);
+  }
+
+  function toggleMic() {
+    if (listening) {
+      stopListening();
+      return;
+    }
+    if (!input.isSupported()) {
+      setNotice(SPEECH_INPUT_MESSAGES.unsupported);
+      return;
+    }
+    stopSpeaking();
+    setError(null);
+    const base = draft;
+    let finals = "";
+    setListening(true);
+    setNotice(
+      "Listening… Speak now. Your words appear in the box so you can check and edit them before sending.",
+    );
+    input.start(SPEECH_LANG, {
+      onInterim: (text) => setDraft(joinText(base, finals, text)),
+      onFinal: (text) => {
+        finals = joinText(finals, text);
+        setDraft(joinText(base, finals));
+      },
+      onError: (code) => {
+        setNotice(SPEECH_INPUT_MESSAGES[code]);
+        if (code !== "no-speech") flashError();
+      },
+      onEnd: () => setListening(false),
+    });
+  }
+
+  /* ---------- Conversation ---------- */
+
   function switchCompanion(id: CompanionId) {
     if (id === companionId) return;
+    stopSpeaking();
+    stopListening();
     setCompanionId(id);
     setMessages((m) => [
       ...m,
@@ -119,24 +251,27 @@ export function ChatScreen() {
     }
     if (thinking) return;
 
+    stopListening();
+    stopSpeaking();
     setError(null);
+    setNotice(null);
     setDraft("");
     setMessages((m) => [...m, { id: newId(), role: "user", text }]);
-    setAvatarState("thinking");
+    setThinking(true);
 
     const speaker = companionId;
+    const shouldSpeak = speakReplies;
     replyTimer.current = setTimeout(() => {
-      setMessages((m) => [
-        ...m,
-        {
-          id: newId(),
-          role: "companion",
-          companionId: speaker,
-          text: NOT_CONNECTED_REPLY,
-          notConnected: true,
-        },
-      ]);
-      setAvatarState("idle");
+      const reply: CompanionMessage = {
+        id: newId(),
+        role: "companion",
+        companionId: speaker,
+        text: NOT_CONNECTED_REPLY,
+        notConnected: true,
+      };
+      setMessages((m) => [...m, reply]);
+      setThinking(false);
+      if (shouldSpeak) speak(reply);
     }, 700);
   }
 
@@ -154,7 +289,9 @@ export function ChatScreen() {
 
   function clearChat() {
     if (replyTimer.current) clearTimeout(replyTimer.current);
-    setAvatarState("idle");
+    stopSpeaking();
+    stopListening();
+    setThinking(false);
     setMessages([{ id: newId(), role: "companion", companionId, text: companion.greeting }]);
   }
 
@@ -189,9 +326,29 @@ export function ChatScreen() {
           className={`${panelOpen ? "flex" : "hidden"} flex-col items-center gap-3 px-4 pt-2 pb-4 md:flex md:gap-5 md:py-6`}
         >
           <ArchAvatar companionId={companionId} state={avatarState} size="responsive" />
-          <p className="hidden max-w-60 text-center text-xs text-muted md:block">
-            Animated portrait and spoken replies arrive in Phase 2.
-          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <button
+              type="button"
+              aria-pressed={speakReplies}
+              onClick={toggleSpeakReplies}
+              className={`rounded-full border px-3 py-1.5 text-sm ${
+                speakReplies ? "border-accent bg-accent-soft text-accent" : "border-line bg-card"
+              }`}
+            >
+              {speakReplies ? "Speak replies: on" : "Speak replies: off"}
+            </button>
+            {speakingId !== null && (
+              <button
+                type="button"
+                onClick={stopSpeaking}
+                className="rounded-full bg-accent px-3 py-1.5 text-sm text-on-accent"
+              >
+                Stop speaking
+              </button>
+            )}
+          </div>
+
           <fieldset className="w-full">
             <legend className="sr-only md:not-sr-only md:mb-2 md:block md:w-full md:text-center md:text-sm md:font-semibold">
               Choose a companion
@@ -217,7 +374,7 @@ export function ChatScreen() {
           </fieldset>
           <p className="text-center text-xs text-muted">
             AI simulation inspired by tradition, not the deity. Not a substitute for professional
-            help.
+            help. Mouth movement is approximate.
           </p>
         </div>
       </section>
@@ -267,18 +424,37 @@ export function ChatScreen() {
                 );
               }
               const speaker = getCompanion(m.companionId);
+              const isSpeaking = speakingId === m.id;
               return (
                 <li key={m.id} className="flex justify-start" data-companion={m.companionId}>
-                  <div className="max-w-[85%] rounded-2xl rounded-bl-sm border border-line bg-card px-4 py-2.5">
-                    <p className="mb-1 flex items-center gap-2 text-xs font-semibold text-accent">
+                  <div
+                    className={`max-w-[85%] rounded-2xl rounded-bl-sm border bg-card px-4 py-2.5 ${
+                      isSpeaking ? "border-accent ring-2 ring-accent/40" : "border-line"
+                    }`}
+                  >
+                    <p className="mb-1 flex flex-wrap items-center gap-2 text-xs font-semibold text-accent">
                       {speaker.name}
                       {m.notConnected && (
                         <span className="rounded-full border border-gold/60 bg-leaf px-2 py-0.5 font-normal text-leaf-ink">
                           Not connected
                         </span>
                       )}
+                      {isSpeaking && <VoiceWaveform active />}
                     </p>
                     <p className="whitespace-pre-wrap">{m.text}</p>
+                    <button
+                      type="button"
+                      onClick={() => (isSpeaking ? stopSpeaking() : speak(m))}
+                      aria-label={
+                        isSpeaking
+                          ? `Stop reading ${speaker.name}'s reply`
+                          : `Listen to ${speaker.name}'s reply`
+                      }
+                      className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1 text-xs text-muted hover:border-accent hover:text-accent"
+                    >
+                      <span aria-hidden="true">{isSpeaking ? "■" : "▶"}</span>
+                      {isSpeaking ? "Stop" : "Listen"}
+                    </button>
                   </div>
                 </li>
               );
@@ -323,12 +499,21 @@ export function ChatScreen() {
             />
             <button
               type="button"
-              onClick={() =>
-                setNotice("Voice input arrives in Phase 2. For now, type your message.")
-              }
-              aria-label="Voice input (arrives in Phase 2)"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-accent hover:border-accent"
+              onClick={toggleMic}
+              aria-pressed={listening}
+              aria-label={listening ? "Stop voice input" : "Start voice input"}
+              className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border ${
+                listening
+                  ? "border-accent bg-accent text-on-accent"
+                  : "border-line text-accent hover:border-accent"
+              }`}
             >
+              {listening && (
+                <span
+                  aria-hidden="true"
+                  className="aura aura-fast absolute -inset-1 rounded-full border-2 border-accent"
+                />
+              )}
               <svg
                 viewBox="0 0 24 24"
                 className="h-5 w-5"
@@ -345,7 +530,7 @@ export function ChatScreen() {
             <button
               type="submit"
               aria-label="Send message"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-on-accent hover:opacity-90"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-on-accent hover:opacity-90"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -378,7 +563,7 @@ export function ChatScreen() {
               )}
             </span>
             {remaining < 200 && (
-              <span className={remaining < 0 ? "text-red-700" : "text-muted"}>
+              <span className={remaining < 0 ? "text-red-700 dark:text-red-300" : "text-muted"}>
                 {remaining} characters left
               </span>
             )}

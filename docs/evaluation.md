@@ -18,11 +18,13 @@ Only real, observed measurements are reported here. Nothing has been measured ye
 
 ## Current results
 
-| Check                                         | Result                                                                          |
-| --------------------------------------------- | ------------------------------------------------------------------------------- |
-| Unit tests (Vitest)                           | 16/16 pass (Phase 1)                                                            |
-| Browser tests (Playwright, desktop + Pixel 7) | 47/47 pass; 1 phone-only test skipped on desktop (Phase 1)                      |
-| Automated accessibility (axe, WCAG 2 A/AA)    | 0 violations on all 17 routes, both viewports; chat also scanned in night theme |
-| Python tests (pytest)                         | 2/2 pass                                                                        |
+| Check                                         | Result                                                                                                                                                                         |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Unit tests (Vitest)                           | 26/26 pass (Phase 2)                                                                                                                                                           |
+| Browser tests (Playwright, desktop + Pixel 7) | 61/61 pass; 1 phone-only test skipped on desktop (Phase 2)                                                                                                                     |
+| Automated accessibility (axe, WCAG 2 A/AA)    | 0 violations on all 17 routes, both viewports; chat scanned in night theme and while speaking                                                                                  |
+| Avatar states                                 | idle, listening, thinking, speaking and error verified for all four companions (screenshots); animation stops with reduced motion                                              |
+| Voice                                         | Tested with a controllable fake microphone and voice in Chromium. Real microphones and installed voices vary by browser and device; real-device testing is planned for Phase 9 |
+| Python tests (pytest)                         | 2/2 pass                                                                                                                                                                       |
 
 Automated scans do not replace manual screen-reader testing, which is planned for Phase 9.

@@ -12,7 +12,7 @@ export const SITE = {
     "The companions are AI simulations inspired by tradition. They are not the deities themselves and do not offer divine contact.",
   repoUrl: "https://github.com/nityasree03/sanatana-ai",
   /** The build phase the website is currently in. */
-  currentPhase: 1,
+  currentPhase: 2,
 } as const;
 
 /** Keys used for small browser-only preferences. Nothing here leaves the device. */

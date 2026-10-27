@@ -111,6 +111,14 @@ export default function AboutPage() {
           <code className="text-sm">{STORAGE_KEYS.companion}</code>). No accounts, no tracking, no
           ads.
         </p>
+        <p>
+          <strong>Voice:</strong> the microphone only turns on when you press it, and the site never
+          records or stores audio. Speech-to-text uses your browser&apos;s built-in speech
+          recognition, which may send your voice to the browser maker&apos;s speech service (for
+          example Google in Chrome, Microsoft in Edge or Apple in Safari) to turn it into text. If
+          you&apos;d rather not, simply type. Spoken replies use voices installed on your device,
+          and they never start playing on their own.
+        </p>
         <p>When later features arrive, these rules apply:</p>
         <ul className="list-disc space-y-1 pl-5">
           <li>

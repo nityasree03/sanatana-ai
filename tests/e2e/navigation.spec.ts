@@ -27,7 +27,7 @@ test("on phones the companion panel can be hidden and shown", async ({ page, isM
     "aria-expanded",
     "false",
   );
-  await expect(page.getByRole("button", { name: "Krishna" })).toBeHidden();
+  await expect(page.getByRole("button", { name: "Krishna", exact: true })).toBeHidden();
   await page.getByRole("button", { name: "Show companion" }).click();
-  await expect(page.getByRole("button", { name: "Krishna" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Krishna", exact: true })).toBeVisible();
 });

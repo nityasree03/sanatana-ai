@@ -1,9 +1,9 @@
 import { getCompanion, type CompanionId } from "@/lib/companions";
-import { CompanionSymbol } from "./CompanionSymbol";
+import { Portrait } from "./avatars/Portrait";
 
 export type AvatarState = "idle" | "listening" | "thinking" | "speaking" | "error";
 
-const STATE_LABEL: Record<AvatarState, string> = {
+export const STATE_LABEL: Record<AvatarState, string> = {
   idle: "Ready",
   listening: "Listening…",
   thinking: "Thinking…",
@@ -11,10 +11,24 @@ const STATE_LABEL: Record<AvatarState, string> = {
   error: "Something went wrong",
 };
 
+/** Animated bars shown while the companion speaks. */
+export function VoiceWaveform({ active }: { active: boolean }) {
+  return (
+    <span aria-hidden="true" className="flex h-6 items-center gap-[3px]" data-active={active}>
+      {[0.1, 0.25, 0.05, 0.3, 0.15, 0.35, 0.2].map((delay, i) => (
+        <span
+          key={i}
+          className={`h-6 w-[3px] rounded-full bg-accent ${active ? "wave-bar" : "scale-y-[0.2] opacity-40"}`}
+          style={active ? { animationDelay: `${delay}s` } : undefined}
+        />
+      ))}
+    </span>
+  );
+}
+
 /**
- * Temple-arch frame with the AI aura and constellation.
- * In Phase 1 it holds a symbol placeholder; Phase 2 swaps in the animated portrait
- * without changing this frame.
+ * The companion inside a temple-arch frame with the AI aura and constellation.
+ * The portrait reacts to `state` through the data-avatar-state attribute (see globals.css).
  */
 export function ArchAvatar({
   companionId,
@@ -30,21 +44,16 @@ export function ArchAvatar({
   const companion = getCompanion(companionId);
   // "responsive" = compact on phones, full size from tablet width up.
   const dims = { lg: "h-64 w-52", sm: "h-36 w-28", responsive: "h-36 w-28 md:h-64 md:w-52" }[size];
-  const symbol = {
-    lg: "h-28 w-28",
-    sm: "h-14 w-14",
-    responsive: "h-14 w-14 md:h-28 md:w-28",
-  }[size];
 
   return (
     <figure className="flex flex-col items-center gap-2 md:gap-3" data-avatar-state={state}>
       <div className={`relative ${dims}`}>
-        {/* AI aura: pulses gently, faster while thinking */}
+        {/* AI aura: pulses gently, faster while thinking or listening */}
         <div
           aria-hidden="true"
           className={`aura absolute -inset-2 rounded-t-full rounded-b-2xl border border-accent ${
-            state === "thinking" ? "aura-fast" : ""
-          }`}
+            state === "thinking" || state === "listening" ? "aura-fast" : ""
+          } ${state === "error" ? "border-red-600" : ""}`}
         />
         {/* Constellation dots: the "AI" layer around the traditional frame */}
         <svg
@@ -66,17 +75,23 @@ export function ArchAvatar({
             <path d="M196 180 L190 70" />
           </g>
         </svg>
-        {/* Temple arch */}
-        <div className="absolute inset-3 flex items-end justify-center rounded-t-full rounded-b-xl border-4 border-double border-gold bg-card pb-3 md:pb-6">
-          <CompanionSymbol id={companionId} className={`${symbol} text-accent`} />
+        {/* Temple arch with the portrait inside */}
+        <div className="absolute inset-3 overflow-hidden rounded-t-full rounded-b-xl border-4 border-double border-gold bg-accent-soft">
+          <Portrait
+            companionId={companionId}
+            className="absolute inset-x-0 bottom-0 h-full w-full"
+          />
         </div>
       </div>
-      <figcaption className="text-center">
+      <figcaption className="flex flex-col items-center text-center">
         <span className="block font-display text-2xl font-semibold">{companion.name}</span>
         {showState && (
-          <span className="text-sm text-accent" aria-live="polite">
-            {STATE_LABEL[state]}
-          </span>
+          <>
+            <span className="flex items-center gap-2 text-sm text-accent">
+              {state === "speaking" && <VoiceWaveform active />}
+              <span aria-live="polite">{STATE_LABEL[state]}</span>
+            </span>
+          </>
         )}
       </figcaption>
     </figure>

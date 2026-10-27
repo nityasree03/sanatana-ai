@@ -200,6 +200,94 @@ body {
   animation: dot-bounce 1.2s infinite;
 }
 
+/* ---------- Portrait animation (driven by data-avatar-state) ---------- */
+@keyframes p-blink {
+  0%,
+  94%,
+  100% {
+    transform: scaleY(1);
+  }
+  97% {
+    transform: scaleY(0.08);
+  }
+}
+@keyframes p-breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(1.5px);
+  }
+}
+@keyframes p-talk {
+  0% {
+    transform: scaleY(0.35);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+@keyframes wave-bar {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+.portrait .p-eye,
+.portrait .p-mouth-open,
+.portrait .p-head,
+.portrait .p-pupil {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.portrait .p-head {
+  transform-origin: 50% 90%;
+  transition: transform 0.4s ease;
+}
+.portrait .p-pupil {
+  transition: transform 0.4s ease;
+}
+.portrait .p-eye {
+  animation: p-blink 5s infinite;
+}
+.portrait .p-eye + .p-eye {
+  animation-delay: 0.02s;
+}
+.portrait .p-body {
+  animation: p-breathe 5s ease-in-out infinite;
+}
+.portrait .p-mouth-open,
+.portrait .p-brow-error {
+  opacity: 0;
+}
+[data-avatar-state="speaking"] .portrait .p-mouth-open {
+  opacity: 1;
+  animation: p-talk 0.18s ease-in-out infinite alternate;
+}
+[data-avatar-state="speaking"] .portrait .p-mouth-closed {
+  opacity: 0;
+}
+[data-avatar-state="listening"] .portrait .p-head {
+  transform: rotate(-4deg);
+}
+[data-avatar-state="thinking"] .portrait .p-pupil {
+  transform: translate(-2px, -3px);
+}
+[data-avatar-state="error"] .portrait .p-brow-error {
+  opacity: 1;
+}
+[data-avatar-state="error"] .portrait .p-brow-normal {
+  opacity: 0;
+}
+.wave-bar {
+  transform-origin: center;
+  animation: wave-bar 0.9s ease-in-out infinite;
+}
+
 /* Respect people who ask their device for less motion. */
 @media (prefers-reduced-motion: reduce) {
   *,
