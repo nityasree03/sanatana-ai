@@ -1,0 +1,3 @@
+# Scripture pipeline (offline tools). Heavier packages such as
+# sentence-transformers are added in Phase 3 when retrieval is built.
+pytest>=8
