@@ -18,8 +18,11 @@ Only real, observed measurements are reported here. Nothing has been measured ye
 
 ## Current results
 
-| Check                                        | Result |
-| -------------------------------------------- | ------ |
-| Unit tests (Vitest)                          | Pass   |
-| Browser tests (Playwright, desktop + mobile) | Pass   |
-| Python tests (pytest)                        | Pass   |
+| Check                                         | Result                                                                          |
+| --------------------------------------------- | ------------------------------------------------------------------------------- |
+| Unit tests (Vitest)                           | 16/16 pass (Phase 1)                                                            |
+| Browser tests (Playwright, desktop + Pixel 7) | 47/47 pass; 1 phone-only test skipped on desktop (Phase 1)                      |
+| Automated accessibility (axe, WCAG 2 A/AA)    | 0 violations on all 17 routes, both viewports; chat also scanned in night theme |
+| Python tests (pytest)                         | 2/2 pass                                                                        |
+
+Automated scans do not replace manual screen-reader testing, which is planned for Phase 9.
