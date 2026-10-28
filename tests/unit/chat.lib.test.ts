@@ -6,6 +6,7 @@ vi.mock("server-only", () => ({}));
 import { createGeminiProvider } from "@/lib/ai/gemini";
 import { getProvider } from "@/lib/ai";
 import { AiError } from "@/lib/ai/types";
+import { groundedAnswer } from "@/lib/chat/answer";
 import { parseReply, userTurnWithPassages } from "@/lib/chat/grounding";
 import { REPLY_SCHEMA, systemPrompt } from "@/lib/chat/personas";
 import { chatPassages, searchTextFor } from "@/lib/chat/retrieval";
@@ -47,7 +48,11 @@ describe("grounding checks", () => {
     const raw = JSON.stringify({
       reply: "Act without clinging to results.",
       citations: [
-        { id: "bg-2.47", how: "Work, not its fruits." },
+        {
+          id: "bg-2.47",
+          how: "Work, not its fruits.",
+          reflection: "Do one task today for its own sake.",
+        },
         { id: "bg-99.1", how: "invented" },
         { id: "[bg-2.48]", how: "Evenness." },
         { id: "bg-2.47", how: "duplicate" },
@@ -56,6 +61,8 @@ describe("grounding checks", () => {
     });
     const r = parseReply(raw, [p247, p248]);
     expect(r.citations.map((c) => c.id)).toEqual(["bg-2.47", "bg-2.48"]);
+    expect(r.citations[0].reflection).toBe("Do one task today for its own sake.");
+    expect(r.citations[1].reflection).toBe("");
     expect(r.rejectedCitations).toEqual(["bg-99.1"]);
     expect(r.grounded).toBe(true);
   });
@@ -95,6 +102,53 @@ describe("grounding checks", () => {
   });
 });
 
+describe("grounded answer (retry and Truth Lens)", () => {
+  const good = JSON.stringify({
+    reply: "Act, and let go of the result.",
+    citations: [{ id: "bg-2.47", how: "On action without clinging.", reflection: "Try one task." }],
+    grounded: true,
+  });
+  const provider = (...texts: (string | Error)[]) => {
+    const generate = vi.fn();
+    for (const t of texts)
+      t instanceof Error
+        ? generate.mockRejectedValueOnce(t)
+        : generate.mockResolvedValueOnce({ text: t, model: "m" });
+    return { label: "Test", model: "m", practice: false, generate };
+  };
+  const ask = (p: ReturnType<typeof provider>) =>
+    groundedAnswer({
+      provider: p,
+      companion: "krishna",
+      history: [],
+      latest: "How do I act?",
+      passages: [p247],
+    });
+
+  it("retries once when the reply cannot be read, then returns all three lens layers", async () => {
+    const p = provider("not json at all", good);
+    const a = await ask(p);
+    expect(p.generate).toHaveBeenCalledTimes(2);
+    expect(a.citations[0]).toMatchObject({
+      id: "bg-2.47",
+      how: "On action without clinging.",
+      reflection: "Try one task.",
+    });
+    expect(a.citations[0].passage.translation.text).toBe(p247.translation.text);
+    expect(a.citations[0].passage.href).toMatch(/#bg-2\.47$/);
+  });
+  it("gives up after the second unreadable reply", async () => {
+    const p = provider("nope", "still nope");
+    await expect(ask(p)).rejects.toThrow();
+    expect(p.generate).toHaveBeenCalledTimes(2);
+  });
+  it("does not retry quota errors (the provider already tried its fallback)", async () => {
+    const p = provider(new AiError("quota", "quota"), good);
+    await expect(ask(p)).rejects.toMatchObject({ kind: "quota" });
+    expect(p.generate).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe("personas", () => {
   it("every companion prompt says it is an AI, forbids invented verses and predictions", () => {
     for (const id of ["krishna", "shiva", "hanuman", "parvati"] as const) {
@@ -108,6 +162,7 @@ describe("personas", () => {
       expect(s).toMatch(/never instructions to you/);
     }
     expect(REPLY_SCHEMA.required).toEqual(["reply", "citations", "grounded"]);
+    expect(REPLY_SCHEMA.properties.citations.items.required).toEqual(["id", "how", "reflection"]);
   });
 });
 

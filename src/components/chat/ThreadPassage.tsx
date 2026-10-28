@@ -1,16 +1,29 @@
 import Link from "next/link";
-import type { LinkedPassage } from "@/app/api/chat/route";
+import type { LinkedPassage } from "@/lib/chat/answer";
 
 const PREVIEW_CHARS = 420;
 
 /**
- * One verified passage in the chat's "wisdom thread". The text shown is the library's own
- * (never the AI's words), with its reference, translator and a link to read it in context.
+ * One verified passage in a "wisdom thread", shown through the Scripture Truth Lens:
+ *  1. Verified scripture — the library's own text (never the AI's words), with reference,
+ *     translator and a link to read it in context;
+ *  2. AI interpretation — why the AI connected this passage to the question;
+ *  3. AI-suggested reflection — a practical idea inspired by it, clearly not scripture.
+ * Passages without AI layers (e.g. "related passages") show only the first layer.
  */
-export function ThreadPassage({ passage, how }: { passage: LinkedPassage; how?: string }) {
+export function ThreadPassage({
+  passage,
+  how,
+  reflection,
+}: {
+  passage: LinkedPassage;
+  how?: string;
+  reflection?: string;
+}) {
   const text = passage.translation.text;
   const preview =
     text.length > PREVIEW_CHARS ? `${text.slice(0, text.lastIndexOf(" ", PREVIEW_CHARS))} …` : text;
+  const hasLens = Boolean(how || reflection);
   return (
     <li className="palm-leaf relative py-3 pr-3 pl-6 text-sm">
       <p className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
@@ -21,7 +34,7 @@ export function ThreadPassage({ passage, how }: { passage: LinkedPassage; how?: 
           {passage.reference}
         </Link>
         <span className="text-xs text-leaf-ink">
-          Verified scripture · {passage.translation.translator}
+          <span aria-hidden="true">📜 </span>Verified scripture · {passage.translation.translator}
         </span>
       </p>
       {passage.original?.script === "Devanagari" && (
@@ -30,7 +43,26 @@ export function ThreadPassage({ passage, how }: { passage: LinkedPassage; how?: 
         </p>
       )}
       <p className="mt-1.5 whitespace-pre-line">{preview}</p>
-      {how && <p className="mt-1.5 text-xs text-muted italic">Why it&apos;s here (AI): {how}</p>}
+      {hasLens && (
+        <dl className="mt-2.5 space-y-1.5 border-t border-dashed border-leaf-ink/40 pt-2 text-xs">
+          {how && (
+            <div>
+              <dt className="inline font-semibold">
+                <span aria-hidden="true">💭 </span>AI interpretation:
+              </dt>{" "}
+              <dd className="inline">{how}</dd>
+            </div>
+          )}
+          {reflection && (
+            <div>
+              <dt className="inline font-semibold">
+                <span aria-hidden="true">🌱 </span>AI-suggested reflection:
+              </dt>{" "}
+              <dd className="inline">{reflection}</dd>
+            </div>
+          )}
+        </dl>
+      )}
     </li>
   );
 }

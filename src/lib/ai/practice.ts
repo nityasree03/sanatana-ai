@@ -21,7 +21,11 @@ export function createPracticeProvider(): AiProvider {
             (ids.length
               ? "The passages below were found for your question; read them in full in the Scripture Explorer."
               : "No passage in the library matched your question."),
-          citations: ids.map((id) => ({ id, how: "Found by the search for your question." })),
+          citations: ids.map((id) => ({
+            id,
+            how: "Found by the search for your question.",
+            reflection: "Practice mode: a real AI would suggest one small step here.",
+          })),
           grounded: ids.length > 0,
         }),
       };

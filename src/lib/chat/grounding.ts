@@ -5,7 +5,10 @@ const MAX_PASSAGE_CHARS = 1200;
 
 export interface Citation {
   id: string;
+  /** AI interpretation of the passage. */
   how: string;
+  /** AI-suggested practical reflection (may be empty if the AI gave none). */
+  reflection: string;
 }
 
 export interface GroundedReply {
@@ -63,7 +66,11 @@ export function parseReply(raw: string, provided: Passage[]): GroundedReply {
       continue;
     }
     if (citations.some((x) => x.id === id)) continue;
-    citations.push({ id, how: typeof c.how === "string" ? c.how.trim().slice(0, 300) : "" });
+    citations.push({
+      id,
+      how: typeof c.how === "string" ? c.how.trim().slice(0, 300) : "",
+      reflection: typeof c.reflection === "string" ? c.reflection.trim().slice(0, 300) : "",
+    });
   }
   // Passage ids belong in "citations"; remove any the AI also wrote into the text, e.g. "[dm-91.8]".
   const reply = obj.reply

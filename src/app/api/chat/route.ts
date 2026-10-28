@@ -1,14 +1,17 @@
 import { z } from "zod";
-import { AiError, getProvider, type ChatTurn } from "@/lib/ai";
-import { parseReply, userTurnWithPassages } from "@/lib/chat/grounding";
-import { REPLY_SCHEMA, systemPrompt } from "@/lib/chat/personas";
+import { getProvider, type ChatTurn } from "@/lib/ai";
+import {
+  failureKind,
+  groundedAnswer,
+  withHref,
+  type ChatCitation,
+  type LinkedPassage,
+} from "@/lib/chat/answer";
 import { chatPassages, searchTextFor } from "@/lib/chat/retrieval";
 import { CRISIS_REPLY, mentionsSelfHarm } from "@/lib/chat/safety";
 import { COMPANIONS, type CompanionId } from "@/lib/companions";
 import { rateLimit } from "@/lib/rateLimit";
-import { getPassage, sectionLinks } from "@/lib/scripture/data";
 import { embedQueryOnServer } from "@/lib/scripture/serverEmbed";
-import type { Passage } from "@/lib/scripture/types";
 
 const MAX_MESSAGE = 2000;
 const companionIds = COMPANIONS.map((c) => c.id) as [CompanionId, ...CompanionId[]];
@@ -32,20 +35,7 @@ const Body = z.object({
 
 export type ChatRequest = z.input<typeof Body>;
 
-/** A passage plus the Scripture Explorer link to read it in its chapter. */
-export type LinkedPassage = Passage & { href: string };
-
-export interface ChatCitation {
-  id: string;
-  how: string;
-  passage: LinkedPassage;
-}
-
-let links: Record<string, string> | null = null;
-function withHref(p: Passage): LinkedPassage {
-  links ??= sectionLinks();
-  return { ...p, href: `${links[`${p.work_id}|${p.section}`] ?? "/scriptures"}#${p.id}` };
-}
+export type { ChatCitation, LinkedPassage };
 
 /** GET /api/chat — whether an AI is connected (no secrets: only the provider's label). */
 export function GET() {
@@ -150,30 +140,22 @@ export async function POST(request: Request) {
     role: m.role === "user" ? "user" : "model",
     text: m.text,
   }));
-  const turns: ChatTurn[] = [
-    ...history,
-    { role: "user", text: userTurnWithPassages(latest.text, passages) },
-  ];
-
   try {
-    const result = await provider.generate({
-      system: systemPrompt(companion),
-      turns,
-      jsonSchema: REPLY_SCHEMA as unknown as Record<string, unknown>,
-      temperature: 0.6,
-      maxOutputTokens: 900,
+    const answer = await groundedAnswer({
+      provider,
+      companion,
+      history,
+      latest: latest.text,
+      passages,
     });
-    const reply = parseReply(result.text, passages);
-    const citations = reply.citations
-      .filter((c) => getPassage(c.id))
-      .map((c) => ({ ...c, passage: withHref(getPassage(c.id)!) }));
+    const { citations } = answer;
     const cited = new Set(citations.map((c) => c.id));
     const res: ChatResponse = {
       mode: "ai",
       provider: provider.label,
       practice: provider.practice || undefined,
-      reply: reply.reply,
-      grounded: reply.grounded,
+      reply: answer.reply,
+      grounded: answer.grounded,
       citations,
       related: passages
         .filter((p) => !cited.has(p.id))
@@ -182,7 +164,7 @@ export async function POST(request: Request) {
     };
     return Response.json(res);
   } catch (err) {
-    const kind = err instanceof AiError ? err.kind : "failed";
+    const kind = failureKind(err);
     console.error(`chat: AI error (${kind})`); // never log message content
     const notice =
       kind === "quota"

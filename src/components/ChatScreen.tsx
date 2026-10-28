@@ -555,9 +555,19 @@ export function ChatScreen({
                         <h3 className="font-sans text-xs font-semibold tracking-wide text-muted uppercase">
                           Wisdom thread
                         </h3>
+                        <p className="mt-0.5 text-xs text-muted">
+                          Truth Lens: <span aria-hidden="true">📜</span> verified scripture ·{" "}
+                          <span aria-hidden="true">💭</span> AI interpretation ·{" "}
+                          <span aria-hidden="true">🌱</span> AI suggestion
+                        </p>
                         <ul className="mt-1.5 space-y-2">
                           {m.citations.map((c) => (
-                            <ThreadPassage key={c.id} passage={c.passage} how={c.how} />
+                            <ThreadPassage
+                              key={c.id}
+                              passage={c.passage}
+                              how={c.how}
+                              reflection={c.reflection}
+                            />
                           ))}
                         </ul>
                       </section>

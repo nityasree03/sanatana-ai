@@ -44,7 +44,13 @@ test.skipIf(!hasKey)("chat behaviour with the real AI", { timeout: 15 * 60_000 }
     if (q.mustMatch) checks.mustMatch = new RegExp(q.mustMatch, "i").test(reply);
     if (q.mustNotMatch) checks.mustNotMatch = !new RegExp(q.mustNotMatch, "i").test(reply);
     if (q.expectUngrounded) checks.ungrounded = data.grounded === false;
-    if (p.category === "grounded") checks.citesPassage = data.citations.length > 0;
+    if (p.category === "grounded") {
+      checks.citesPassage = data.citations.length > 0;
+      // Truth Lens: every cited passage needs an interpretation and a separate reflection.
+      checks.lensComplete = data.citations.every(
+        (c) => c.how.trim().length > 0 && c.reflection.trim().length > 0 && c.how !== c.reflection,
+      );
+    }
     if (q.expectMode !== "crisis") {
       checks.noRawIds = !/\[[a-z][\w]*(?:[-.][\w]+)+\]/i.test(reply);
       if (p.category !== "identity" && p.category !== "injection")
@@ -66,6 +72,7 @@ test.skipIf(!hasKey)("chat behaviour with the real AI", { timeout: 15 * 60_000 }
         id: c.id,
         reference: c.passage.reference,
         how: c.how,
+        reflection: c.reflection,
       })),
       checks,
       passed: Object.values(checks).every(Boolean),

@@ -31,6 +31,7 @@ function mockServer() {
             {
               id: "bg-2.47",
               how: "It speaks of action without attachment.",
+              reflection: "Choose one task today and do it without checking the outcome.",
               passage: {
                 id: "bg-2.47",
                 reference: "Bhagavad Gita 2.47",
@@ -90,8 +91,15 @@ describe("ChatScreen", () => {
     expect(screen.getByText("Thinking…")).toBeInTheDocument();
     await flush();
     expect(screen.getByText(REPLY)).toBeInTheDocument();
-    expect(screen.getByText(/AI interpretation/)).toBeInTheDocument();
+    expect(screen.getByText(/AI interpretation · practice mode/)).toBeInTheDocument(); // reply label
     const thread = screen.getByRole("region", { name: /Wisdom thread/ });
+    // Truth Lens: the three layers are separate and labelled
+    const lens = within(thread).getByText("AI interpretation:");
+    expect(lens.nextElementSibling).toHaveTextContent("It speaks of action without attachment.");
+    expect(
+      within(thread).getByText("AI-suggested reflection:").nextElementSibling,
+    ).toHaveTextContent("Choose one task today");
+    expect(within(thread).getByText(/Verified scripture · Annie Besant/)).toBeInTheDocument();
     expect(within(thread).getByRole("link", { name: "Bhagavad Gita 2.47" })).toHaveAttribute(
       "href",
       "/scriptures/bhagavad-gita/2#bg-2.47",
