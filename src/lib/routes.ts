@@ -110,7 +110,7 @@ export const ROUTES: readonly SiteRoute[] = [
     title: "Shloka Practice Studio",
     description: "Practise verses line by line with text, transliteration and audio.",
     group: "Learn",
-    status: "planned",
+    status: "ready",
     phase: 7,
   },
   {

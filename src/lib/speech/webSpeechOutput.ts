@@ -1,18 +1,21 @@
 import type { SpeechOutputAdapter, SpeechOutputOptions } from "./types";
 
 function synth(): SpeechSynthesis | null {
-  return typeof window !== "undefined" && "speechSynthesis" in window
-    ? window.speechSynthesis
-    : null;
+  return (typeof window !== "undefined" && window.speechSynthesis) || null;
 }
 
-/** Prefer an Indian English voice when the device has one, then any voice in the language. */
-function pickVoice(s: SpeechSynthesis, lang: string): SpeechSynthesisVoice | null {
+/**
+ * For English, prefer an Indian English voice when the device has one; otherwise (and for
+ * other languages, e.g. Hindi for Devanagari) use a voice in the requested language.
+ */
+export function pickVoice(s: SpeechSynthesis, lang: string): SpeechSynthesisVoice | null {
   const voices = s.getVoices();
+  const base = lang.split("-")[0];
+  const norm = (l: string) => l.replace("_", "-");
   return (
-    voices.find((v) => v.lang === "en-IN") ??
-    voices.find((v) => v.lang === lang) ??
-    voices.find((v) => v.lang.startsWith(lang.split("-")[0])) ??
+    (base === "en" ? voices.find((v) => norm(v.lang) === "en-IN") : undefined) ??
+    voices.find((v) => norm(v.lang) === lang) ??
+    voices.find((v) => norm(v.lang).startsWith(`${base}-`) || v.lang === base) ??
     null
   );
 }

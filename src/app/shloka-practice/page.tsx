@@ -1,16 +1,25 @@
 import type { Metadata } from "next";
-import { ComingSoon } from "@/components/ComingSoon";
+import { ShlokaStudio, type ShlokaVerse } from "@/components/shloka/ShlokaStudio";
+import { withHref } from "@/lib/chat/answer";
 import { getRoute } from "@/lib/routes";
+import { getPassage } from "@/lib/scripture/data";
+import { SHLOKAS, pairLines } from "@/lib/shloka/verses";
 
 const route = getRoute("/shloka-practice");
 export const metadata: Metadata = { title: route.title, description: route.description };
 
-const DETAILS = [
-  "Practise verses line by line with text and transliteration.",
-  "Listen and repeat with recorded or synthesized audio.",
-  "Careful, optional feedback that never exaggerates pronunciation accuracy.",
-] as const;
-
 export default function ShlokaPracticePage() {
-  return <ComingSoon path="/shloka-practice" details={DETAILS} />;
+  const verses: ShlokaVerse[] = SHLOKAS.map(({ passage, title }) => {
+    const p = withHref(getPassage(passage)!);
+    return {
+      id: p.id,
+      title,
+      reference: p.reference,
+      href: p.href,
+      lines: pairLines(p.original!.text, p.transliteration!.text),
+      english: p.translation.text,
+      translator: p.translation.translator,
+    };
+  });
+  return <ShlokaStudio verses={verses} />;
 }
