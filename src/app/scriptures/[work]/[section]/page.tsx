@@ -71,7 +71,12 @@ export default async function SectionPage({ params }: { params: Params }) {
       {pager}
       <div className="space-y-4">
         {passages.map((p) => (
-          <VerseCard key={p.id} passage={p} sources={sources} />
+          <VerseCard
+            key={p.id}
+            passage={p}
+            sources={sources}
+            saveHref={`${sectionHref(work.id, index)}#${p.id}`}
+          />
         ))}
       </div>
       {pager}

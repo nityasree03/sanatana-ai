@@ -449,6 +449,7 @@ function CouncilCard({
                   passage={ct.passage}
                   how={ct.how}
                   reflection={ct.reflection}
+                  save={{ source: "council", companion: c.id }}
                 />
               ))}
             </ul>
@@ -461,7 +462,11 @@ function CouncilCard({
             </summary>
             <ul className="mt-1.5 space-y-2">
               {answer.related.map((p) => (
-                <ThreadPassage key={p.id} passage={p} />
+                <ThreadPassage
+                  key={p.id}
+                  passage={p}
+                  save={{ source: "council", companion: c.id }}
+                />
               ))}
             </ul>
           </details>

@@ -110,7 +110,11 @@ export function LeelaPlayer({
             </h3>
             <ul className="mt-2 space-y-2">
               {moment.passages.map((id) => (
-                <ThreadPassage key={id} passage={passages[id]} />
+                <ThreadPassage
+                  key={id}
+                  passage={passages[id]}
+                  save={{ source: "leela", companion: companion.id }}
+                />
               ))}
             </ul>
 

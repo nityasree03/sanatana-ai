@@ -1,8 +1,15 @@
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+
+let query = "";
+vi.mock("next/navigation", () => ({ useSearchParams: () => new URLSearchParams(query) }));
+
 import { MyJourneyScreen } from "@/components/journey/MyJourneyScreen";
 
-beforeEach(() => localStorage.clear());
+beforeEach(() => {
+  localStorage.clear();
+  query = "";
+});
 const saved = () => JSON.parse(localStorage.getItem("sanatana-journey") ?? "null");
 
 describe("My Dharma Journey", () => {
@@ -87,6 +94,18 @@ describe("My Dharma Journey", () => {
       screen.getByRole("button", { name: "Turn on saving on this device" }),
     ).toBeInTheDocument();
     vi.unstubAllGlobals();
+  });
+
+  it("opens the tab named in the link (?tab=tree), and the person can still switch", () => {
+    query = "tab=tree";
+    render(<MyJourneyScreen />);
+    fireEvent.click(screen.getByRole("button", { name: "Turn on saving on this device" }));
+    expect(screen.getByRole("tab", { name: "Wisdom Tree" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    fireEvent.click(screen.getByRole("tab", { name: "Goals" }));
+    expect(screen.getByRole("tab", { name: "Goals" })).toHaveAttribute("aria-selected", "true");
   });
 
   it("tabs follow the keyboard pattern (arrow keys)", () => {

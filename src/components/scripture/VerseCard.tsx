@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SaveLeafButton } from "@/components/journey/SaveLeafButton";
 import { getCompanion } from "@/lib/companions";
 import { STATUS_TEXT, type Passage, type SourceInfo } from "@/lib/scripture/types";
 
@@ -11,12 +12,15 @@ export function VerseCard({
   sources,
   href,
   matchedBy,
+  saveHref,
 }: {
   passage: Passage;
   sources: Record<string, SourceInfo>;
   /** Link to the passage in its chapter; omit on the chapter page itself. */
   href?: string;
   matchedBy?: ("keyword" | "meaning")[];
+  /** Where a Wisdom Tree leaf should link back to; shows "Save to Wisdom Tree" when given. */
+  saveHref?: string;
 }) {
   const tr = sources[passage.translation.source_id];
   const orig = passage.original ? sources[passage.original.source_id] : undefined;
@@ -38,6 +42,20 @@ export function VerseCard({
         </h3>
         <span className="text-xs">Verified scripture</span>
       </header>
+      {saveHref && (
+        <p className="mt-1">
+          <SaveLeafButton
+            passage={{
+              id: passage.id,
+              reference: passage.reference,
+              translator: passage.translation.translator,
+              text: passage.translation.text,
+              href: saveHref,
+            }}
+            source="explorer"
+          />
+        </p>
+      )}
 
       {passage.original && (
         <div className="mt-3" lang="sa">

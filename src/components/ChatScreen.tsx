@@ -647,6 +647,7 @@ export function ChatScreen({
                               passage={c.passage}
                               how={c.how}
                               reflection={c.reflection}
+                              save={{ source: "chat", companion: m.companionId }}
                             />
                           ))}
                         </ul>
@@ -659,7 +660,11 @@ export function ChatScreen({
                         </summary>
                         <ul className="mt-1.5 space-y-2">
                           {m.related.map((p) => (
-                            <ThreadPassage key={p.id} passage={p} />
+                            <ThreadPassage
+                              key={p.id}
+                              passage={p}
+                              save={{ source: "chat", companion: m.companionId }}
+                            />
                           ))}
                         </ul>
                       </details>

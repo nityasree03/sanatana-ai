@@ -145,6 +145,7 @@ export function ScriptureSearch({
                 sources={sources}
                 matchedBy={h.matchedBy}
                 href={`${sectionLinks[`${h.passage.work_id}|${h.passage.section}`] ?? "/scriptures"}#${h.passage.id}`}
+                saveHref={`${sectionLinks[`${h.passage.work_id}|${h.passage.section}`] ?? "/scriptures"}#${h.passage.id}`}
               />
             </li>
           ))}

@@ -1,5 +1,8 @@
 import Link from "next/link";
 import type { LinkedPassage } from "@/lib/chat/answer";
+import type { CompanionId } from "@/lib/companions";
+import type { Leaf } from "@/lib/journey/schema";
+import { SaveLeafButton } from "@/components/journey/SaveLeafButton";
 
 const PREVIEW_CHARS = 420;
 
@@ -15,10 +18,13 @@ export function ThreadPassage({
   passage,
   how,
   reflection,
+  save,
 }: {
   passage: LinkedPassage;
   how?: string;
   reflection?: string;
+  /** Show "Save to Wisdom Tree" (where the passage was found, and with which companion). */
+  save?: { source: Leaf["source"]; companion?: CompanionId };
 }) {
   const text = passage.translation.text;
   const preview =
@@ -43,6 +49,21 @@ export function ThreadPassage({
         </p>
       )}
       <p className="mt-1.5 whitespace-pre-line">{preview}</p>
+      {save && (
+        <p className="mt-1.5">
+          <SaveLeafButton
+            passage={{
+              id: passage.id,
+              reference: passage.reference,
+              translator: passage.translation.translator,
+              text: passage.translation.text,
+              href: passage.href,
+            }}
+            source={save.source}
+            companion={save.companion}
+          />
+        </p>
+      )}
       {hasLens && (
         <dl className="mt-2.5 space-y-1.5 border-t border-dashed border-leaf-ink/40 pt-2 text-xs">
           {how && (

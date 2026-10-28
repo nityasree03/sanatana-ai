@@ -1,10 +1,11 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
-import type { Journey } from "@/lib/journey/schema";
 import { GoalsPanel } from "./GoalsPanel";
 import { JourneyGate } from "./JourneyGate";
 import { MyDataPanel } from "./MyDataPanel";
+import { WisdomTree } from "./WisdomTree";
 
 export type JourneyTab = "goals" | "tree" | "data";
 
@@ -85,15 +86,13 @@ function Tabs({
   );
 }
 
-export function MyJourneyScreen({
-  initialTab = "goals",
-  renderTree,
-}: {
-  initialTab?: JourneyTab;
-  /** The Wisdom Tree panel (added in Phase 6 step 3). */
-  renderTree?: (journey: Journey, readOnly: boolean) => ReactNode;
-}) {
-  const [tab, setTab] = useState<JourneyTab>(initialTab);
+export function MyJourneyScreen({ initialTab = "goals" }: { initialTab?: JourneyTab }) {
+  // Links such as /my-journey?tab=tree open a specific tab; the person's own choice wins after that.
+  const fromUrl = useSearchParams().get("tab");
+  const [chosen, setTab] = useState<JourneyTab | null>(null);
+  const tab: JourneyTab =
+    chosen ??
+    (fromUrl === "goals" || fromUrl === "tree" || fromUrl === "data" ? fromUrl : initialTab);
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 md:py-10">
       <header className="max-w-3xl">
@@ -111,11 +110,7 @@ export function MyJourneyScreen({
               setTab={setTab}
               panels={{
                 goals: <GoalsPanel goals={journey.goals} readOnly={readOnly} />,
-                tree: renderTree ? (
-                  renderTree(journey, readOnly)
-                ) : (
-                  <p className="text-muted">The Wisdom Tree is coming next.</p>
-                ),
+                tree: <WisdomTree leaves={journey.leaves} readOnly={readOnly} />,
                 data: <MyDataPanel journey={journey} />,
               }}
             />
