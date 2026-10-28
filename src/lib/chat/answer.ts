@@ -3,7 +3,7 @@ import { AiError, type AiProvider, type ChatTurn } from "@/lib/ai";
 import { getPassage, sectionLinks } from "@/lib/scripture/data";
 import type { Passage } from "@/lib/scripture/types";
 import type { CompanionId } from "@/lib/companions";
-import { parseReply, userTurnWithPassages } from "./grounding";
+import { parseReply, userTurnWithPassages, type SharedContext } from "./grounding";
 import { REPLY_SCHEMA, systemPrompt } from "./personas";
 
 /** A passage plus the Scripture Explorer link to read it in its chapter. */
@@ -42,15 +42,17 @@ export async function groundedAnswer(opts: {
   history: ChatTurn[];
   latest: string;
   passages: Passage[];
+  /** Earlier messages the person chose to share from another companion (handoff). */
+  shared?: SharedContext;
   /** Extra system instructions, e.g. for the Divine Council. */
   extraSystem?: string;
   attempts?: number;
 }): Promise<GroundedAnswer> {
-  const { provider, companion, history, latest, passages, extraSystem } = opts;
+  const { provider, companion, history, latest, passages, extraSystem, shared } = opts;
   const attempts = opts.attempts ?? 2;
   const turns: ChatTurn[] = [
     ...history,
-    { role: "user", text: userTurnWithPassages(latest, passages) },
+    { role: "user", text: userTurnWithPassages(latest, passages, shared) },
   ];
   const system = extraSystem
     ? `${systemPrompt(companion)}\n\n${extraSystem}`

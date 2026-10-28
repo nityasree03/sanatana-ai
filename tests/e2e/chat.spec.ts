@@ -42,7 +42,27 @@ test("switching companions changes the chat", async ({ page }) => {
   await page.goto("/chat");
   await page.getByRole("button", { name: "Hanuman" }).click();
   await expect(page.getByRole("heading", { name: "Chat with Hanuman" })).toBeAttached();
-  await expect(page.getByRole("log").getByText(/You're now talking with Hanuman/)).toBeVisible();
+  await expect(page.getByRole("log").getByText(/Now talking with/)).toBeVisible();
+});
+
+test("handoff: after a conversation, switching asks what to share and shows it", async ({
+  page,
+}) => {
+  await page.goto("/chat?companion=krishna");
+  await page.getByRole("textbox", { name: "Message Krishna" }).fill("How do I stay steady?");
+  await page.getByRole("button", { name: "Send message" }).click();
+  await expect(page.getByRole("region", { name: /Wisdom thread/ }).first()).toBeVisible();
+  await page.getByRole("button", { name: "Parvati" }).first().click();
+  const dialog = page.getByRole("dialog", { name: "Switch to Parvati?" });
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByRole("checkbox").first()).toBeFocused();
+  const results = await new AxeBuilder({ page }).include("[role=dialog]").analyze();
+  expect(results.violations).toEqual([]);
+  await dialog.getByRole("button", { name: "Share 2 messages" }).click();
+  await expect(page.getByRole("log").getByText(/2 messages shared from Krishna/)).toBeVisible();
+  await page.getByRole("textbox", { name: "Message Parvati" }).fill("What would you add?");
+  await page.getByRole("button", { name: "Send message" }).click();
+  await expect(page.getByRole("region", { name: /Wisdom thread/ })).toHaveCount(2);
 });
 
 test("chat page passes accessibility checks after a conversation, in night theme", async ({

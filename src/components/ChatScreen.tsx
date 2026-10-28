@@ -16,6 +16,7 @@ import { createWebSpeechInput } from "@/lib/speech/webSpeechInput";
 import { createWebSpeechOutput } from "@/lib/speech/webSpeechOutput";
 import type { ChatResponse, LinkedPassage } from "@/app/api/chat/route";
 import { ArchAvatar, VoiceWaveform, type AvatarState } from "./ArchAvatar";
+import { HandoffDialog, type HandoffCandidate } from "./chat/HandoffDialog";
 import { ThreadPassage } from "./chat/ThreadPassage";
 
 export const MAX_MESSAGE_LENGTH = 2000;
@@ -46,7 +47,14 @@ type Message =
       related?: LinkedPassage[];
       notice?: string;
     }
-  | { id: number; role: "notice"; text: string };
+  | {
+      id: number;
+      /** Companion Handoff divider: who took over and what the person chose to share. */
+      role: "handoff";
+      from: CompanionId;
+      to: CompanionId;
+      shared: { role: "user" | "companion"; text: string }[];
+    };
 
 type CompanionMessage = Extract<Message, { role: "companion" }>;
 
@@ -110,6 +118,7 @@ export function ChatScreen({
   const [speakReplies, setSpeakReplies] = useState(false);
   const [errorFlash, setErrorFlash] = useState(false);
   const [panelOpen, setPanelOpen] = useState(true);
+  const [handoffTo, setHandoffTo] = useState<CompanionId | null>(null);
 
   const replyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pending = useRef<AbortController | null>(null);
@@ -253,20 +262,40 @@ export function ChatScreen({
 
   /* ---------- Conversation ---------- */
 
+  /** Real exchanges with the current companion since the last switch (no greetings or errors). */
+  function currentExchanges(list: Message[] = messages): HandoffCandidate[] {
+    const lastHandoff = list.map((m) => m.role).lastIndexOf("handoff");
+    return list
+      .slice(lastHandoff + 1)
+      .filter(
+        (m): m is Extract<Message, { role: "user" }> | CompanionMessage =>
+          m.role === "user" || (m.role === "companion" && m.kind === "ai"),
+      )
+      .map((m) => ({ id: m.id, role: m.role, text: m.text }))
+      .slice(-10);
+  }
+
   function switchCompanion(id: CompanionId) {
     if (id === companionId) return;
+    // With nothing to share there is nothing to decide: switch straight away.
+    if (currentExchanges().length === 0) completeSwitch(id, []);
+    else setHandoffTo(id);
+  }
+
+  function completeSwitch(id: CompanionId, sharedIds: number[]) {
     pending.current?.abort();
     setThinking(false);
     stopSpeaking();
     stopListening();
+    setHandoffTo(null);
+    const shared = currentExchanges()
+      .filter((m) => sharedIds.includes(m.id))
+      .map(({ role, text }) => ({ role, text }));
+    const from = companionId;
     setCompanionId(id);
     setMessages((m) => [
       ...m,
-      {
-        id: newId(),
-        role: "notice",
-        text: `You're now talking with ${getCompanion(id).name}. Choosing what earlier context to share arrives in Phase 5.`,
-      },
+      { id: newId(), role: "handoff", from, to: id, shared },
       {
         id: newId(),
         role: "companion",
@@ -299,16 +328,16 @@ export function ChatScreen({
 
     const speaker = companionId;
     const shouldSpeak = speakReplies;
-    // This companion's conversation since the last switch: real exchanges only, no greetings.
-    const lastNotice = messages.map((m) => m.role).lastIndexOf("notice");
-    const history = messages
-      .slice(lastNotice + 1)
-      .filter(
-        (m): m is Extract<Message, { role: "user" }> | CompanionMessage =>
-          m.role === "user" || (m.role === "companion" && m.kind === "ai"),
-      )
-      .map((m) => ({ role: m.role, text: m.text }))
-      .slice(-10);
+    // This companion's conversation since the last switch (real exchanges only, no greetings),
+    // plus whatever the person chose to share at that switch.
+    const history = currentExchanges().map(({ role, text }) => ({ role, text }));
+    const handoff = messages.findLast(
+      (m): m is Extract<Message, { role: "handoff" }> => m.role === "handoff",
+    );
+    const shared =
+      handoff && handoff.shared.length > 0
+        ? { from: handoff.from, messages: handoff.shared }
+        : undefined;
     const ctrl = new AbortController();
     pending.current = ctrl;
 
@@ -323,7 +352,11 @@ export function ChatScreen({
     fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ companion: speaker, messages: [...history, { role: "user", text }] }),
+      body: JSON.stringify({
+        companion: speaker,
+        messages: [...history, { role: "user", text }],
+        ...(shared && { shared }),
+      }),
       signal: ctrl.signal,
     })
       .then(async (res) => {
@@ -500,10 +533,19 @@ export function ChatScreen({
         >
           <ol className="space-y-4">
             {messages.map((m) => {
-              if (m.role === "notice") {
+              if (m.role === "handoff") {
+                const n = m.shared.length;
                 return (
-                  <li key={m.id} className="text-center text-xs text-muted">
-                    {m.text}
+                  <li key={m.id} className="flex items-center gap-3 text-xs text-muted">
+                    <span className="h-px flex-1 bg-line" aria-hidden="true" />
+                    <span className="text-center">
+                      Now talking with{" "}
+                      <strong className="text-ink">{getCompanion(m.to).name}</strong> ·{" "}
+                      {n > 0
+                        ? `${n} ${n === 1 ? "message" : "messages"} shared from ${getCompanion(m.from).name}`
+                        : `started fresh (nothing shared from ${getCompanion(m.from).name})`}
+                    </span>
+                    <span className="h-px flex-1 bg-line" aria-hidden="true" />
                   </li>
                 );
               }
@@ -717,6 +759,16 @@ export function ChatScreen({
           </div>
         </form>
       </section>
+      {handoffTo && (
+        <HandoffDialog
+          from={companion}
+          to={getCompanion(handoffTo)}
+          candidates={currentExchanges()}
+          onShare={(ids) => completeSwitch(handoffTo, ids)}
+          onFresh={() => completeSwitch(handoffTo, [])}
+          onCancel={() => setHandoffTo(null)}
+        />
+      )}
     </div>
   );
 }

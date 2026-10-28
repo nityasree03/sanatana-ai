@@ -10,7 +10,11 @@ import { ChatScreen, MAX_MESSAGE_LENGTH } from "@/components/ChatScreen";
 import { fakeInput, fakeOutput } from "./fakeSpeech";
 
 const REPLY = "Act, and let go of the fruits. (test reply)";
-const posted: { companion: string; messages: { role: string; text: string }[] }[] = [];
+const posted: {
+  companion: string;
+  messages: { role: string; text: string }[];
+  shared?: { from: string; messages: { role: string; text: string }[] };
+}[] = [];
 
 function mockServer() {
   posted.length = 0;
@@ -147,12 +151,73 @@ describe("ChatScreen", () => {
     expect(screen.getByRole("alert")).toHaveTextContent(/up to 2000 characters/);
   });
 
-  it("switches companion, notes the change and remembers the choice", () => {
+  it("switches straight away when there is nothing to share, and remembers the choice", () => {
     render(<ChatScreen />);
     fireEvent.click(screen.getByRole("button", { name: "Parvati" }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Chat with Parvati" })).toBeInTheDocument();
-    expect(screen.getByText(/You're now talking with Parvati/)).toBeInTheDocument();
+    expect(screen.getByText(/started fresh \(nothing shared from Krishna\)/)).toBeInTheDocument();
     expect(localStorage.getItem("sanatana-companion")).toBe("parvati");
+  });
+});
+
+describe("Companion Handoff", () => {
+  async function talkToKrishna() {
+    render(<ChatScreen />);
+    fireEvent.change(input(), { target: { value: "I feel lost at work" } });
+    fireEvent.click(screen.getByRole("button", { name: "Send message" }));
+    await flush();
+  }
+
+  it("asks what to share; only the ticked messages go to the new companion", async () => {
+    await talkToKrishna();
+    fireEvent.click(screen.getByRole("button", { name: "Shiva" }));
+    const dialog = screen.getByRole("dialog", { name: "Switch to Shiva?" });
+    const boxes = within(dialog).getAllByRole("checkbox");
+    expect(boxes).toHaveLength(2); // my message + Krishna's reply, both ticked by default
+    expect(boxes.every((b) => (b as HTMLInputElement).checked)).toBe(true);
+    fireEvent.click(boxes[1]); // keep only my own message
+    fireEvent.click(within(dialog).getByRole("button", { name: "Share 1 message" }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(screen.getByText(/1 message shared from Krishna/)).toBeInTheDocument();
+
+    fireEvent.change(input(), { target: { value: "What would you add?" } });
+    fireEvent.click(screen.getByRole("button", { name: "Send message" }));
+    await flush();
+    const last = posted.at(-1)!;
+    expect(last.companion).toBe("shiva");
+    expect(last.messages).toEqual([{ role: "user", text: "What would you add?" }]);
+    expect(last.shared).toEqual({
+      from: "krishna",
+      messages: [{ role: "user", text: "I feel lost at work" }],
+    });
+  });
+
+  it("'Start fresh' shares nothing", async () => {
+    await talkToKrishna();
+    fireEvent.click(screen.getByRole("button", { name: "Hanuman" }));
+    fireEvent.click(screen.getByRole("button", { name: "Start fresh" }));
+    expect(screen.getByText(/started fresh/)).toBeInTheDocument();
+    fireEvent.change(input(), { target: { value: "Hello" } });
+    fireEvent.click(screen.getByRole("button", { name: "Send message" }));
+    await flush();
+    expect(posted.at(-1)!.shared).toBeUndefined();
+    expect(posted.at(-1)!.messages).toEqual([{ role: "user", text: "Hello" }]);
+  });
+
+  it("Cancel and Escape keep the current companion; sharing needs at least one message", async () => {
+    await talkToKrishna();
+    fireEvent.click(screen.getByRole("button", { name: "Parvati" }));
+    let dialog = screen.getByRole("dialog");
+    for (const b of within(dialog).getAllByRole("checkbox")) fireEvent.click(b);
+    expect(within(dialog).getByRole("button", { name: "Share 0 messages" })).toBeDisabled();
+    fireEvent.click(within(dialog).getByRole("button", { name: "Cancel" }));
+    expect(screen.getByRole("heading", { name: "Chat with Krishna" })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Parvati" }));
+    dialog = screen.getByRole("dialog");
+    fireEvent.keyDown(dialog, { key: "Escape" });
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Chat with Krishna" })).toBeInTheDocument();
   });
 });
 

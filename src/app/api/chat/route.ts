@@ -9,28 +9,29 @@ import {
 } from "@/lib/chat/answer";
 import { chatPassages, searchTextFor } from "@/lib/chat/retrieval";
 import { CRISIS_REPLY, mentionsSelfHarm } from "@/lib/chat/safety";
-import { COMPANIONS, type CompanionId } from "@/lib/companions";
+import { COMPANIONS, getCompanion, type CompanionId } from "@/lib/companions";
 import { rateLimit } from "@/lib/rateLimit";
 import { embedQueryOnServer } from "@/lib/scripture/serverEmbed";
 
 const MAX_MESSAGE = 2000;
 const companionIds = COMPANIONS.map((c) => c.id) as [CompanionId, ...CompanionId[]];
 
+const Message = z.object({
+  role: z.enum(["user", "companion"]),
+  text: z
+    .string()
+    .trim()
+    .min(1)
+    .max(MAX_MESSAGE, `Messages can be up to ${MAX_MESSAGE} characters.`),
+});
+
 const Body = z.object({
   companion: z.enum(companionIds),
-  messages: z
-    .array(
-      z.object({
-        role: z.enum(["user", "companion"]),
-        text: z
-          .string()
-          .trim()
-          .min(1)
-          .max(MAX_MESSAGE, `Messages can be up to ${MAX_MESSAGE} characters.`),
-      }),
-    )
-    .min(1)
-    .max(20),
+  messages: z.array(Message).min(1).max(20),
+  /** Companion Handoff: earlier messages the person chose to share from another companion. */
+  shared: z
+    .object({ from: z.enum(companionIds), messages: z.array(Message).min(1).max(10) })
+    .optional(),
 });
 
 export type ChatRequest = z.input<typeof Body>;
@@ -109,8 +110,10 @@ export async function POST(request: Request) {
       { status: 400 },
     );
   }
-  const { companion, messages } = parsed.data;
-  const userMessages = messages.filter((m) => m.role === "user").map((m) => m.text);
+  const { companion, messages, shared } = parsed.data;
+  const userMessages = [...(shared?.messages ?? []), ...messages]
+    .filter((m) => m.role === "user")
+    .map((m) => m.text);
   const latest = messages.at(-1);
   if (!latest || latest.role !== "user") {
     return Response.json({ error: "The last message must be from you." }, { status: 400 });
@@ -147,6 +150,7 @@ export async function POST(request: Request) {
       history,
       latest: latest.text,
       passages,
+      shared: shared && { fromName: getCompanion(shared.from).name, messages: shared.messages },
     });
     const { citations } = answer;
     const cited = new Set(citations.map((c) => c.id));
