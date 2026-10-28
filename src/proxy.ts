@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import works from "@/data/scripture/works.json";
+import { LESSONS } from "@/lib/learning/lessons";
 import { SCENES } from "@/lib/leela/scenes";
 
 /**
@@ -30,16 +31,26 @@ export function isKnownLeelaPath(pathname: string): boolean {
   return !scene || (SCENE_IDS.has(scene) && rest.length === 0);
 }
 
+const LESSON_IDS = new Set(LESSONS.map((l) => l.id));
+
+/** /scripture-learning/<lesson> exists only for the lessons we have. */
+export function isKnownLessonPath(pathname: string): boolean {
+  const [, , lesson, ...rest] = pathname.replace(/\/$/, "").split("/");
+  return !lesson || (LESSON_IDS.has(lesson) && rest.length === 0);
+}
+
 export function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const known = path.startsWith("/living-leela")
     ? isKnownLeelaPath(path)
-    : isKnownScripturePath(path);
+    : path.startsWith("/scripture-learning")
+      ? isKnownLessonPath(path)
+      : isKnownScripturePath(path);
   if (known) return NextResponse.next();
   // A path with no route renders the app's not-found page with status 404.
   return NextResponse.rewrite(new URL("/__not-found", request.url));
 }
 
 export const config = {
-  matcher: ["/scriptures/:path+", "/living-leela/:path+"],
+  matcher: ["/scriptures/:path+", "/living-leela/:path+", "/scripture-learning/:path+"],
 };

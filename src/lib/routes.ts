@@ -92,7 +92,7 @@ export const ROUTES: readonly SiteRoute[] = [
     title: "Scripture Learning Studio",
     description: "Source-backed lessons with meanings, playback and comprehension questions.",
     group: "Learn",
-    status: "planned",
+    status: "ready",
     phase: 7,
   },
   {
