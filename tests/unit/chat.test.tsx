@@ -82,6 +82,16 @@ describe("ChatScreen", () => {
     expect(screen.getByRole("heading", { name: "Chat with Hanuman" })).toBeInTheDocument();
   });
 
+  it("places a private draft from this tab's storage in the box once, without sending it", async () => {
+    sessionStorage.setItem("sanatana-chat-draft", "My intention: be honest");
+    query = "companion=parvati&draft=1";
+    render(<ChatScreen />);
+    expect(input()).toHaveValue("My intention: be honest");
+    await flush();
+    expect(sessionStorage.getItem("sanatana-chat-draft")).toBeNull();
+    expect(posted).toEqual([]);
+  });
+
   it("puts a question handed over in the URL into the box without sending it", () => {
     query = "companion=shiva&ask=What%20is%20the%20good%3F";
     render(<ChatScreen />);

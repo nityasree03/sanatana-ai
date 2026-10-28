@@ -19,6 +19,7 @@ import { ArchAvatar, VoiceWaveform, type AvatarState } from "./ArchAvatar";
 import { HandoffDialog, type HandoffCandidate } from "./chat/HandoffDialog";
 import { RememberGoalDialog } from "./journey/RememberGoalDialog";
 import { useJourney } from "@/lib/journey/useJourney";
+import { clearChatDraft, peekChatDraft } from "@/lib/journey/handoff";
 import { ThreadPassage } from "./chat/ThreadPassage";
 
 export const MAX_MESSAGE_LENGTH = 2000;
@@ -112,7 +113,13 @@ export function ChatScreen({
     },
   ]);
   // A question handed over from another page (e.g. Living Leela) is placed in the box, never sent.
-  const [draft, setDraft] = useState(() => (searchParams.get("ask") ?? "").slice(0, 500));
+  // Private text from another page (e.g. a reflection) arrives via this tab's sessionStorage, never
+  // the URL; it is read once. Never sent automatically.
+  const [draft, setDraft] = useState(() =>
+    searchParams.get("draft") === "1"
+      ? (peekChatDraft() ?? "")
+      : (searchParams.get("ask") ?? "").slice(0, 500),
+  );
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [thinking, setThinking] = useState(false);
@@ -151,6 +158,11 @@ export function ChatScreen({
   useEffect(() => {
     saveCompanion(companionId);
   }, [companionId]);
+
+  // The handed-over draft is now in the box; remove it so a reload doesn't bring it back.
+  useEffect(() => {
+    if (searchParams.get("draft") === "1") clearChatDraft();
+  }, [searchParams]);
 
   useEffect(() => {
     const ctrl = new AbortController();
