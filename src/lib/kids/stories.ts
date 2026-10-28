@@ -1,7 +1,10 @@
+import { GREAT_LEAP } from "./stories/hanuman";
 import { MOUNTAIN_UMBRELLA } from "./stories/krishna";
+import { BLADE_OF_GRASS } from "./stories/parvati";
+import { BIG_QUESTION } from "./stories/shiva";
 import type { Activity, AgeRange, Scene, Story } from "./types";
 
-export const STORIES: Story[] = [MOUNTAIN_UMBRELLA];
+export const STORIES: Story[] = [MOUNTAIN_UMBRELLA, BIG_QUESTION, GREAT_LEAP, BLADE_OF_GRASS];
 
 export function getStory(id: string): Story | undefined {
   return STORIES.find((s) => s.id === id);

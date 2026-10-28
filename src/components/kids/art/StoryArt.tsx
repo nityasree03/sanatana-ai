@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
 import { KRISHNA_ICONS, KRISHNA_SCENES } from "./krishnaArt";
+import { MORE_ICONS, MORE_SCENES } from "./moreArt";
 
-const SCENES: Record<string, () => ReactNode> = { ...KRISHNA_SCENES };
-const ICONS: Record<string, () => ReactNode> = { ...KRISHNA_ICONS };
+const SCENES: Record<string, () => ReactNode> = { ...KRISHNA_SCENES, ...MORE_SCENES };
+const ICONS: Record<string, () => ReactNode> = { ...KRISHNA_ICONS, ...MORE_ICONS };
 
 export const ART_IDS = new Set([...Object.keys(SCENES), ...Object.keys(ICONS)]);
 

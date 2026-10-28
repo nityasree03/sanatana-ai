@@ -166,4 +166,26 @@ describe("Sanatana Kids", () => {
     expect(screen.getByRole("heading", { name: "Story time" })).toBeVisible();
     expect(out.spoken.length).toBe(1);
   });
+
+  for (const [age, name] of [
+    ["4-5", /Ages 4–5/],
+    ["6-9", /Ages 6–9/],
+    ["10-12", /Ages 10–12/],
+  ] as const)
+    it(`plays all four stories to the end for ${age}`, () => {
+      start({ age: name });
+      for (const title of [
+        "The Mountain Umbrella",
+        "Nachiketa's Big Question",
+        "Hanuman's Great Leap",
+        "Uma and the Piece of Straw",
+      ]) {
+        fireEvent.click(screen.getByRole("button", { name: `Read ${title}` }));
+        expect(screen.getByRole("heading", { level: 1, name: title })).toBeVisible();
+        for (let i = 0; i < 30 && screen.queryByRole("button", { name: /^(Next|Skip)/ }); i++)
+          fireEvent.click(screen.getByRole("button", { name: /^(Next|Skip)/ }));
+        expect(screen.getByText("The end")).toBeVisible();
+        fireEvent.click(screen.getByRole("button", { name: "Choose another story" }));
+      }
+    });
 });

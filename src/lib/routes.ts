@@ -168,7 +168,7 @@ export const ROUTES: readonly SiteRoute[] = [
     description:
       "Caregiver-guided talking storybooks with pictures, narration, questions and puzzles.",
     group: "Family",
-    status: "preview",
+    status: "ready",
     phase: 8,
   },
   {

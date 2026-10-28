@@ -99,3 +99,31 @@ for (const motion of ["no-preference", "reduce"] as const) {
     );
   });
 }
+
+for (const title of [
+  "Nachiketa's Big Question",
+  "Hanuman's Great Leap",
+  "Uma and the Piece of Straw",
+])
+  test(`Kids: ${title} (ages 10–12) passes accessibility scans`, async ({ page }) => {
+    await page.goto("/kids");
+    await page.evaluate(() =>
+      sessionStorage.setItem(
+        "sanatana-kids-session",
+        JSON.stringify({
+          age: "10-12",
+          narration: true,
+          rate: 0.9,
+          activities: true,
+          breakAfter: 0,
+        }),
+      ),
+    );
+    await page.reload();
+    await page.getByRole("button", { name: `Read ${title}` }).click();
+    await expect(page.getByText(/From the text:/)).toBeVisible();
+    await axe(page);
+    while (!(await page.getByText("Your turn", { exact: true }).isVisible()))
+      await page.getByRole("button", { name: /^Next/ }).click();
+    await axe(page);
+  });
