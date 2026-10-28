@@ -119,7 +119,7 @@ export const ROUTES: readonly SiteRoute[] = [
     title: "Wisdom for Generations",
     description: "The same teaching explained for a child (with a caregiver), a teen or an adult.",
     group: "Learn",
-    status: "planned",
+    status: "ready",
     phase: 8,
   },
   {
