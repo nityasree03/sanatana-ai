@@ -144,10 +144,19 @@ export default function AboutPage() {
           run entirely in your browser; your choices are not saved or sent anywhere.
         </p>
         <p>
-          Your browser stores only two small preferences on your device: your day/night theme (
+          Your browser stores two small preferences on your device: your day/night theme (
           <code className="text-sm">{STORAGE_KEYS.theme}</code>) and your last chosen companion (
           <code className="text-sm">{STORAGE_KEYS.companion}</code>). No accounts, no tracking, no
           ads.
+        </p>
+        <p>
+          <strong>My Dharma Journey</strong> (goals, Wisdom Tree, reflections and Sankalpas) saves
+          nothing until you turn saving on. Then it is stored only in this browser (
+          <code className="text-sm">sanatana-journey</code>), never on our server, and isn&apos;t
+          synced to other devices. You can export, import or delete it all in My data. Your goals
+          are sent to the AI only if you switch on &ldquo;Share my goals&rdquo; in a conversation,
+          and a reflection only if you choose &ldquo;Discuss with a companion&rdquo; and then press
+          Send. Calendar reminders are files you download; the site never sends notifications.
         </p>
         <p>
           <strong>Voice:</strong> the microphone only turns on when you press it, and the site never

@@ -14,7 +14,7 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 | 3 (M3) | Rights-cleared scripture collections, Python importer and validation, hybrid retrieval, Scripture Explorer                                              | DONE        |
 | 4 (M4) | Gemini provider adapter (server-only key), persona styles, grounded multi-turn chat, citations and abstention                                           | DONE        |
 | 5 (M5) | Companion handoff, Divine Council, Scripture Truth Lens, four Living Leela experiences                                                                  | DONE        |
-| 6 (M6) | Life Journey Memory, Wisdom Tree, Karma Reflection Mirror, Daily Sankalpa                                                                               | NOT STARTED |
+| 6 (M6) | Life Journey Memory, Wisdom Tree, Karma Reflection Mirror, Daily Sankalpa                                                                               | DONE        |
 | 7 (M7) | Dharma Lab, Scripture Learning Studio, Wisdom Knowledge Map, Shloka Practice Studio                                                                     | NOT STARTED |
 | 8 (M8) | Sanatana Kids with four Talking Storybooks, caregiver controls, age modes, Wisdom for Generations                                                       | NOT STARTED |
 | 9 (M9) | Evaluation, security and rights review, mobile/browser tests, Vercel deployment                                                                         | NOT STARTED |
@@ -29,10 +29,10 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 | 4   | Scripture Truth Lens                                            | (in chat, council, Dharma Lab) | DONE in chat and Council (verified passage · AI interpretation · AI suggestion); Dharma Lab in Phase 7 |
 | 5   | Scripture Explorer                                              | /scriptures                    | DONE (17 texts, 9,322 passages, Sanskrit where matched; keyword + meaning search on the server)        |
 | 6   | Living Leela (one per companion)                                | /living-leela                  | DONE (Krishna, Shiva, Hanuman, Parvati scenes; 31 moments, passages and paths tested)                  |
-| 7   | Life Journey Memory                                             | /my-journey                    | NOT STARTED                                                                                            |
-| 8   | Wisdom Tree                                                     | /my-journey                    | NOT STARTED                                                                                            |
-| 9   | Karma Reflection Mirror                                         | /karma-reflection              | NOT STARTED                                                                                            |
-| 10  | Daily Sankalpa                                                  | /daily-sankalpa                | NOT STARTED                                                                                            |
+| 7   | Life Journey Memory                                             | /my-journey                    | DONE (opt-in, browser-only goals; edit/delete/export; share per conversation)                          |
+| 8   | Wisdom Tree                                                     | /my-journey                    | DONE (save from chat, Council, Leela, Explorer; branches by theme; search, edit, delete)               |
+| 9   | Karma Reflection Mirror                                         | /karma-reflection              | DONE (five-part private journal; discuss in chat only on request; no scores)                           |
+| 10  | Daily Sankalpa                                                  | /daily-sankalpa                | DONE (once/daily/chosen days; done today; 7-day progress; pause; calendar file)                        |
 | 11  | Dharma Lab                                                      | /dharma-lab                    | NOT STARTED                                                                                            |
 | 12  | Scripture Learning Studio                                       | /scripture-learning            | NOT STARTED                                                                                            |
 | 13  | Wisdom Knowledge Map                                            | /wisdom-map                    | NOT STARTED                                                                                            |
@@ -41,6 +41,24 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 | 16  | Sanatana Kids / Talking Storybook (4 full stories)              | /kids                          | NOT STARTED                                                                                            |
 | 17  | Engineering Evaluation page                                     | /evaluation                    | NOT STARTED                                                                                            |
 | 18  | About / Privacy / Transparency pages                            | /about                         | NOT STARTED                                                                                            |
+
+## Phase 6 evidence (My Dharma Journey)
+
+- **Private store:** one browser-only, Zod-validated entry, written only after opt-in; export,
+  import (merge/replace), delete everything, turn off (keep read-only or delete); damaged data
+  reported, never overwritten.
+- **Life Journey Memory:** goals on /my-journey; "Remember as a goal" from your own chat messages
+  (editable, consent first); "Share my goals" per conversation, off by default, reset on switching
+  companion.
+- **Wisdom Tree:** "Save to Wisdom Tree" on passages in chat, Council, Living Leela and the
+  Scripture Explorer; SVG tree (branch per theme, keyboard leaves) plus searchable list.
+- **Karma Reflection Mirror:** five-part journal, no scores; "Discuss with a companion" via the chat
+  box (sessionStorage, never sent automatically); next step to Sankalpa.
+- **Daily Sankalpa:** once/daily/chosen days, today checklist, gentle 7-day progress, pause/resume,
+  .ics calendar reminders.
+- Tests: 179 unit, 101 browser (+1 skip), 28 Python; axe-clean on all new pages. Fixes found on the
+  way: Next.js build rule for "today", tab links on client navigation, "Label in Name" for save and
+  card buttons, `zod` declared as a dependency.
 
 ## Phase 5 evidence (interaction features)
 

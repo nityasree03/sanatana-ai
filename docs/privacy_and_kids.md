@@ -7,6 +7,26 @@
 - Saved journal or reflection text is never sent to an AI without a user action and a clear notice.
 - No cross-device sync is promised (data stays in one browser).
 
+### How Phase 6 implements this
+
+- **One store, off by default:** goals, Wisdom Tree leaves, reflections and Sankalpas live in one
+  localStorage entry (`sanatana-journey`). Nothing is written until the person presses "Turn on
+  saving on this device" (or confirms the same consent text inside a save dialog). The consent
+  explains: browser-only, not synced, erased by private browsing or clearing browser data, visible
+  to anyone using the same browser profile, never sent to an AI without a choice.
+- **Control:** My data exports everything to a JSON file, imports it (merge or replace; invalid
+  files are rejected without changes) and deletes everything. Turning saving off offers "keep
+  read-only" or "delete".
+- **Goals and the AI:** sent only while "Share my N saved goals with <companion> in this
+  conversation" is ticked. It is off by default, resets when switching companion, and says that
+  the goals go to Google Gemini.
+- **Reflections and the AI:** "Discuss with a companion" shows exactly what will go in the chat box,
+  passes it through this tab's sessionStorage (never the URL or history), and nothing is sent until
+  the person presses Send. The draft is removed after it is placed in the box.
+- **No profiling or scores:** the site never derives anything from saved text, and the Reflection
+  Mirror and Daily Sankalpa show no karma scores, points or streaks.
+- **Reminders:** calendar files (.ics) the person downloads; no notification permission is asked.
+
 ## Voice
 
 - The microphone only starts when the person presses it; nothing is recorded or stored by the site.

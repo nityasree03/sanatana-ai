@@ -110,3 +110,26 @@ Browser (ChatScreen)  ──POST /api/chat { companion, messages[≤20] }──�
 - **Living Leela** (`src/lib/leela/scenes.ts`, `LeelaPlayer`): static scene graphs, no AI. Each
   moment has a hand-written retelling and the passage ids it summarises; pages are prerendered and
   only the passages a scene uses are sent to the browser.
+
+## Phase 6: My Dharma Journey (browser-only personal data)
+
+```
+src/lib/journey/
+  schema.ts     Zod schemas: Goal, Leaf, Reflection, Sankalpa (+ Schedule), Journey, Export
+  store.ts      load/save localStorage "sanatana-journey"; enable/disable/delete; add/update/remove;
+                export/import (merge by id, newer wins | replace); change events across tabs
+  useJourney.ts useSyncExternalStore hook (ready=false during server render: no flash)
+  handoff.ts    private chat drafts via sessionStorage (peek while rendering, clear after mount)
+  reflection.ts five fields + chat message builder (fits one 2,000-character message)
+  sankalpa.ts   planned days, 7-day progress, toggle done, iCalendar builder (escape + fold)
+src/components/journey/
+  JourneyGate   loading / damaged / consent / read-only wrapper shared by the three pages
+  MyJourneyScreen (/my-journey tabs: Goals, Wisdom Tree, My data), GoalsPanel, MyDataPanel,
+  WisdomTree (SVG branches + keyboard leaves + list), SaveLeafButton (used by ThreadPassage and
+  VerseCard), RememberGoalDialog (chat), ReflectionMirror, DailySankalpa, ScheduleFields
+src/components/ui/Dialog.tsx  shared accessible modal (focus trap, Escape, focus return)
+```
+
+- No server storage, no accounts. The only Phase 6 server change is the optional `goals` field in
+  `/api/chat`.
+- Dates use the person's local calendar ("today" is computed in the browser only).

@@ -37,3 +37,16 @@
 - The test server raises both limits through environment variables only; production defaults are
   unchanged.
 - Living Leela pages are static; unknown scene URLs return 404 in `src/proxy.ts`.
+
+## Phase 6 (personal data in the browser)
+
+- The journey store is validated with Zod on every load and import (lengths, dates, schedule
+  shapes, item counts). Leaf links must start with `/scriptures/`, so an imported file cannot inject
+  off-site or `javascript:` links. Unreadable data is reported and left untouched until the person
+  deletes it.
+- Personal text is rendered as plain text (React escaping); nothing uses `dangerouslySetInnerHTML`.
+- `POST /api/chat` accepts optional `goals` (max 10, each ≤300 characters), framed in the prompt as
+  background the person chose to share, never instructions.
+- Private drafts move between pages via sessionStorage, not query strings, so they don't reach
+  server logs or browser history.
+- `zod` is now a declared dependency (it had only been present transitively).

@@ -172,12 +172,32 @@ for saying the library does not include a text (c15).
 - **Truth Lens:** the chat evaluation now also checks that every grounded citation has a separate
   interpretation and reflection.
 
+## Phase 6 checks (memory and journey)
+
+The blueprint's memory tests (save, delete, export, opt-out, clear, switch companion) are covered:
+
+- **Save / opt-in:** nothing is written before consent (unit and browser tests check that the
+  storage key is absent); saving works from the pages and from chat and passage dialogs.
+- **Edit / delete:** goals, leaves, reflections and Sankalpas, each with a confirmation.
+- **Export / import:** round trip, merge (newer wins, local items kept), replace, invalid files and
+  off-site links rejected without changes.
+- **Opt-out / clear:** turning saving off (keep read-only or delete) and "Delete everything".
+- **Switch companion:** goal sharing turns off when the companion changes; goals are never sent
+  unless ticked.
+- **Damaged data** is reported and not overwritten.
+- **Privacy of drafts:** reflection text reaches the chat box via sessionStorage, not the URL, and is
+  not sent automatically.
+- **No scores:** tests assert the Reflection Mirror and Daily Sankalpa contain no scores or streaks.
+- **Calendar files:** RFC 5545 escaping, 75-octet folding (multi-byte safe), weekly RRULE, alarm.
+- **Accessibility:** axe scans with no violations on /my-journey (consent, goals, tree),
+  /karma-reflection and /daily-sankalpa, desktop and phone.
+
 ## Current results
 
 | Check                                         | Result                                                                                                                                                                         |
 | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Unit tests (Vitest)                           | 138/138 pass (Phase 5)                                                                                                                                                         |
-| Browser tests (Playwright, desktop + Pixel 7) | 87/87 pass; 1 phone-only test skipped on desktop                                                                                                                               |
+| Unit tests (Vitest)                           | 179/179 pass (Phase 6)                                                                                                                                                         |
+| Browser tests (Playwright, desktop + Pixel 7) | 101/101 pass; 1 phone-only test skipped on desktop                                                                                                                             |
 | Automated accessibility (axe, WCAG 2 A/AA)    | 0 violations on all 17 routes, both viewports; chat scanned in night theme and while speaking; scripture search results, chapter and text pages scanned                        |
 | Avatar states                                 | idle, listening, thinking, speaking and error verified for all four companions (screenshots); animation stops with reduced motion                                              |
 | Voice                                         | Tested with a controllable fake microphone and voice in Chromium. Real microphones and installed voices vary by browser and device; real-device testing is planned for Phase 9 |
