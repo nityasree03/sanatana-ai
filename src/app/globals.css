@@ -341,3 +341,18 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Storybook rain falls gently, only when motion is welcome. */
+@media (prefers-reduced-motion: no-preference) {
+  .kids-rain {
+    animation: kids-rain 0.9s linear infinite;
+  }
+}
+@keyframes kids-rain {
+  from {
+    transform: translateY(-14px);
+  }
+  to {
+    transform: translateY(14px);
+  }
+}
