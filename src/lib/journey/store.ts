@@ -9,6 +9,7 @@ import {
   type Reflection,
   type Sankalpa,
 } from "./schema";
+import type { DecisionMap } from "@/lib/dharma/model";
 
 /**
  * The browser-only journey store. Nothing is written until the person opts in (enabled = true).
@@ -19,14 +20,16 @@ import {
 export const JOURNEY_KEY = "sanatana-journey";
 const CHANGE_EVENT = "sanatana-journey-change";
 
-export type Collection = "goals" | "leaves" | "reflections" | "sankalpas";
+export type Collection = "goals" | "leaves" | "reflections" | "sankalpas" | "decisions";
 type ItemOf<C extends Collection> = C extends "goals"
   ? Goal
   : C extends "leaves"
     ? Leaf
     : C extends "reflections"
       ? Reflection
-      : Sankalpa;
+      : C extends "sankalpas"
+        ? Sankalpa
+        : DecisionMap;
 
 export interface LoadResult {
   journey: Journey;
@@ -163,6 +166,13 @@ export function removeItem(collection: Collection, itemId: string) {
   });
 }
 
+/** Save a Dharma Lab map under its own id (insert or replace). */
+export function upsertDecision(map: DecisionMap) {
+  const j = requireEnabled();
+  const others = j.decisions.filter((d) => d.id !== map.id);
+  write({ ...j, decisions: [map, ...others] });
+}
+
 /* ---------------- Export / import ---------------- */
 
 export function exportJourney(j: Journey = loadJourney().journey): JourneyExport {
@@ -178,6 +188,7 @@ export interface ImportSummary {
   leaves: number;
   reflections: number;
   sankalpas: number;
+  decisions: number;
 }
 
 /**
@@ -208,11 +219,13 @@ export function importJourney(text: string, mode: ImportMode): ImportSummary {
     leaves: merge(j.leaves, d.leaves),
     reflections: merge(j.reflections, d.reflections),
     sankalpas: merge(j.sankalpas, d.sankalpas),
+    decisions: merge(j.decisions, d.decisions),
   });
   return {
     goals: d.goals.length,
     leaves: d.leaves.length,
     reflections: d.reflections.length,
     sankalpas: d.sankalpas.length,
+    decisions: d.decisions.length,
   };
 }

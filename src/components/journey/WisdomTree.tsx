@@ -31,6 +31,7 @@ const SOURCE_LABEL: Record<Leaf["source"], string> = {
   council: "the Divine Council",
   leela: "Living Leela",
   explorer: "the Scripture Explorer",
+  "dharma-lab": "the Dharma Lab",
 };
 
 export interface Branch {

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { COMPANIONS, type CompanionId } from "@/lib/companions";
+import { DecisionMapSchema } from "@/lib/dharma/model";
 
 /**
  * Everything a person chooses to save on "My Dharma Journey" pages. It lives only in this browser
@@ -28,7 +29,7 @@ export const GoalSchema = z.object({
   updatedAt: stamp,
 });
 
-export const LeafSource = z.enum(["chat", "council", "leela", "explorer"]);
+export const LeafSource = z.enum(["chat", "council", "leela", "explorer", "dharma-lab"]);
 
 export const LeafSchema = z.object({
   id,
@@ -87,6 +88,8 @@ export const JourneySchema = z.object({
   leaves: z.array(LeafSchema).max(1000).default([]),
   reflections: z.array(ReflectionSchema).max(2000).default([]),
   sankalpas: z.array(SankalpaSchema).max(200).default([]),
+  /** Dharma Lab decision maps the person chose to save. */
+  decisions: z.array(DecisionMapSchema).max(100).default([]),
 });
 
 /** The file format for export/import. */
@@ -113,6 +116,7 @@ export const EMPTY_JOURNEY: Journey = {
   leaves: [],
   reflections: [],
   sankalpas: [],
+  decisions: [],
 };
 
 /** Suggested Wisdom Tree branches; people can also type their own. */

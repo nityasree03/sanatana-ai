@@ -129,7 +129,7 @@ export const ROUTES: readonly SiteRoute[] = [
     description:
       "Map a real dilemma into options and trade-offs, with cited perspectives. The choice stays yours.",
     group: "Reflect",
-    status: "planned",
+    status: "ready",
     phase: 7,
   },
   {

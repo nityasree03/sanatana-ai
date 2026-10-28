@@ -14,6 +14,21 @@ export function createPracticeProvider(): AiProvider {
       const last = req.turns.at(-1)?.text ?? "";
       const props = (req.jsonSchema as { properties?: Record<string, unknown> } | undefined)
         ?.properties;
+      if (props && "options" in props) {
+        // Dharma Lab: suggested paths.
+        const path = (n: number) => ({
+          title: `Practice path ${n}`,
+          summary: "Practice mode: a real AI would describe a path here.",
+          upsides: ["A possible upside"],
+          downsides: ["A possible downside"],
+          unknowns: ["Something to find out"],
+          firstStep: `First step for path ${n}`,
+        });
+        return {
+          model: "practice",
+          text: JSON.stringify({ options: [path(1), path(2), path(3)] }),
+        };
+      }
       if (props && "agree" in props) {
         // Divine Council comparison.
         return {

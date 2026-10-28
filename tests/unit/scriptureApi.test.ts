@@ -31,7 +31,8 @@ describe("POST /api/scripture/search", () => {
     expect((await POST(req({ query: "soul", workId: "made-up" }))).status).toBe(400);
     expect((await POST(req("{not json"))).status).toBe(400);
   });
-  it("rate-limits a flood from one address", async () => {
+  // Runs 61 real searches; give it room when the whole suite runs in parallel.
+  it("rate-limits a flood from one address", { timeout: 20_000 }, async () => {
     let last = 200;
     for (let i = 0; i < 61; i++) last = (await POST(req({ query: "soul" }, "10.9.9.9"))).status;
     expect(last).toBe(429);

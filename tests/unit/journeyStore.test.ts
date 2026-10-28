@@ -78,6 +78,7 @@ describe("journey store", () => {
       leaves: 0,
       reflections: 0,
       sankalpas: 1,
+      decisions: 0,
     });
     expect(loadJourney().journey.goals[0].id).toBe(g.id);
 

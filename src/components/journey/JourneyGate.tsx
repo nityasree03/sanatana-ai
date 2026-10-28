@@ -8,7 +8,14 @@ import { useJourney } from "@/lib/journey/useJourney";
 import { JourneyConsent } from "./JourneyConsent";
 
 function hasData(j: Journey) {
-  return j.goals.length + j.leaves.length + j.reflections.length + j.sankalpas.length > 0;
+  return (
+    j.goals.length +
+      j.leaves.length +
+      j.reflections.length +
+      j.sankalpas.length +
+      j.decisions.length >
+    0
+  );
 }
 
 /**

@@ -41,6 +41,7 @@ export function MyDataPanel({ journey }: { journey: Journey }) {
     plural(journey.leaves.length, "Wisdom Tree leaf").replace("leafs", "leaves"),
     plural(journey.reflections.length, "reflection"),
     plural(journey.sankalpas.length, "sankalpa"),
+    plural(journey.decisions.length, "Dharma Lab map"),
   ].join(" · ");
 
   async function onImport(file: File | undefined) {
@@ -50,7 +51,7 @@ export function MyDataPanel({ journey }: { journey: Journey }) {
     try {
       const s = importJourney(await file.text(), mode);
       setStatus(
-        `Imported ${plural(s.goals, "goal")}, ${plural(s.leaves, "leaf").replace("leafs", "leaves")}, ${plural(s.reflections, "reflection")} and ${plural(s.sankalpas, "sankalpa")} (${mode === "merge" ? "merged with what was here" : "replacing what was here"}).`,
+        `Imported ${plural(s.goals, "goal")}, ${plural(s.leaves, "leaf").replace("leafs", "leaves")}, ${plural(s.reflections, "reflection")}, ${plural(s.sankalpas, "sankalpa")} and ${plural(s.decisions, "Dharma Lab map")} (${mode === "merge" ? "merged with what was here" : "replacing what was here"}).`,
       );
     } catch (e) {
       setError((e as Error).message);
