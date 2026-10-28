@@ -109,7 +109,8 @@ export function ChatScreen({
       greeting: true,
     },
   ]);
-  const [draft, setDraft] = useState("");
+  // A question handed over from another page (e.g. Living Leela) is placed in the box, never sent.
+  const [draft, setDraft] = useState(() => (searchParams.get("ask") ?? "").slice(0, 500));
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [thinking, setThinking] = useState(false);

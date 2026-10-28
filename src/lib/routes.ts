@@ -73,7 +73,7 @@ export const ROUTES: readonly SiteRoute[] = [
     description:
       "Explore a source-grounded scene with each companion. Your choices change what you explore, never the original story.",
     group: "Talk",
-    status: "planned",
+    status: "ready",
     phase: 5,
   },
   {

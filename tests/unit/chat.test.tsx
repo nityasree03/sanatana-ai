@@ -81,6 +81,13 @@ describe("ChatScreen", () => {
     expect(screen.getByRole("heading", { name: "Chat with Hanuman" })).toBeInTheDocument();
   });
 
+  it("puts a question handed over in the URL into the box without sending it", () => {
+    query = "companion=shiva&ask=What%20is%20the%20good%3F";
+    render(<ChatScreen />);
+    expect(input()).toHaveValue("What is the good?");
+    expect(posted).toEqual([]);
+  });
+
   it("ignores unknown companions in the URL and falls back to Krishna", () => {
     query = "companion=unknown";
     render(<ChatScreen />);

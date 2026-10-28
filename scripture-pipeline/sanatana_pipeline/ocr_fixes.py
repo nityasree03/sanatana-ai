@@ -19,6 +19,18 @@ UNREADABLE = "[a few words are unreadable in the scanned source]"
 
 # passage id -> list of (wrong, right)
 FIXES: dict[str, list[tuple[str, str]]] = {
+    # Typos in the source transcriptions (found while writing the Living Leela scenes).
+    "bg-2.11": [("not be griev ed for", "not be grieved for")],
+    "katha-1.1.1": [("Vahasrava, being desirous", "Vajasrava, being desirous")],
+    "katha-1.1.2": [("yet resected:", "yet reflected:")],
+    "katha-1.1.16": [("The great-soured Yama", "The great-souled Yama")],
+    "kumara-5.265": [("Hound the dear vision", "Round the dear vision")],
+    "kumara-5.407": [(re.compile(r"\s*Canto Sixth\.\s*$"), "")],
+    "hume-isa-18": [
+        ("prosperity (rat) lead us", "prosperity (rai) lead us"),
+        ("sin (etias)! 3 Most", "sin (enas)! Most"),
+        ("render! 4", "render!"),
+    ],
     "bg-telang-15.1": [("the A7andas are", "the Khandas are")],
     "ram-dutt-4.43.3": [("ye shou1d,having", "ye should, having")],
     "ram-dutt-7.20.1": [("hundreds o£ ailments", "hundreds of ailments")],
