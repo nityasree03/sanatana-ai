@@ -53,3 +53,40 @@ test("save a verse from the Scripture Explorer and find it on the Wisdom Tree", 
   );
   expect(await axe(page)).toEqual([]);
 });
+
+test("Karma Reflection Mirror: write, discuss in chat (not sent), make a Sankalpa", async ({
+  page,
+}) => {
+  await page.goto("/karma-reflection");
+  await page.getByRole("button", { name: "Turn on saving on this device" }).click();
+  await page.getByRole("textbox", { name: "My intention" }).fill("Help my sister study");
+  await page.getByRole("textbox", { name: "My next step" }).fill("Rest before helping");
+  await page.getByRole("button", { name: "Save reflection" }).click();
+  await expect(page.getByRole("article", { name: /Reflection of/ })).toBeVisible();
+  expect(await axe(page)).toEqual([]);
+
+  await page.getByRole("button", { name: "Make my next step a Sankalpa" }).click();
+  await page.getByRole("dialog").getByRole("button", { name: "Add Sankalpa" }).click();
+  await page.getByRole("dialog").getByRole("button", { name: "Done" }).click();
+
+  await page.getByRole("button", { name: "Discuss with a companion" }).click();
+  await page.getByRole("dialog").getByRole("radio", { name: "Shiva" }).check();
+  await page.getByRole("dialog").getByRole("button", { name: "Open the chat" }).click();
+  await expect(page).toHaveURL(/\/chat\?companion=shiva&draft=1$/);
+  await expect(page.getByRole("textbox", { name: "Message Shiva" })).toHaveValue(
+    /My intention: Help my sister study/,
+  );
+  await expect(page.getByRole("region", { name: /Wisdom thread/ })).toHaveCount(0); // nothing sent
+
+  await page.goto("/daily-sankalpa");
+  const today = page.getByRole("region", { name: /^Today/ });
+  await today.getByRole("checkbox", { name: "Rest before helping" }).check();
+  await expect(page.getByText(/Kept on 1 of 1 planned day this past week/)).toBeVisible();
+  expect(await axe(page)).toEqual([]);
+  await page.reload();
+  await expect(
+    page
+      .getByRole("region", { name: /^Today/ })
+      .getByRole("checkbox", { name: "Rest before helping" }),
+  ).toBeChecked();
+});

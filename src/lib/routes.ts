@@ -139,7 +139,7 @@ export const ROUTES: readonly SiteRoute[] = [
     description:
       "Opt-in goal memory and a Wisdom Tree of teachings you choose to save, kept in your browser.",
     group: "Reflect",
-    status: "planned",
+    status: "ready",
     phase: 6,
   },
   {
@@ -149,7 +149,7 @@ export const ROUTES: readonly SiteRoute[] = [
     description:
       "A private journal for intention, action, outcome, learning and next step. No scores.",
     group: "Reflect",
-    status: "planned",
+    status: "ready",
     phase: 6,
   },
   {
@@ -158,7 +158,7 @@ export const ROUTES: readonly SiteRoute[] = [
     title: "Daily Sankalpa",
     description: "Set optional daily intentions and track, pause or delete them.",
     group: "Reflect",
-    status: "planned",
+    status: "ready",
     phase: 6,
   },
   {

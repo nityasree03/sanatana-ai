@@ -295,15 +295,17 @@ function ReflectionCard({ r, readOnly }: { r: Reflection; readOnly: boolean }) {
                     type="button"
                     className={buttonSecondary}
                     onClick={() => setEditing(true)}
+                    aria-label={`Edit ${heading}`}
                   >
-                    Edit<span className="sr-only"> {heading}</span>
+                    Edit
                   </button>
                   <button
                     type="button"
                     className={buttonDanger}
                     onClick={() => setDialog("delete")}
+                    aria-label={`Delete ${heading}`}
                   >
-                    Delete<span className="sr-only"> {heading}</span>
+                    Delete
                   </button>
                 </>
               )}
