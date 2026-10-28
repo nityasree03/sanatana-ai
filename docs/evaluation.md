@@ -56,15 +56,38 @@ What this shows:
 - Next step (Phase 4 decision): test a stronger embedding model, or query rewriting by the LLM,
   against this same set before grounded chat relies on meaning search.
 
+### After Phase 3b (17 texts, 9,321 passages)
+
+The answer key was extended to v1.2.0 by reading the top 5 of every mode again (161 passages from
+the new texts; 33 relevant ones added) and adding Hume's translations of verses already labelled
+(18, checked by reading both). Same 24 questions, same metrics.
+
+| Questions   | Mode    | Recall@5 | Hit@5 | MRR@10 |
+| ----------- | ------- | -------- | ----- | ------ |
+| all 24      | keyword | 0.44     | 0.75  | 0.65   |
+| all 24      | meaning | 0.32     | 0.67  | 0.54   |
+| all 24      | hybrid  | 0.39     | 0.75  | 0.66   |
+| 10 everyday | keyword | 0.34     | 0.50  | 0.43   |
+| 10 everyday | hybrid  | 0.31     | 0.60  | 0.47   |
+| 14 topic    | keyword | 0.51     | 0.93  | 0.81   |
+| 14 topic    | hybrid  | 0.44     | 0.86  | 0.79   |
+
+- Topic questions held up (keyword Hit@5 0.93 before and after).
+- Everyday questions got worse (keyword Hit@5 0.70 → 0.50): with seven times more text, long
+  narrative passages (Ramayana dialogue, Ramcharitmanas) that share common words crowd the top 5.
+- Phase 4 should improve ranking before grounded chat relies on it: e.g. favour the chosen
+  companion's texts, let the AI rewrite an everyday question into scripture terms, or test a
+  stronger embedding model, each measured on this set.
+
 ## Current results
 
 | Check                                         | Result                                                                                                                                                                         |
 | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Unit tests (Vitest)                           | 51/51 pass (Phase 3)                                                                                                                                                           |
-| Browser tests (Playwright, desktop + Pixel 7) | 79/79 pass; 1 phone-only test skipped on desktop                                                                                                                               |
+| Unit tests (Vitest)                           | 52/52 pass (Phase 3b)                                                                                                                                                          |
+| Browser tests (Playwright, desktop + Pixel 7) | 85/85 pass; 1 phone-only test skipped on desktop                                                                                                                               |
 | Automated accessibility (axe, WCAG 2 A/AA)    | 0 violations on all 17 routes, both viewports; chat scanned in night theme and while speaking; scripture search results, chapter and text pages scanned                        |
 | Avatar states                                 | idle, listening, thinking, speaking and error verified for all four companions (screenshots); animation stops with reduced motion                                              |
 | Voice                                         | Tested with a controllable fake microphone and voice in Chromium. Real microphones and installed voices vary by browser and device; real-device testing is planned for Phase 9 |
-| Python tests (pytest)                         | 22/22 pass                                                                                                                                                                     |
+| Python tests (pytest)                         | 25/25 pass                                                                                                                                                                     |
 
 Automated scans do not replace manual screen-reader testing, which is planned for Phase 9.

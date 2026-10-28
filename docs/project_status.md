@@ -27,7 +27,7 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 | 2   | Companion handoff with shared-context choice                    | /chat                          | NOT STARTED                                                                                                          |
 | 3   | Divine Council                                                  | /divine-council                | NOT STARTED                                                                                                          |
 | 4   | Scripture Truth Lens                                            | (in chat, council, Dharma Lab) | NOT STARTED                                                                                                          |
-| 5   | Scripture Explorer                                              | /scriptures                    | DONE (7 texts, 1341 passages; keyword + experimental meaning search)                                                 |
+| 5   | Scripture Explorer                                              | /scriptures                    | DONE (17 texts, 9,321 passages, Sanskrit where matched; keyword + experimental meaning search)                       |
 | 6   | Living Leela (one per companion)                                | /living-leela                  | NOT STARTED                                                                                                          |
 | 7   | Life Journey Memory                                             | /my-journey                    | NOT STARTED                                                                                                          |
 | 8   | Wisdom Tree                                                     | /my-journey                    | NOT STARTED                                                                                                          |
@@ -41,6 +41,23 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 | 16  | Sanatana Kids / Talking Storybook (4 full stories)              | /kids                          | NOT STARTED                                                                                                          |
 | 17  | Engineering Evaluation page                                     | /evaluation                    | NOT STARTED                                                                                                          |
 | 18  | About / Privacy / Transparency pages                            | /about                         | NOT STARTED                                                                                                          |
+
+## Phase 3b evidence (more translations)
+
+- 10 more public-domain sources: Telang and Arnold Gitas, Ganguli's Mahabharata (Krishna's peace
+  mission, the Gita, Shiva's thousand names), Dutt's Vishnu Purana and complete Ramayana, Growse's
+  Ramcharitmanas, Hume's 13 Upanishads (fills the 7 Svetasvatara verses Müller's scan lacked),
+  Griffith's Kumarasambhava, Pargiter's Devi Mahatmya, Sastry's Lalita Sahasranama.
+- Sanskrit from Sanskrit Wikisource for 472 Upanishad verses and the Devi Mahatmya, paired only
+  where verse counts agree (a mismatch in Kena 1 was caught and left unpaired).
+- Partial work found in the workspace (made outside this conversation) was reviewed and fixed:
+  a 14,800-word Ramcharitmanas passage, leaked page headers and footnotes, dropped verse lines in
+  the Devi Mahatmya, OCR name damage in Telang and Lalita.
+- Texts are grouped by companion; long texts prerender their first 40 chapters and render the rest
+  on first visit. Hanuman Chalisa not included (no verifiable free source or free translation).
+- Evaluation: topic questions unchanged, everyday questions worse with the larger library
+  (docs/evaluation.md) — input for Phase 4 ranking work.
+- Checks: 52 unit, 25 Python, 85 browser tests (+1 phone-only skip).
 
 ## Phase 3 evidence
 

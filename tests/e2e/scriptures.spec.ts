@@ -16,7 +16,7 @@ test("keyword search finds a verse and links to it in its chapter", async ({ pag
   await expect(await axe(page)).toEqual([]);
 
   await first.getByRole("heading").getByRole("link").click();
-  await expect(page).toHaveURL(/\/scriptures\/valmiki-ramayana\/\d+#ram-5\./);
+  await expect(page).toHaveURL(/\/scriptures\/(valmiki-ramayana|ramayana-dutt)\/\d+#ram-/);
   const id = new URL(page.url()).hash.slice(1);
   // Next keeps the previous page hidden in the DOM after client navigation (Cache Components),
   // so check the visible copy and that the browser scrolled to it.
@@ -60,10 +60,32 @@ test("a work page lists its chapters and sources", async ({ page }) => {
   await expect(await axe(page)).toEqual([]);
 });
 
+test("texts are grouped by companion and a later chapter of a long text renders on demand", async ({
+  page,
+}) => {
+  await page.goto("/scriptures");
+  for (const name of ["Krishna", "Shiva", "Hanuman", "Parvati"])
+    await expect(page.getByRole("heading", { level: 3, name, exact: true })).toBeVisible();
+  const res = await page.goto("/scriptures/ramayana-dutt/600");
+  expect(res?.status()).toBe(200);
+  await expect(page.locator("article").first()).toBeVisible();
+  await expect(await axe(page)).toEqual([]);
+});
+
+test("a new translation shows its Sanskrit original", async ({ page }) => {
+  await page.goto("/scriptures/devi-mahatmya/4");
+  const verse = page.locator("article").first();
+  await expect(verse.locator('[lang="sa"]')).toBeVisible();
+  await verse.getByText("Source and licence").click();
+  await expect(verse).toContainText("Pargiter");
+  await expect(await axe(page)).toEqual([]);
+});
+
 for (const path of [
   "/scriptures/nope",
   "/scriptures/bhagavad-gita/99",
   "/scriptures/bhagavad-gita/2/x",
+  "/scriptures/ramayana-dutt/654",
 ]) {
   test(`${path} is a real 404`, async ({ page }) => {
     const res = await page.goto(path);

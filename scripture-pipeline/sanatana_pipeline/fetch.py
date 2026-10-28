@@ -52,8 +52,10 @@ def fetch_all() -> dict:
                 data = _download(url)
                 if "archive.org/stream/" in url:
                     data = _unwrap_archive_stream(data)
+                if re.match(rb"\s*#(REDIRECT|\xe0\xa4\xaa\xe0\xa5\x81\xe0\xa4\xa8)", data, re.I):
+                    raise RuntimeError(f"{name}: the page is a redirect; register the target title instead")
                 path.write_bytes(data)
-                time.sleep(2)
+                time.sleep(4 if "wikisource" in url else 2)
             digest = hashlib.sha256(path.read_bytes()).hexdigest()
             manifest[name] = {"source": src.id, "url": url, "sha256": digest, "bytes": path.stat().st_size}
             print(f"{name:20s} {path.stat().st_size:>9,d} bytes  {digest[:12]}")

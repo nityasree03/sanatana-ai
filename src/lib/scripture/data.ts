@@ -22,6 +22,11 @@ export function getPassage(id: string): Passage | undefined {
   return byId.get(id);
 }
 
+/** Works where at least one passage shows its original-language text. */
+export const WORKS_WITH_ORIGINAL = new Set(
+  PASSAGES.filter((p) => p.original).map((p) => p.work_id),
+);
+
 export function getWork(id: string): Work | undefined {
   return WORKS.find((w) => w.id === id);
 }

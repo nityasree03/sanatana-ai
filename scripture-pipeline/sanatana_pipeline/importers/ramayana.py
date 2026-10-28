@@ -72,7 +72,7 @@ def import_ramayana(raw_dir: Path) -> list[Passage]:
                 Passage(
                     id=f"ram-5.{num}.{first}",
                     work_id="valmiki-ramayana",
-                    work="Valmiki Ramayana",
+                    work="Valmiki Ramayana: Sundara Kanda (Griffith)",
                     section=f"Book V (Sundar), Canto {num}: {title}",
                     reference=f"Ramayana V.{num}, lines {first}–{last}",
                     order=order,

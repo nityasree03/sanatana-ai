@@ -30,7 +30,8 @@ def clean_sanskrit(text: str) -> str:
 
 
 def to_iast(devanagari: str) -> str:
-    return sanscript.transliterate(devanagari, sanscript.DEVANAGARI, sanscript.IAST)
+    # The library writes candrabindu (ँ) as "~"; standard IAST uses m̐.
+    return sanscript.transliterate(devanagari, sanscript.DEVANAGARI, sanscript.IAST).replace("~", "m\u0310")
 
 
 DEV_DIGITS = str.maketrans("०१२३४५६७८९", "0123456789")

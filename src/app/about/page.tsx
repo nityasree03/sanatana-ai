@@ -106,12 +106,17 @@ export default function AboutPage() {
           <Link href="/scriptures" className="text-accent underline">
             Scripture Explorer
           </Link>{" "}
-          currently holds seven public-domain texts: the Bhagavad Gita (Sanskrit with Annie
-          Besant&apos;s 1922 translation), the Sundara Kanda of the Ramayana (Ralph Griffith,
-          1870s), the Isa, Katha and Kena Upanishads (Swami Paramananda, 1919), the Svetasvatara
-          Upanishad (Max Müller, 1884) and the Devi Gita (Swami Vijnanananda, 1921–23). These are
-          old translations, so their English can sound archaic, and two of them were cleaned up from
-          scanned pages; each verse card says exactly how its text was checked.
+          holds 17 public-domain texts and translations (over 9,000 passages), grouped by companion:
+          for Krishna, three translations of the Bhagavad Gita (Besant, Telang, Arnold), parts of
+          Ganguli&apos;s Mahabharata and the Vishnu Purana; for Shiva, the Upanishads (Hume,
+          Paramananda, Müller); for Hanuman, the complete Valmiki Ramayana (Dutt), Griffith&apos;s
+          Sundara Kanda and Tulsidas&apos;s Ramcharitmanas (Growse); for Parvati, the Devi Gita, the
+          Devi Mahatmya (Pargiter), the Lalita Sahasranama (Sastry) and Kalidasa&apos;s
+          Kumarasambhava (Griffith). Where a free Sanskrit text could be matched verse by verse, it
+          is shown too (from Sanskrit Wikisource). These are 19th- and early 20th-century
+          translations, so their English can sound archaic, and several were cleaned up from scanned
+          pages; each verse card says exactly how its text was checked. The Hanuman Chalisa is not
+          included yet: every English translation we found is recent and copyrighted.
         </p>
         <p>
           Sanskrit transliteration (IAST) is generated automatically from the Devanagari, not typed

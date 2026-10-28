@@ -125,11 +125,65 @@
     "source": "gita-sanskrit",
     "url": "https://raw.githubusercontent.com/gita/gita/main/data/verse.json"
   },
+  "growse.txt": {
+    "bytes": 1661195,
+    "sha256": "c574ca030f2f1299a1ae2408dcdcc590a7edcadd132459c3850c0b6c7872675f",
+    "source": "ramcharitmanas-growse",
+    "url": "https://archive.org/stream/rmyanaoftuls00tulauoft/rmyanaoftuls00tulauoft_djvu.txt"
+  },
+  "hume_a.txt": {
+    "bytes": 1291813,
+    "sha256": "ec0e1158460a6d8b547970f72308aa625009f5a08929fcf22bda742bfb96802b",
+    "source": "upanishads-hume",
+    "url": "https://archive.org/stream/thirteenprincipa00hume/thirteenprincipa00hume_djvu.txt"
+  },
+  "hume_b.txt": {
+    "bytes": 1293229,
+    "sha256": "ca3a1b43bb0f468409aab0cd795c966349aa289063150b94f2e31237ba848956",
+    "source": "upanishads-hume",
+    "url": "https://archive.org/stream/thirteenprincipa028442mbp/thirteenprincipa028442mbp_djvu.txt"
+  },
+  "lalita.txt": {
+    "bytes": 753708,
+    "sha256": "a72ff564a8a016d1c41f13dac186a3742d48b4802b811995edd898e1f5b484ca",
+    "source": "lalita-sastry",
+    "url": "https://archive.org/stream/pli.kerala.rare.25882/pli.kerala.rare.25882_djvu.txt"
+  },
+  "pargiter.txt": {
+    "bytes": 2062650,
+    "sha256": "be7b3cf2a298230fd8be48cafc14ccaffcedd55fbe0a711e2a15ef5301186365",
+    "source": "markandeya-pargiter",
+    "url": "https://archive.org/stream/cu31924022991974/cu31924022991974_djvu.txt"
+  },
+  "pg15475.txt": {
+    "bytes": 4050730,
+    "sha256": "135076505fc86930e9817858def7f1448d73d5dbf6000c841eafcc2e73f59eb3",
+    "source": "mahabharata-ganguli",
+    "url": "https://www.gutenberg.org/cache/epub/15475/pg15475.txt"
+  },
+  "pg15477.txt": {
+    "bytes": 2621948,
+    "sha256": "60de2a2f82f22247fdb72096c7ebbb01b63ad42770506c10f6d7c7a82868e437",
+    "source": "mahabharata-ganguli",
+    "url": "https://www.gutenberg.org/cache/epub/15477/pg15477.txt"
+  },
+  "pg2388.txt": {
+    "bytes": 147501,
+    "sha256": "85b22401a9d256179f9a2e407215eb516da9b8213f23c32e03d66709d839a9e0",
+    "source": "gita-arnold",
+    "url": "https://www.gutenberg.org/cache/epub/2388/pg2388.txt"
+  },
   "pg24869.txt": {
     "bytes": 2395956,
     "sha256": "4310b710a9c6942490bf8270a8a6620f314dcc2adf7b413833596ca9aaebca6f",
     "source": "ramayana-griffith",
     "url": "https://www.gutenberg.org/cache/epub/24869/pg24869.txt"
+  },
+  "pg31968.txt": {
+    "bytes": 151588,
+    "sha256": "e74eadfaa112e1dd0182bd6a026d6ef463c5909ef65ed1365a5259b4d4760488",
+    "source": "kumarasambhava-griffith",
+    "url": "https://www.gutenberg.org/cache/epub/31968/pg31968.txt"
   },
   "pg3283.txt": {
     "bytes": 125461,
@@ -137,10 +191,166 @@
     "source": "upanishads-paramananda",
     "url": "https://www.gutenberg.org/cache/epub/3283/pg3283.txt"
   },
+  "pg57265.txt": {
+    "bytes": 1021947,
+    "sha256": "7d3b9e1613d60dfacea39f2564243e943cf38703eadb7245d92337b238082034",
+    "source": "ramayana-dutt",
+    "url": "https://www.gutenberg.org/cache/epub/57265/pg57265.txt"
+  },
+  "pg57826.txt": {
+    "bytes": 1177505,
+    "sha256": "c3ef74a07ef0cf016eb0428deb76d6036d13be343c65225946471113a2da475b",
+    "source": "ramayana-dutt",
+    "url": "https://www.gutenberg.org/cache/epub/57826/pg57826.txt"
+  },
+  "pg60188.txt": {
+    "bytes": 882581,
+    "sha256": "8d1b8901823f5b5bd8b3207370991ddf95e5c76cb30ad5271aef835c9708464b",
+    "source": "ramayana-dutt",
+    "url": "https://www.gutenberg.org/cache/epub/60188/pg60188.txt"
+  },
+  "pg62496.txt": {
+    "bytes": 573393,
+    "sha256": "076d03a68387f8ccd43b0cc211829f017ef120746d7b0f68a401f1c6fb4b221d",
+    "source": "ramayana-dutt",
+    "url": "https://www.gutenberg.org/cache/epub/62496/pg62496.txt"
+  },
+  "pg66208.txt": {
+    "bytes": 917577,
+    "sha256": "924d8c109ddf87a26fab4025556be7b74dbf0c21534e253bfb4561f711956bb5",
+    "source": "vishnu-purana-dutt",
+    "url": "https://www.gutenberg.org/cache/epub/66208/pg66208.txt"
+  },
+  "sa_isa.txt": {
+    "bytes": 5521,
+    "sha256": "564acd3037f6585bfa98acb31fdd4e9e5234fc791e5009f75fea3bc0591e1a68",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%88%E0%A4%B6%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A4%E0%A5%8D?action=raw"
+  },
+  "sa_katha_1_1.txt": {
+    "bytes": 9684,
+    "sha256": "99554fd28e3f68f46227426a105de435db56746057d04cf6359b7f3d77896ee7",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%95%E0%A4%A0%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A4%E0%A5%8D/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A5%E0%A4%AE%E0%A5%8B%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF%E0%A4%83/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A5%E0%A4%AE%E0%A4%B5%E0%A4%B2%E0%A5%8D%E0%A4%B2%E0%A5%80?action=raw"
+  },
+  "sa_katha_1_2.txt": {
+    "bytes": 7922,
+    "sha256": "235b2771e76385ece7bcd7edb701a2ae7b1ea1293b048dad13be87d8742386ff",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%95%E0%A4%A0%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A4%E0%A5%8D/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A5%E0%A4%AE%E0%A5%8B%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF%E0%A4%83/%E0%A4%A6%E0%A5%8D%E0%A4%B5%E0%A4%BF%E0%A4%A4%E0%A5%80%E0%A4%AF%E0%A4%B5%E0%A4%B2%E0%A5%8D%E0%A4%B2%E0%A5%80?action=raw"
+  },
+  "sa_katha_1_3.txt": {
+    "bytes": 4799,
+    "sha256": "2bb56948b93a9c9a8da78466b65468a846458acd36fc348f7e584b16e3655052",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%95%E0%A4%A0%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A4%E0%A5%8D/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A5%E0%A4%AE%E0%A5%8B%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF%E0%A4%83/%E0%A4%A4%E0%A5%83%E0%A4%A4%E0%A5%80%E0%A4%AF%E0%A4%B5%E0%A4%B2%E0%A5%8D%E0%A4%B2%E0%A5%80?action=raw"
+  },
+  "sa_katha_2_1.txt": {
+    "bytes": 4294,
+    "sha256": "94e401e49737f72b948bf2f4d2dd86de6ec62f58a739f404d0ff2d4a5687a374",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%95%E0%A4%A0%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A4%E0%A5%8D/%E0%A4%A6%E0%A5%8D%E0%A4%B5%E0%A4%BF%E0%A4%A4%E0%A5%80%E0%A4%AF%E0%A5%8B%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF%E0%A4%83/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A5%E0%A4%AE%E0%A4%B5%E0%A4%B2%E0%A5%8D%E0%A4%B2%E0%A5%80?action=raw"
+  },
+  "sa_katha_2_2.txt": {
+    "bytes": 4649,
+    "sha256": "77ada15aeea331b1fd2176071ee63dc857458f6d3c4522af445325edad27c9e2",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%95%E0%A4%A0%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A4%E0%A5%8D/%E0%A4%A6%E0%A5%8D%E0%A4%B5%E0%A4%BF%E0%A4%A4%E0%A5%80%E0%A4%AF%E0%A5%8B%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF%E0%A4%83/%E0%A4%A6%E0%A5%8D%E0%A4%B5%E0%A4%BF%E0%A4%A4%E0%A5%80%E0%A4%AF%E0%A4%B5%E0%A4%B2%E0%A5%8D%E0%A4%B2%E0%A5%80?action=raw"
+  },
+  "sa_katha_2_3.txt": {
+    "bytes": 6011,
+    "sha256": "ec2e5b2c0b779d25e2e9d00caf3cbf01888625880721b5314c46d9221270f65f",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%95%E0%A4%A0%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A4%E0%A5%8D/%E0%A4%A6%E0%A5%8D%E0%A4%B5%E0%A4%BF%E0%A4%A4%E0%A5%80%E0%A4%AF%E0%A5%8B%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF%E0%A4%83/%E0%A4%A4%E0%A5%83%E0%A4%A4%E0%A5%80%E0%A4%AF%E0%A4%B5%E0%A4%B2%E0%A5%8D%E0%A4%B2%E0%A5%80?action=raw"
+  },
+  "sa_kena.txt": {
+    "bytes": 11163,
+    "sha256": "e139d6e2bc2b7d17ee15c5d69cd1a76b6e0bad63742063fa42268a4b1f915af0",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%95%E0%A5%87%E0%A4%A8%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A6%E0%A5%8D?action=raw"
+  },
+  "sa_mandukya.txt": {
+    "bytes": 4484,
+    "sha256": "d3706edaa68c61d1c73ed0f1c1d8fa3efe6317b62e0e261783437c97b42da982",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%AE%E0%A4%BE%E0%A4%A3%E0%A5%8D%E0%A4%A1%E0%A5%81%E0%A4%95%E0%A5%8D%E0%A4%AF%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A4%E0%A5%8D?action=raw"
+  },
+  "sa_markandeya_081-085.txt": {
+    "bytes": 84828,
+    "sha256": "c7fe701aedeedffde57a51b21aa4f8fec697a7922939fb59ffa985e22cc9b7ae",
+    "source": "markandeya-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%95%E0%A4%A3%E0%A5%8D%E0%A4%A1%E0%A5%87%E0%A4%AF%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3%E0%A4%AE%E0%A5%8D/%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF%E0%A4%83_%E0%A5%A6%E0%A5%AE%E0%A5%A7-%E0%A5%A6%E0%A5%AE%E0%A5%AB?action=raw"
+  },
+  "sa_markandeya_086-090.txt": {
+    "bytes": 45604,
+    "sha256": "4459b0ca01f9a4173f1a137bf7c64908afbf326565b0b3f2dd2d2f5f830850fe",
+    "source": "markandeya-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%95%E0%A4%A3%E0%A5%8D%E0%A4%A1%E0%A5%87%E0%A4%AF%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3%E0%A4%AE%E0%A5%8D/%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF%E0%A4%83_%E0%A5%A6%E0%A5%AE%E0%A5%AC-%E0%A5%A6%E0%A5%AF%E0%A5%A6?action=raw"
+  },
+  "sa_markandeya_091-093.txt": {
+    "bytes": 30643,
+    "sha256": "446fb91efc40b94d7b59aa1d5b3116dd665b79ec68044985a8953483c8721814",
+    "source": "markandeya-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%95%E0%A4%A3%E0%A5%8D%E0%A4%A1%E0%A5%87%E0%A4%AF%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3%E0%A4%AE%E0%A5%8D/%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF%E0%A4%83_%E0%A5%AF%E0%A5%A7-%E0%A5%AF%E0%A5%A9?action=raw"
+  },
+  "sa_mundaka.txt": {
+    "bytes": 24789,
+    "sha256": "e3de62dfb8c4b989868024e1bae341c4b0ad3234294d2a9caa7259b333935bf0",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%AE%E0%A5%81%E0%A4%A3%E0%A5%8D%E0%A4%A1%E0%A4%95%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A6%E0%A5%8D?action=raw"
+  },
+  "sa_prasna.txt": {
+    "bytes": 27721,
+    "sha256": "352a24cf9c419ae06daf5643f9d1519b7f5815ca3c3c436fc8a589bf76e3e63b",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B6%E0%A5%8D%E0%A4%A8_%E0%A4%89%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A6%E0%A5%8D?action=raw"
+  },
+  "sa_svet_1.txt": {
+    "bytes": 5977,
+    "sha256": "74cf2aa9a3d641906cfb27576aaba704db8e89a9cb1503f125973692b728c99f",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%B6%E0%A5%8D%E0%A4%B5%E0%A5%87%E0%A4%A4%E0%A4%BE%E0%A4%B6%E0%A5%8D%E0%A4%B5%E0%A4%A4%E0%A4%B0%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A4%E0%A5%8D/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A5%E0%A4%AE%E0%A4%83_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF%E0%A4%83?action=raw"
+  },
+  "sa_svet_2.txt": {
+    "bytes": 5224,
+    "sha256": "93e5bfe0349dbbb598e50ace45347dc07378ff6dcdb10aea2d29c17c7112d99b",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%B6%E0%A5%8D%E0%A4%B5%E0%A5%87%E0%A4%A4%E0%A4%BE%E0%A4%B6%E0%A5%8D%E0%A4%B5%E0%A4%A4%E0%A4%B0%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A4%E0%A5%8D/%E0%A4%A6%E0%A5%8D%E0%A4%B5%E0%A4%BF%E0%A4%A4%E0%A5%80%E0%A4%AF%E0%A4%83_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF%E0%A4%83?action=raw"
+  },
+  "sa_svet_3.txt": {
+    "bytes": 6140,
+    "sha256": "0b8e3fe96beadce08dabbd8e127fa8f1812e6ef9cb3774d3ecc06f419c1275b2",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%B6%E0%A5%8D%E0%A4%B5%E0%A5%87%E0%A4%A4%E0%A4%BE%E0%A4%B6%E0%A5%8D%E0%A4%B5%E0%A4%A4%E0%A4%B0%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A4%E0%A5%8D/%E0%A4%A4%E0%A5%83%E0%A4%A4%E0%A5%80%E0%A4%AF%E0%A4%83_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF%E0%A4%83?action=raw"
+  },
+  "sa_svet_4.txt": {
+    "bytes": 6930,
+    "sha256": "02f46fff4d989f1501ffc0f41f08b7515844d7f30a3b3b815a3692192c031ff2",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%B6%E0%A5%8D%E0%A4%B5%E0%A5%87%E0%A4%A4%E0%A4%BE%E0%A4%B6%E0%A5%8D%E0%A4%B5%E0%A4%A4%E0%A4%B0%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A4%E0%A5%8D/%E0%A4%9A%E0%A4%A4%E0%A5%81%E0%A4%B0%E0%A5%8D%E0%A4%A5%E0%A4%83_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF%E0%A4%83?action=raw"
+  },
+  "sa_svet_5.txt": {
+    "bytes": 4560,
+    "sha256": "b6c1a4ef4638353b17fcd63258040ef4c6d6702ae0c7f1307958562f32dd6938",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%B6%E0%A5%8D%E0%A4%B5%E0%A5%87%E0%A4%A4%E0%A4%BE%E0%A4%B6%E0%A5%8D%E0%A4%B5%E0%A4%A4%E0%A4%B0%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A4%E0%A5%8D/%E0%A4%AA%E0%A4%9E%E0%A5%8D%E0%A4%9A%E0%A4%AE%E0%A4%83_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF%E0%A4%83?action=raw"
+  },
+  "sa_svet_6.txt": {
+    "bytes": 7750,
+    "sha256": "6ad50f63d13ad8984beb6a19c6fef004714bf1a0df6a8ce342e4d1ec49acac16",
+    "source": "upanishads-sanskrit",
+    "url": "https://sa.wikisource.org/wiki/%E0%A4%B6%E0%A5%8D%E0%A4%B5%E0%A5%87%E0%A4%A4%E0%A4%BE%E0%A4%B6%E0%A5%8D%E0%A4%B5%E0%A4%A4%E0%A4%B0%E0%A5%8B%E0%A4%AA%E0%A4%A8%E0%A4%BF%E0%A4%B7%E0%A4%A4%E0%A5%8D/%E0%A4%B7%E0%A4%B7%E0%A5%8D%E0%A4%A0%E0%A4%83_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF%E0%A4%83?action=raw"
+  },
   "sbe15.txt": {
     "bytes": 732250,
     "sha256": "54239fc8f17c8e8ad8184a005f2fb1976e61156b8f3be7625cd7ea799e53904d",
     "source": "svetasvatara-muller",
     "url": "https://archive.org/stream/wg915/WG915-1884%20-The%20Sacred%20Books%20of%20East%20-%20Vol%2015%20of%2050%20-%20The%20Upanishads%20Part%202%20of%202_djvu.txt"
+  },
+  "telang.txt": {
+    "bytes": 1040120,
+    "sha256": "651eda8078e28a6a72b4ab3902dd32993b2f48104b6ebbbfb77a78a909ba25db",
+    "source": "gita-telang",
+    "url": "https://archive.org/stream/bhagavadgtwithsa00tela/bhagavadgtwithsa00tela_djvu.txt"
   }
 }

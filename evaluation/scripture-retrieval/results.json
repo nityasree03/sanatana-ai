@@ -1,8 +1,8 @@
 {
-  "ranAt": "2026-10-27T21:05:49.860Z",
-  "datasetVersion": "1.1.0",
+  "ranAt": "2026-10-28T00:36:52.202Z",
+  "datasetVersion": "1.2.0",
   "queries": 24,
-  "passages": 1341,
+  "passages": 9321,
   "model": "Xenova/all-MiniLM-L6-v2",
   "definitions": {
     "recallAt5": "share of a query's relevant passages (capped at 5) found in the top 5, averaged",
@@ -12,51 +12,51 @@
   "summary": {
     "all": {
       "keyword": {
-        "recallAt5": 0.47,
-        "hitAt5": 0.833,
-        "mrrAt10": 0.716
+        "recallAt5": 0.44,
+        "hitAt5": 0.75,
+        "mrrAt10": 0.654
       },
       "meaning": {
-        "recallAt5": 0.35,
+        "recallAt5": 0.32,
         "hitAt5": 0.667,
-        "mrrAt10": 0.595
+        "mrrAt10": 0.543
       },
       "hybrid": {
-        "recallAt5": 0.449,
-        "hitAt5": 0.792,
-        "mrrAt10": 0.702
+        "recallAt5": 0.387,
+        "hitAt5": 0.75,
+        "mrrAt10": 0.656
       }
     },
     "life": {
       "keyword": {
-        "recallAt5": 0.423,
-        "hitAt5": 0.7,
-        "mrrAt10": 0.533
+        "recallAt5": 0.335,
+        "hitAt5": 0.5,
+        "mrrAt10": 0.433
       },
       "meaning": {
-        "recallAt5": 0.303,
+        "recallAt5": 0.272,
         "hitAt5": 0.5,
-        "mrrAt10": 0.444
+        "mrrAt10": 0.5
       },
       "hybrid": {
-        "recallAt5": 0.373,
-        "hitAt5": 0.7,
-        "mrrAt10": 0.585
+        "recallAt5": 0.312,
+        "hitAt5": 0.6,
+        "mrrAt10": 0.475
       }
     },
     "topic": {
       "keyword": {
-        "recallAt5": 0.504,
+        "recallAt5": 0.514,
         "hitAt5": 0.929,
-        "mrrAt10": 0.847
+        "mrrAt10": 0.812
       },
       "meaning": {
-        "recallAt5": 0.383,
+        "recallAt5": 0.355,
         "hitAt5": 0.786,
-        "mrrAt10": 0.702
+        "mrrAt10": 0.574
       },
       "hybrid": {
-        "recallAt5": 0.502,
+        "recallAt5": 0.44,
         "hitAt5": 0.857,
         "mrrAt10": 0.786
       }
@@ -66,70 +66,70 @@
     "q01": {
       "keyword": {
         "top5": [
-          "bg-18.45",
-          "bg-3.19",
-          "bg-16.8",
-          "bg-6.1",
-          "kena-1.3"
+          "rcm-2.258",
+          "bg-telang-2.3",
+          "mbh-6-26.2",
+          "ram-dutt-6.64.1",
+          "ram-dutt-6.112.3"
         ],
-        "recall": 0.5,
-        "rr": 0.5
+        "recall": 0,
+        "rr": 0
       },
       "meaning": {
         "top5": [
           "bg-3.35",
+          "ram-dutt-5.41.1",
           "bg-18.47",
-          "bg-18.44",
-          "bg-18.48",
-          "bg-18.43"
+          "mbh-6-42.7",
+          "hume-maitri-4.3"
         ],
         "recall": 0,
         "rr": 0
       },
       "hybrid": {
         "top5": [
-          "bg-3.35",
+          "mbh-6-42.7",
+          "bg-telang-18.6",
           "bg-18.66",
-          "bg-18.47",
-          "bg-18.44",
-          "bg-2.33"
+          "mbh-6-27.3",
+          "mbh-5-133.3"
         ],
-        "recall": 0,
-        "rr": 0.1
+        "recall": 0.4,
+        "rr": 0.25
       }
     },
     "q02": {
       "keyword": {
         "top5": [
+          "hume-chandogya-6.11.3",
+          "hume-katha-2.18",
           "katha-1.2.18",
-          "bg-2.20",
-          "svet-1.13",
-          "katha-2.2.4",
-          "katha-1.3.3"
+          "bg-telang-2.6",
+          "hume-maitri-2.1"
         ],
-        "recall": 0.4,
+        "recall": 0.8,
         "rr": 1
       },
       "meaning": {
         "top5": [
-          "svet-5.9",
-          "katha-2.2.4",
-          "katha-1.2.18",
-          "katha-2.2.6",
-          "bg-8.20"
+          "mbh-6-26.4",
+          "bg-arnold-2.10",
+          "bg-arnold-2.7",
+          "bg-arnold-8.2",
+          "bg-telang-2.6"
         ],
-        "recall": 0.2,
-        "rr": 0.3333333333333333
+        "recall": 0.8,
+        "rr": 1
       },
       "hybrid": {
         "top5": [
+          "mbh-6-26.4",
           "katha-1.2.18",
-          "katha-2.2.4",
-          "bg-2.20",
-          "bg-8.20",
-          "svet-1.13"
+          "bg-telang-2.6",
+          "hume-chandogya-6.11.3",
+          "bg-telang-2.7"
         ],
-        "recall": 0.4,
+        "recall": 1,
         "rr": 1
       }
     },
@@ -137,34 +137,34 @@
       "keyword": {
         "top5": [
           "bg-4.7",
-          "bg-6.40",
-          "svet-4.11",
-          "ram-5.20.49",
-          "svet-4.1"
+          "bg-arnold-4.3",
+          "vp-2.8.8",
+          "devi-7.39.21-30.1",
+          "vp-6.1.6"
         ],
-        "recall": 0.5,
+        "recall": 0.6666666666666666,
         "rr": 1
       },
       "meaning": {
         "top5": [
           "svet-6.20",
           "isa-18",
-          "isa-2",
-          "kena-2.5",
-          "kena-4.9"
+          "kumara-3.45",
+          "bg-arnold-6.12",
+          "kumara-4.169"
         ],
         "recall": 0,
         "rr": 0
       },
       "hybrid": {
         "top5": [
-          "svet-4.11",
+          "vp-6.1.6",
           "bg-4.7",
-          "ram-5.20.49",
-          "svet-3.3",
-          "svet-6.23"
+          "bg-arnold-6.13",
+          "vp-5.38.7",
+          "svet-6.20"
         ],
-        "recall": 0.5,
+        "recall": 0.3333333333333333,
         "rr": 0.5
       }
     },
@@ -172,19 +172,19 @@
       "keyword": {
         "top5": [
           "bg-18.66",
+          "hume-chandogya-3.15.5",
           "bg-18.48",
           "bg-4.20",
-          "bg-2.49",
-          "bg-9.32"
+          "bg-telang-18.6"
         ],
-        "recall": 1,
+        "recall": 0.5,
         "rr": 1
       },
       "meaning": {
         "top5": [
           "bg-18.66",
           "bg-18.47",
-          "bg-18.62",
+          "bg-arnold-18.29",
           "bg-3.35",
           "bg-18.6"
         ],
@@ -194,10 +194,10 @@
       "hybrid": {
         "top5": [
           "bg-18.66",
+          "bg-arnold-18.29",
           "bg-4.20",
-          "bg-3.35",
-          "bg-18.47",
-          "bg-18.56"
+          "mbh-6-42.7",
+          "bg-telang-18.6"
         ],
         "recall": 1,
         "rr": 1
@@ -207,32 +207,32 @@
       "keyword": {
         "top5": [
           "svet-3.11",
-          "bg-18.61",
-          "svet-6.11",
+          "katha-1.2.20",
           "svet-4.17",
-          "svet-3.13"
+          "svet-3.13",
+          "bg-arnold-15.13"
         ],
-        "recall": 0.8,
+        "recall": 0.6,
         "rr": 1
       },
       "meaning": {
         "top5": [
           "isa-8",
-          "bg-18.61",
-          "svet-4.17",
+          "svet-3.17",
+          "bg-arnold-13.13",
           "katha-2.2.2",
-          "isa-7"
+          "svet-4.17"
         ],
-        "recall": 0.4,
-        "rr": 0.5
+        "recall": 0.2,
+        "rr": 0.2
       },
       "hybrid": {
         "top5": [
-          "bg-18.61",
           "svet-4.17",
           "svet-3.11",
+          "bg-arnold-15.13",
           "katha-2.2.2",
-          "svet-6.11"
+          "bg-18.61"
         ],
         "recall": 0.6,
         "rr": 1
@@ -242,13 +242,13 @@
       "keyword": {
         "top5": [
           "bg-5.8",
+          "bg-telang-6.3",
+          "bg-arnold-6.6",
           "bg-6.16",
-          "bg-6.17",
-          "bg-6.12",
-          "bg-9.33"
+          "bg-6.17"
         ],
         "recall": 1,
-        "rr": 0.5
+        "rr": 0.3333333333333333
       },
       "meaning": {
         "top5": [
@@ -258,7 +258,7 @@
           "bg-3.8",
           "bg-2.69"
         ],
-        "recall": 1,
+        "recall": 0.6666666666666666,
         "rr": 1
       },
       "hybrid": {
@@ -267,30 +267,30 @@
           "bg-6.17",
           "devi-7.35.59-62.1",
           "bg-5.8",
-          "katha-2.3.11"
+          "bg-6.12"
         ],
-        "recall": 1,
+        "recall": 0.6666666666666666,
         "rr": 1
       }
     },
     "q07": {
       "keyword": {
         "top5": [
+          "bg-telang-2.14",
           "bg-2.54",
-          "bg-2.61",
-          "bg-1.37",
-          "devi-7.40.1-5.1",
-          "devi-7.34.41-44.1"
+          "ram-dutt-7.43.3",
+          "hume-brihadaranyaka-4.4.21",
+          "devi-7.40.1-5.1"
         ],
         "recall": 0,
         "rr": 0
       },
       "meaning": {
         "top5": [
+          "hume-chandogya-7.6.1",
           "bg-3.40",
           "bg-17.26",
-          "katha-2.3.11",
-          "bg-18.52",
+          "bg-arnold-3.1",
           "bg-13.33"
         ],
         "recall": 0,
@@ -298,11 +298,11 @@
       },
       "hybrid": {
         "top5": [
+          "hume-chandogya-7.6.1",
           "bg-2.61",
           "bg-2.54",
-          "bg-10.17",
-          "devi-7.34.41-44.1",
-          "devi-7.40.1-5.1"
+          "bg-telang-2.14",
+          "bg-telang-10.3"
         ],
         "recall": 0,
         "rr": 0
@@ -311,11 +311,11 @@
     "q08": {
       "keyword": {
         "top5": [
-          "kena-1.3",
-          "svet-1.1",
-          "bg-2.66",
-          "ram-5.66.33",
-          "bg-14.21"
+          "ram-dutt-7.20.4",
+          "ram-dutt-6.29.3",
+          "rcm-2.209",
+          "ram-dutt-4.62.2",
+          "ram-dutt-7.53.1"
         ],
         "recall": 0,
         "rr": 0
@@ -323,21 +323,21 @@
       "meaning": {
         "top5": [
           "bg-2.56",
-          "bg-2.55",
-          "bg-2.40",
-          "bg-4.29",
-          "bg-2.54"
+          "rcm-2.169",
+          "mbh-5-76.3",
+          "bg-telang-12.3",
+          "bg-telang-6.7"
         ],
-        "recall": 0.5,
+        "recall": 0.25,
         "rr": 1
       },
       "hybrid": {
         "top5": [
-          "kena-1.3",
+          "ram-dutt-7.20.4",
           "bg-2.56",
-          "svet-1.1",
-          "bg-2.66",
-          "ram-5.66.33"
+          "ram-dutt-6.29.3",
+          "rcm-2.169",
+          "rcm-2.209"
         ],
         "recall": 0.25,
         "rr": 0.5
@@ -346,35 +346,35 @@
     "q09": {
       "keyword": {
         "top5": [
+          "ram-dutt-6.63.5",
+          "ram-dutt-6.83.1",
+          "ram-dutt-7.37.3",
           "bg-1.28",
-          "bg-1.23",
-          "bg-1.47",
-          "bg-11.14",
-          "ram-5.46.55"
+          "bg-1.47"
         ],
-        "recall": 0.25,
-        "rr": 1
+        "recall": 0.2,
+        "rr": 0.25
       },
       "meaning": {
         "top5": [
+          "mbh-5-90.15",
+          "mbh-5-146.4",
+          "vp-5.38.2",
           "bg-1.28",
-          "bg-1.47",
-          "bg-1.22",
-          "bg-1.10",
-          "bg-1.35"
+          "mbh-5-144.2"
         ],
-        "recall": 0.25,
-        "rr": 1
+        "recall": 0.2,
+        "rr": 0.25
       },
       "hybrid": {
         "top5": [
           "bg-1.28",
+          "mbh-5-146.4",
           "bg-1.47",
-          "bg-1.23",
-          "bg-1.22",
-          "bg-2.9"
+          "bg-arnold-2.5",
+          "mbh-5-144.2"
         ],
-        "recall": 0.5,
+        "recall": 0.4,
         "rr": 1
       }
     },
@@ -383,33 +383,33 @@
         "top5": [
           "katha-1.2.1",
           "katha-1.2.2",
-          "svet-1.2",
-          "devi-7.40.20.1",
-          "svet-6.23"
+          "hume-kaushitaki-3.1",
+          "ram-dutt-3.16.2",
+          "mbh-5-124.6"
         ],
-        "recall": 1,
+        "recall": 0.6,
         "rr": 1
       },
       "meaning": {
         "top5": [
           "katha-1.2.1",
+          "hume-maitri-1.3",
           "katha-1.2.2",
-          "katha-2.1.3",
-          "katha-2.2.14",
-          "bg-18.38"
+          "mbh-6-42.6",
+          "vp-4.10.2"
         ],
-        "recall": 1,
+        "recall": 0.6,
         "rr": 1
       },
       "hybrid": {
         "top5": [
           "katha-1.2.1",
           "katha-1.2.2",
-          "bg-3.11",
-          "svet-1.2",
-          "katha-2.1.3"
+          "hume-katha-2.2",
+          "vp-4.10.2",
+          "hume-kaushitaki-3.7"
         ],
-        "recall": 1,
+        "recall": 0.6,
         "rr": 1
       }
     },
@@ -417,10 +417,10 @@
       "keyword": {
         "top5": [
           "katha-1.3.3",
+          "hume-katha-3.3",
           "devi-7.34.23-40.1",
-          "katha-2.1.12",
-          "bg-1.21",
-          "bg-13.23"
+          "hume-prasna-3.3",
+          "hume-maitri-2.1"
         ],
         "recall": 0.5,
         "rr": 1
@@ -428,10 +428,10 @@
       "meaning": {
         "top5": [
           "katha-1.3.3",
+          "ram-dutt-7.91.2",
           "isa-6",
-          "isa-8",
-          "svet-3.20",
-          "katha-1.2.18"
+          "ram-dutt-6.105.3",
+          "hume-katha-3.3"
         ],
         "recall": 0.5,
         "rr": 1
@@ -439,10 +439,10 @@
       "hybrid": {
         "top5": [
           "katha-1.3.3",
-          "svet-3.20",
-          "devi-7.34.23-40.1",
-          "isa-3",
-          "devi-7.32.1-50.7"
+          "hume-katha-3.3",
+          "rcm-6.77",
+          "hume-taittiriya-2.4",
+          "hume-mandukya-12"
         ],
         "recall": 0.5,
         "rr": 1
@@ -452,67 +452,67 @@
       "keyword": {
         "top5": [
           "katha-1.1.25",
-          "katha-1.1.27",
-          "bg-2.43",
+          "mbh-5-72.4",
+          "katha-1.1.18",
           "katha-1.1.24",
-          "katha-1.1.18"
+          "katha-2.2.6"
         ],
-        "recall": 0.6666666666666666,
+        "recall": 0.2,
         "rr": 1
       },
       "meaning": {
         "top5": [
           "katha-2.3.18",
           "katha-1.2.10",
-          "katha-1.1.26",
           "katha-1.2.13",
+          "katha-1.1.26",
           "katha-1.2.11"
         ],
-        "recall": 0.3333333333333333,
-        "rr": 0.3333333333333333
+        "recall": 0.2,
+        "rr": 0.25
       },
       "hybrid": {
         "top5": [
-          "katha-1.1.25",
           "katha-2.3.18",
+          "katha-1.1.25",
           "katha-1.1.26",
           "katha-1.1.29",
-          "katha-1.1.24"
+          "mbh-5-72.4"
         ],
-        "recall": 0.6666666666666666,
-        "rr": 1
+        "recall": 0.4,
+        "rr": 0.5
       }
     },
     "q13": {
       "keyword": {
         "top5": [
-          "bg-3.21",
-          "devi-7.37.38-45.3",
-          "katha-1.1.26",
-          "devi-7.36.15-16.1",
-          "bg-12.16"
+          "ram-dutt-2.21.4",
+          "bg-telang-3.4",
+          "ram-dutt-7.125.2",
+          "vp-4.13.20",
+          "vp-4.7.3"
         ],
         "recall": 0,
         "rr": 0
       },
       "meaning": {
         "top5": [
-          "katha-1.2.1",
-          "bg-3.11",
-          "bg-6.18",
-          "bg-10.8",
-          "bg-18.24"
+          "vp-4.10.2",
+          "vp-4.2.16",
+          "hume-taittiriya-2.8",
+          "rcm-1.154",
+          "bg-arnold-9.18"
         ],
         "recall": 0,
         "rr": 0
       },
       "hybrid": {
         "top5": [
-          "bg-3.21",
-          "devi-7.37.38-45.3",
-          "katha-1.1.26",
-          "devi-7.36.15-16.1",
-          "bg-12.16"
+          "ram-dutt-2.21.4",
+          "vp-4.10.2",
+          "bg-telang-3.4",
+          "ram-dutt-7.125.2",
+          "vp-4.13.20"
         ],
         "recall": 0,
         "rr": 0
@@ -521,70 +521,70 @@
     "q14": {
       "keyword": {
         "top5": [
-          "kena-1.5",
-          "katha-2.3.9",
-          "svet-2.3",
-          "kena-1.6",
-          "ram-5.32.17"
+          "hume-kena-1.5",
+          "hume-chandogya-8.12.5",
+          "ram-dutt-5.32.2",
+          "rcm-5.32",
+          "hume-brihadaranyaka-4.4.18"
         ],
-        "recall": 0.2,
-        "rr": 0.25
+        "recall": 0.6,
+        "rr": 1
       },
       "meaning": {
         "top5": [
           "kena-1.3",
-          "kena-1.1",
-          "kena-1.5",
+          "hume-chandogya-5.9",
           "kena-1.6",
-          "bg-3.42"
+          "kena-1.1",
+          "kena-1.5"
         ],
         "recall": 0.6,
         "rr": 1
       },
       "hybrid": {
         "top5": [
+          "hume-chandogya-8.12.5",
+          "hume-chandogya-5.9",
           "kena-1.5",
-          "kena-1.6",
-          "katha-2.1.1",
-          "katha-2.1.11",
-          "kena-1.3"
+          "ram-dutt-5.32.2",
+          "hume-kena-1.5"
         ],
         "recall": 0.4,
-        "rr": 0.5
+        "rr": 1
       }
     },
     "q15": {
       "keyword": {
         "top5": [
-          "kena-4.1",
           "devi-7.36.1-4.4",
-          "kena-4.2",
-          "kena-4.3",
-          "kena-4.5"
+          "kena-4.1",
+          "dm-91.1",
+          "vp-1.9.15",
+          "dm-84.8"
         ],
-        "recall": 0.5,
-        "rr": 1
+        "recall": 0.3333333333333333,
+        "rr": 0.5
       },
       "meaning": {
         "top5": [
           "kena-4.1",
+          "kumara-5.287",
           "kena-4.3",
-          "kena-4.2",
-          "kena-3.11",
-          "devi-7.36.5-6.2"
+          "hume-kena-4.3",
+          "vp-1.9.17"
         ],
-        "recall": 0.5,
+        "recall": 0.6666666666666666,
         "rr": 1
       },
       "hybrid": {
         "top5": [
           "kena-4.1",
+          "kumara-5.287",
+          "vp-1.9.15",
           "kena-4.3",
-          "kena-4.2",
-          "devi-7.36.1-4.4",
-          "devi-7.36.28.1"
+          "dm-91.1"
         ],
-        "recall": 0.5,
+        "recall": 0.3333333333333333,
         "rr": 1
       }
     },
@@ -592,139 +592,139 @@
       "keyword": {
         "top5": [
           "svet-3.2",
+          "hume-svetasvatara-3.2",
+          "hume-chandogya-5.3.7",
           "svet-3.1",
-          "svet-5.2",
-          "svet-4.11",
-          "svet-4.13"
+          "hume-svetasvatara-3.1"
         ],
-        "recall": 0.3333333333333333,
+        "recall": 0.6,
         "rr": 1
       },
       "meaning": {
         "top5": [
           "svet-3.2",
-          "devi-7.39.21-30.1",
-          "devi-7.31.58-65.1",
-          "bg-11.6",
-          "bg-1.35"
+          "hume-svetasvatara-3.2",
+          "hume-brihadaranyaka-3.9.4",
+          "vp-1.15.16",
+          "vp-4.1.8"
         ],
-        "recall": 0.3333333333333333,
+        "recall": 0.4,
         "rr": 1
       },
       "hybrid": {
         "top5": [
           "svet-3.2",
-          "svet-3.1",
-          "bg-11.6",
-          "devi-7.31.58-65.1",
-          "svet-4.12"
+          "hume-svetasvatara-3.2",
+          "vp-1.15.16",
+          "vp-4.1.8",
+          "svet-3.1"
         ],
-        "recall": 0.6666666666666666,
+        "recall": 0.4,
         "rr": 1
       }
     },
     "q17": {
       "keyword": {
         "top5": [
-          "ram-5.21.11",
-          "bg-2.40",
-          "svet-4.21",
-          "katha-1.1.23",
-          "katha-1.1.25"
+          "kumara-6.1",
+          "dm-84.8",
+          "kumara-4.23",
+          "kumara-4.95",
+          "rcm-1.154"
         ],
-        "recall": 0.5,
-        "rr": 0.3333333333333333
+        "recall": 0,
+        "rr": 0
       },
       "meaning": {
         "top5": [
-          "bg-12.17",
-          "svet-2.5",
-          "bg-18.68",
-          "bg-18.69",
-          "devi-7.31.58-65.2"
+          "kumara-3.45",
+          "dm-91.8",
+          "bg-arnold-12.6",
+          "mbh-13-17.62",
+          "bg-12.17"
         ],
         "recall": 0,
         "rr": 0
       },
       "hybrid": {
         "top5": [
-          "ram-5.21.11",
-          "svet-2.5",
-          "devi-7.31.58-65.2",
-          "svet-4.21",
-          "ram-5.66.33"
+          "kumara-4.23",
+          "mbh-13-17.43",
+          "kumara-6.1",
+          "kumara-4.169",
+          "dm-84.8"
         ],
-        "recall": 0.5,
-        "rr": 0.25
+        "recall": 0,
+        "rr": 0
       }
     },
     "q18": {
       "keyword": {
         "top5": [
           "bg-4.29",
+          "hume-chandogya-7.6.1",
           "bg-10.17",
-          "bg-12.12",
-          "kena-1.8",
-          "bg-4.30"
+          "hume-brihadaranyaka-3.7.16",
+          "bg-arnold-2.18"
         ],
-        "recall": 0.3333333333333333,
+        "recall": 0.2,
         "rr": 1
       },
       "meaning": {
         "top5": [
           "bg-4.29",
+          "vp-6.7.7",
+          "hume-chandogya-7.6.1",
           "bg-5.8",
-          "bg-18.52",
-          "bg-8.12",
-          "bg-6.26"
+          "bg-18.52"
         ],
-        "recall": 0.3333333333333333,
+        "recall": 0.4,
         "rr": 1
       },
       "hybrid": {
         "top5": [
           "bg-4.29",
-          "bg-18.52",
-          "bg-6.26",
+          "hume-chandogya-7.6.1",
+          "vp-6.7.14",
           "bg-10.17",
-          "katha-2.2.3"
+          "bg-18.52"
         ],
-        "recall": 0.3333333333333333,
+        "recall": 0.2,
         "rr": 1
       }
     },
     "q19": {
       "keyword": {
         "top5": [
-          "ram-5.31.33",
+          "ram-dutt-5.35.9",
           "ram-5.1.143",
+          "ram-5.31.33",
           "ram-5.30.49",
-          "ram-5.34.49",
-          "ram-5.1.73"
+          "ram-dutt-5.36.1"
         ],
         "recall": 0.2,
         "rr": 0.5
       },
       "meaning": {
         "top5": [
-          "ram-5.1.273",
+          "ram-dutt-6.1.1",
           "ram-5.35.45",
-          "ram-5.1.41",
-          "ram-5.34.49",
-          "ram-5.1.143"
+          "ram-5.1.273",
+          "ram-dutt-7.40.1",
+          "ram-dutt-5.3.4"
         ],
-        "recall": 0.6,
-        "rr": 1
+        "recall": 0.2,
+        "rr": 0.3333333333333333
       },
       "hybrid": {
         "top5": [
-          "ram-5.1.273",
           "ram-5.1.143",
-          "ram-5.34.49",
-          "ram-5.1.41",
-          "ram-5.1.73"
+          "ram-dutt-7.40.1",
+          "ram-5.1.273",
+          "ram-dutt-6.1.1",
+          "ram-dutt-6.3.1"
         ],
-        "recall": 0.6,
+        "recall": 0.4,
         "rr": 1
       }
     },
@@ -732,69 +732,69 @@
       "keyword": {
         "top5": [
           "ram-5.1.57",
+          "ram-dutt-5.1.11",
+          "ram-dutt-5.1.12",
           "ram-5.1.93",
-          "ram-5.1.41",
-          "ram-5.1.77",
-          "ram-5.35.45"
+          "ram-dutt-5.58.3"
         ],
-        "recall": 0.6,
+        "recall": 1,
         "rr": 1
       },
       "meaning": {
         "top5": [
+          "ram-dutt-5.1.12",
+          "ram-dutt-5.43.1",
+          "ram-dutt-6.74.5",
           "ram-5.1.57",
-          "ram-5.1.41",
-          "ram-5.1.273",
-          "ram-5.1.93",
-          "ram-5.1.77"
+          "ram-dutt-5.1.24"
         ],
-        "recall": 0.6,
+        "recall": 0.4,
         "rr": 1
       },
       "hybrid": {
         "top5": [
+          "ram-dutt-5.1.12",
           "ram-5.1.57",
-          "ram-5.1.41",
-          "ram-5.1.93",
-          "ram-5.1.77",
-          "ram-5.1.273"
+          "ram-dutt-5.1.11",
+          "ram-dutt-5.1.15",
+          "ram-dutt-1.3.4"
         ],
-        "recall": 0.6,
+        "recall": 0.8,
         "rr": 1
       }
     },
     "q21": {
       "keyword": {
         "top5": [
-          "ram-5.53.13",
-          "ram-5.54.9",
-          "ram-5.53.1",
-          "ram-5.53.33",
-          "bg-4.37"
+          "ram-dutt-5.55.4",
+          "ram-dutt-5.53.1",
+          "ram-dutt-5.54.6",
+          "ram-dutt-5.54.1",
+          "ram-dutt-5.53.3"
         ],
-        "recall": 0.5,
+        "recall": 0.8,
         "rr": 1
       },
       "meaning": {
         "top5": [
+          "ram-dutt-5.54.4",
           "ram-5.54.29",
-          "ram-5.51.33",
-          "ram-5.1.273",
-          "ram-5.48.35",
-          "ram-5.48.19"
+          "ram-dutt-7.40.1",
+          "ram-dutt-5.43.1",
+          "ram-dutt-5.55.4"
         ],
-        "recall": 0.25,
+        "recall": 0.6,
         "rr": 1
       },
       "hybrid": {
         "top5": [
-          "ram-5.54.29",
-          "ram-5.51.33",
-          "ram-5.54.9",
-          "ram-5.34.49",
-          "ram-5.51.1"
+          "ram-dutt-5.55.4",
+          "ram-dutt-5.53.1",
+          "ram-dutt-7.40.1",
+          "ram-dutt-5.42.4",
+          "ram-dutt-5.54.4"
         ],
-        "recall": 0.5,
+        "recall": 0.6,
         "rr": 1
       }
     },
@@ -803,31 +803,31 @@
         "top5": [
           "bg-11.31",
           "bg-11.47",
-          "svet-3.5",
-          "ram-5.3.17",
-          "devi-7.36.12.1"
+          "devi-7.33.42-53.1",
+          "dm-91.1",
+          "dm-85.5"
         ],
         "recall": 0,
         "rr": 0.1111111111111111
       },
       "meaning": {
         "top5": [
-          "bg-11.13",
-          "devi-7.32.1-50.8",
-          "devi-7.31.74.1",
-          "bg-11.20",
-          "bg-11.16"
+          "bg-arnold-11.8",
+          "bg-arnold-11.6",
+          "bg-telang-11.4",
+          "bg-arnold-11.2",
+          "bg-arnold-11.15"
         ],
         "recall": 0,
         "rr": 0
       },
       "hybrid": {
         "top5": [
-          "bg-11.16",
-          "bg-11.20",
-          "bg-11.38",
-          "bg-11.13",
-          "bg-11.31"
+          "bg-arnold-11.2",
+          "bg-arnold-11.1",
+          "dm-81.6",
+          "devi-7.32.1-50.8",
+          "bg-arnold-11.8"
         ],
         "recall": 0,
         "rr": 0
@@ -836,36 +836,36 @@
     "q23": {
       "keyword": {
         "top5": [
-          "devi-7.37.11-20.2",
-          "bg-12.16",
           "devi-7.37.21-30.1",
+          "devi-7.37.11-20.2",
           "devi-7.37.2-10.1",
-          "ram-5.22.25"
+          "devi-7.37.21-30.2",
+          "kumara-6.303"
         ],
-        "recall": 0.5,
+        "recall": 0.75,
         "rr": 1
       },
       "meaning": {
         "top5": [
+          "rcm-1.110",
+          "vp-5.2.2",
+          "rcm-1.77",
           "devi-7.39.38-47.1",
-          "devi-7.39.1.1",
-          "devi-7.39.38-47.2",
-          "devi-7.33.54-56.1",
-          "katha-2.1.8"
+          "devi-7.39.1.1"
         ],
         "recall": 0,
-        "rr": 0.1111111111111111
+        "rr": 0
       },
       "hybrid": {
         "top5": [
-          "devi-7.37.21-30.1",
+          "kumara-6.303",
+          "rcm-1.247",
+          "vp-5.2.2",
           "devi-7.39.1.1",
-          "devi-7.39.38-47.2",
-          "devi-7.36.19.1",
-          "devi-7.31.44-54.1"
+          "devi-7.39.38-47.1"
         ],
-        "recall": 0.25,
-        "rr": 1
+        "recall": 0,
+        "rr": 0
       }
     },
     "q24": {
@@ -873,20 +873,20 @@
         "top5": [
           "devi-7.37.2-10.1",
           "devi-7.37.21-30.2",
-          "svet-5.7",
-          "bg-3.3",
-          "devi-7.37.11-20.2"
+          "devi-7.37.11-20.2",
+          "bg-telang-18.3",
+          "mbh-6-28.3"
         ],
         "recall": 1,
         "rr": 1
       },
       "meaning": {
         "top5": [
+          "bg-arnold-18.10",
           "bg-18.21",
           "bg-18.18",
-          "bg-5.28",
-          "bg-18.19",
-          "bg-18.25"
+          "bg-arnold-18.9",
+          "bg-5.28"
         ],
         "recall": 0,
         "rr": 0
@@ -894,10 +894,10 @@
       "hybrid": {
         "top5": [
           "bg-18.18",
+          "bg-telang-18.3",
           "bg-18.19",
-          "bg-18.21",
-          "devi-7.37.21-30.2",
-          "bg-7.29"
+          "bg-arnold-18.9",
+          "devi-7.37.21-30.2"
         ],
         "recall": 0,
         "rr": 0

@@ -53,14 +53,14 @@ scripture-pipeline/ (Python, offline, never deployed)
   embed.py      MiniLM ONNX → src/data/scripture/embeddings.json (384 dims, int8, base64)
 
 Next.js
-  /scriptures, /scriptures/[work], /scriptures/[work]/[section]   prerendered from the JSON
+  /scriptures, /scriptures/[work], /scriptures/[work]/[section]   prerendered (first 40 chapters per text; the rest on first visit)
   src/proxy.ts  unknown text/chapter paths → real 404 before rendering
   POST /api/scripture/search  Zod-validated, 60 requests/min per IP
      └─ searchScripture(): BM25 keyword ranks + optional vector ranks → reciprocal rank fusion (k=60)
   Browser (opt-in): transformers.js turns the query into a vector; engine files from /ort/
 ```
 
-- **Why JSON files, not a database:** 1341 passages (≈2 MB) fit in memory, need no hosting or keys,
+- **Why JSON files, not a database:** 9,321 passages (≈13 MB, plus 5 MB of vectors) fit in memory, need no hosting or keys,
   and are versioned with the code.
 - **Why query vectors in the browser:** the server stays free and fast (no model on Vercel), and
   the same model is used for passages and queries. Open question for Phase 4: compute query vectors

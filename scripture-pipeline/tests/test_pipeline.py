@@ -96,7 +96,9 @@ def test_expected_counts(passages):
         counts[p["work_id"]] = counts.get(p["work_id"], 0) + 1
     assert counts["bhagavad-gita"] == 701
     assert counts["svetasvatara-upanishad"] >= 100
-    assert len(passages) == 1341
+    assert counts["upanishads-hume"] >= 1400
+    assert counts["ramayana-dutt"] >= 3000
+    assert len(passages) >= 9000
 
 
 def test_gita_2_47_is_correct(passages):
@@ -138,7 +140,7 @@ def test_raw_manifest_matches_downloads():
     import hashlib
 
     manifest = json.loads((RAW.parent / "raw_manifest.json").read_text())
-    assert len(manifest) == 24  # 18 Besant chapters + 6 other files
+    assert len(manifest) >= 59  # every registered download is checksummed
     for name, info in manifest.items():
         assert hashlib.sha256((RAW / name).read_bytes()).hexdigest() == info["sha256"], name
 
@@ -153,3 +155,28 @@ def test_devi_gita_has_no_capital_v_artifacts(passages):
         for m in re.findall(r"\b\w*[a-z]sV[a-z]\w*", p["translation"]["text"])
     ]
     assert bad == []
+
+
+def test_iast_candrabindu_is_standard():
+    assert to_iast("इदँ") == "idam̐"
+
+
+def test_sanskrit_pairs_are_aligned(passages):
+    """Spot-check verses whose Sanskrit opening is well known."""
+    starts = {
+        "isa-1": "ॐ ईशा वास्यमिदँ",
+        "katha-1.1.20": "येयं प्रेते विचिकित्सा",
+        "hume-svetasvatara-3.2": "एको हि रुद्रो",
+        "hume-katha-6.6": "इन्द्रियाणां पृथग्भाव",
+        "katha-2.3.18": "मृत्युप्रोक्तां नचिकेतो",
+    }
+    by_id = {p["id"]: p for p in passages}
+    for pid, opening in starts.items():
+        assert by_id[pid]["original"]["text"].startswith(opening), pid
+
+
+def test_kena_part_one_is_not_paired_because_numbering_differs(passages):
+    # Paramananda numbers Kena 1 differently from the Wikisource text (his 1.5 is its 1.6),
+    # so that section must stay English-only.
+    kena1 = [p for p in passages if p["id"].startswith("kena-1.")]
+    assert kena1 and all(not p.get("original") for p in kena1)

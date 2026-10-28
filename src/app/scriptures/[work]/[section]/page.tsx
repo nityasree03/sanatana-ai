@@ -6,8 +6,17 @@ import { WORKS, getSectionPassages, getWork, sectionHref, sourcesById } from "@/
 
 type Params = Promise<{ work: string; section: string }>;
 
+/**
+ * Prerender every chapter of shorter texts, and the first chapters of long ones (the complete
+ * Ramayana alone has 653 sections). Other chapters render on first request from the same JSON,
+ * which is fast, and src/proxy.ts already turns unknown chapters into 404s.
+ */
+const PRERENDER_LIMIT = 40;
+
 export function generateStaticParams() {
-  return WORKS.flatMap((w) => w.sections.map((_, i) => ({ work: w.id, section: String(i + 1) })));
+  return WORKS.flatMap((w) =>
+    w.sections.slice(0, PRERENDER_LIMIT).map((_, i) => ({ work: w.id, section: String(i + 1) })),
+  );
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {

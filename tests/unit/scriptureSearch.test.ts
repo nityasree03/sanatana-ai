@@ -53,9 +53,15 @@ describe("vectors", () => {
 });
 
 describe("scripture dataset", () => {
-  it("has the seven works and 1341 passages", () => {
-    expect(WORKS).toHaveLength(7);
-    expect(PASSAGES).toHaveLength(1341);
+  it("has all seventeen works and over 9000 passages", () => {
+    expect(WORKS).toHaveLength(17);
+    expect(PASSAGES.length).toBeGreaterThan(9000);
+    expect(new Set(PASSAGES.map((p) => p.id)).size).toBe(PASSAGES.length);
+  });
+  it("pairs Sanskrit originals with the new translations", () => {
+    const svet = PASSAGES.find((p) => p.id === "hume-svetasvatara-3.2");
+    expect(svet?.original?.script).toBe("Devanagari");
+    expect(svet?.transliteration?.scheme).toBe("IAST");
   });
   it("returns chapter passages by 1-based index", () => {
     const ch2 = getSectionPassages("bhagavad-gita", 2);
@@ -67,7 +73,7 @@ describe("scripture dataset", () => {
 describe("searchScripture", () => {
   it("finds Hanuman's leap with keywords", () => {
     const hits = searchScripture({ query: "Hanuman leap ocean" });
-    expect(hits[0].passage.work_id).toBe("valmiki-ramayana");
+    expect(["valmiki-ramayana", "ramayana-dutt"]).toContain(hits[0].passage.work_id);
     expect(hits[0].matchedBy).toEqual(["keyword"]);
   });
   it("respects the work and companion filters", () => {

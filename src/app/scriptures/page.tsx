@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ScriptureSearch } from "@/components/scripture/ScriptureSearch";
-import { getCompanion } from "@/lib/companions";
+import { COMPANIONS, getCompanion } from "@/lib/companions";
 import { getRoute } from "@/lib/routes";
-import { MANIFEST, WORKS, sectionLinks, sourcesById } from "@/lib/scripture/data";
+import {
+  MANIFEST,
+  WORKS,
+  WORKS_WITH_ORIGINAL,
+  sectionLinks,
+  sourcesById,
+} from "@/lib/scripture/data";
+import type { Work } from "@/lib/scripture/types";
 
 const route = getRoute("/scriptures");
 export const metadata: Metadata = { title: route.title, description: route.description };
@@ -29,40 +36,31 @@ export default function ScripturesPage() {
         <h2 id="browse-heading" className="text-3xl">
           Browse the texts
         </h2>
-        <ul className="mt-5 grid gap-4 sm:grid-cols-2">
-          {WORKS.map((w) => (
-            <li key={w.id} data-companion={w.companions[0]}>
-              <Link
-                href={`/scriptures/${w.id}`}
-                className="block h-full rounded-2xl border border-line bg-card p-5 hover:border-accent"
-              >
-                <span className="font-display text-2xl font-semibold">{w.title}</span>
-                <span className="mt-1 block text-sm text-muted">{w.description}</span>
-                <span className="mt-3 flex flex-wrap items-center gap-2 text-xs">
-                  <span className="rounded-full border border-line px-2 py-0.5">
-                    {w.passageCount} passages
-                  </span>
-                  {w.companions.map((c) => (
-                    <span
-                      key={c}
-                      data-companion={c}
-                      className="rounded-full bg-accent-soft px-2 py-0.5 text-accent"
-                    >
-                      {getCompanion(c).name}
-                    </span>
-                  ))}
-                </span>
-                <span className="mt-2 block text-xs text-muted">
-                  Translation:{" "}
-                  {w.sources
-                    .filter((s) => s.language === "English")
-                    .map((s) => `${s.translator} (${s.year})`)
-                    .join(", ")}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <p className="mt-2 text-muted">
+          Grouped by the companion each text belongs to most closely. Some texts appear in more than
+          one translation, so you can compare them.
+        </p>
+        {COMPANIONS.map((c) => {
+          const works = WORKS.filter((w) => w.companions[0] === c.id);
+          if (works.length === 0) return null;
+          return (
+            <section
+              key={c.id}
+              aria-labelledby={`texts-${c.id}`}
+              data-companion={c.id}
+              className="mt-8"
+            >
+              <h3 id={`texts-${c.id}`} className="text-2xl text-accent">
+                {c.name}
+              </h3>
+              <ul className="mt-3 grid gap-4 sm:grid-cols-2">
+                {works.map((w) => (
+                  <WorkCard key={w.id} work={w} />
+                ))}
+              </ul>
+            </section>
+          );
+        })}
       </section>
 
       <p className="text-xs text-muted">
@@ -75,5 +73,43 @@ export default function ScripturesPage() {
         .
       </p>
     </div>
+  );
+}
+
+function WorkCard({ work: w }: { work: Work }) {
+  return (
+    <li data-companion={w.companions[0]}>
+      <Link
+        href={`/scriptures/${w.id}`}
+        className="block h-full rounded-2xl border border-line bg-card p-5 hover:border-accent"
+      >
+        <span className="font-display text-2xl font-semibold">{w.title}</span>
+        <span className="mt-1 block text-sm text-muted">{w.description}</span>
+        <span className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+          <span className="rounded-full border border-line px-2 py-0.5">
+            {w.passageCount.toLocaleString("en")} passages
+          </span>
+          {WORKS_WITH_ORIGINAL.has(w.id) && (
+            <span className="rounded-full border border-line px-2 py-0.5">Sanskrit + English</span>
+          )}
+          {w.companions.map((c) => (
+            <span
+              key={c}
+              data-companion={c}
+              className="rounded-full bg-accent-soft px-2 py-0.5 text-accent"
+            >
+              {getCompanion(c).name}
+            </span>
+          ))}
+        </span>
+        <span className="mt-2 block text-xs text-muted">
+          Translation:{" "}
+          {w.sources
+            .filter((s) => s.language === "English")
+            .map((s) => `${s.translator} (${s.year})`)
+            .join(", ")}
+        </span>
+      </Link>
+    </li>
   );
 }
