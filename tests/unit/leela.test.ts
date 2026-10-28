@@ -57,7 +57,10 @@ describe("Living Leela scenes", () => {
         const queue = [scene.start];
         while (queue.length) {
           for (const c of getMoment(scene, queue.shift()!)!.choices)
-            if (!seen.has(c.to)) (seen.add(c.to), queue.push(c.to));
+            if (!seen.has(c.to)) {
+              seen.add(c.to);
+              queue.push(c.to);
+            }
         }
         expect([...seen].sort()).toEqual([...ids].sort());
 

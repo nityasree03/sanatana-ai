@@ -32,6 +32,8 @@ const Body = z.object({
   shared: z
     .object({ from: z.enum(companionIds), messages: z.array(Message).min(1).max(10) })
     .optional(),
+  /** Life Journey Memory: saved goals the person chose to share in this conversation. */
+  goals: z.array(z.string().trim().min(1).max(300)).max(10).optional(),
 });
 
 export type ChatRequest = z.input<typeof Body>;
@@ -110,7 +112,7 @@ export async function POST(request: Request) {
       { status: 400 },
     );
   }
-  const { companion, messages, shared } = parsed.data;
+  const { companion, messages, shared, goals } = parsed.data;
   const userMessages = [...(shared?.messages ?? []), ...messages]
     .filter((m) => m.role === "user")
     .map((m) => m.text);
@@ -151,6 +153,7 @@ export async function POST(request: Request) {
       latest: latest.text,
       passages,
       shared: shared && { fromName: getCompanion(shared.from).name, messages: shared.messages },
+      goals,
     });
     const { citations } = answer;
     const cited = new Set(citations.map((c) => c.id));

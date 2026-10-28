@@ -44,15 +44,17 @@ export async function groundedAnswer(opts: {
   passages: Passage[];
   /** Earlier messages the person chose to share from another companion (handoff). */
   shared?: SharedContext;
+  /** Saved goals the person chose to share in this conversation. */
+  goals?: string[];
   /** Extra system instructions, e.g. for the Divine Council. */
   extraSystem?: string;
   attempts?: number;
 }): Promise<GroundedAnswer> {
-  const { provider, companion, history, latest, passages, extraSystem, shared } = opts;
+  const { provider, companion, history, latest, passages, extraSystem, shared, goals } = opts;
   const attempts = opts.attempts ?? 2;
   const turns: ChatTurn[] = [
     ...history,
-    { role: "user", text: userTurnWithPassages(latest, passages, shared) },
+    { role: "user", text: userTurnWithPassages(latest, passages, shared, goals) },
   ];
   const system = extraSystem
     ? `${systemPrompt(companion)}\n\n${extraSystem}`

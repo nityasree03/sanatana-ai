@@ -17,6 +17,8 @@ import { createWebSpeechOutput } from "@/lib/speech/webSpeechOutput";
 import type { ChatResponse, LinkedPassage } from "@/app/api/chat/route";
 import { ArchAvatar, VoiceWaveform, type AvatarState } from "./ArchAvatar";
 import { HandoffDialog, type HandoffCandidate } from "./chat/HandoffDialog";
+import { RememberGoalDialog } from "./journey/RememberGoalDialog";
+import { useJourney } from "@/lib/journey/useJourney";
 import { ThreadPassage } from "./chat/ThreadPassage";
 
 export const MAX_MESSAGE_LENGTH = 2000;
@@ -120,6 +122,11 @@ export function ChatScreen({
   const [errorFlash, setErrorFlash] = useState(false);
   const [panelOpen, setPanelOpen] = useState(true);
   const [handoffTo, setHandoffTo] = useState<CompanionId | null>(null);
+  // Life Journey Memory: saved goals are shared only when switched on, for this conversation.
+  const { journey } = useJourney();
+  const [shareGoals, setShareGoals] = useState(false);
+  const [rememberText, setRememberText] = useState<string | null>(null);
+  const goalTexts = journey.enabled ? journey.goals.map((g) => g.text).slice(0, 10) : [];
 
   const replyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pending = useRef<AbortController | null>(null);
@@ -289,6 +296,7 @@ export function ChatScreen({
     stopSpeaking();
     stopListening();
     setHandoffTo(null);
+    setShareGoals(false); // consent to share goals was given to the previous companion only
     const shared = currentExchanges()
       .filter((m) => sharedIds.includes(m.id))
       .map(({ role, text }) => ({ role, text }));
@@ -357,6 +365,7 @@ export function ChatScreen({
         companion: speaker,
         messages: [...history, { role: "user", text }],
         ...(shared && { shared }),
+        ...(shareGoals && goalTexts.length > 0 && { goals: goalTexts }),
       }),
       signal: ctrl.signal,
     })
@@ -524,6 +533,27 @@ export function ChatScreen({
             Clear chat
           </button>
         </div>
+        {goalTexts.length > 0 && aiStatus?.ai && (
+          <div className="border-b border-line px-4 py-2 text-sm">
+            <label className="inline-flex cursor-pointer items-center gap-2">
+              <input
+                type="checkbox"
+                checked={shareGoals}
+                onChange={(e) => setShareGoals(e.target.checked)}
+                className="h-4 w-4 accent-accent"
+              />
+              Share my {goalTexts.length} saved {goalTexts.length === 1 ? "goal" : "goals"} with{" "}
+              {companion.name} in this conversation
+            </label>
+            {shareGoals && (
+              <p className="mt-0.5 text-xs text-muted">
+                {aiStatus.practice
+                  ? "Your goals go with each message until you switch this off."
+                  : "Your goals are sent to Google Gemini with each message until you switch this off."}
+              </p>
+            )}
+          </div>
+        )}
 
         <div
           ref={logRef}
@@ -552,11 +582,18 @@ export function ChatScreen({
               }
               if (m.role === "user") {
                 return (
-                  <li key={m.id} className="flex justify-end">
+                  <li key={m.id} className="flex flex-col items-end">
                     <div className="max-w-[85%] rounded-2xl rounded-br-sm bg-accent-soft px-4 py-2.5 whitespace-pre-wrap">
                       <span className="sr-only">You: </span>
                       {m.text}
                     </div>
+                    <button
+                      type="button"
+                      onClick={() => setRememberText(m.text)}
+                      className="mt-1 text-xs text-muted underline hover:text-ink"
+                    >
+                      Remember as a goal
+                    </button>
                   </li>
                 );
               }
@@ -760,6 +797,17 @@ export function ChatScreen({
           </div>
         </form>
       </section>
+      {rememberText !== null && (
+        <RememberGoalDialog
+          text={rememberText}
+          enabled={journey.enabled}
+          onClose={() => setRememberText(null)}
+          onSaved={() => {
+            setRememberText(null);
+            setNotice("Saved to My Dharma Journey as a goal.");
+          }}
+        />
+      )}
       {handoffTo && (
         <HandoffDialog
           from={companion}

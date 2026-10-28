@@ -14,6 +14,7 @@ const posted: {
   companion: string;
   messages: { role: string; text: string }[];
   shared?: { from: string; messages: { role: string; text: string }[] };
+  goals?: string[];
 }[] = [];
 
 function mockServer() {
@@ -331,5 +332,77 @@ describe("ChatScreen voice", () => {
     fireEvent.click(screen.getByRole("button", { name: "Listen to Krishna's reply" }));
     expect(screen.getByRole("status")).toHaveTextContent(/Spoken replies aren't available/);
     expect(avatarState()).toBe("idle");
+  });
+});
+
+describe("Life Journey Memory in chat", () => {
+  function savedJourney(goals: string[]) {
+    const t = new Date().toISOString();
+    localStorage.setItem(
+      "sanatana-journey",
+      JSON.stringify({
+        version: 1,
+        enabled: true,
+        goals: goals.map((text, i) => ({
+          id: `g${i}`,
+          text,
+          note: "",
+          createdAt: t,
+          updatedAt: t,
+        })),
+        leaves: [],
+        reflections: [],
+        sankalpas: [],
+      }),
+    );
+  }
+  async function sendText(text: string) {
+    fireEvent.change(input(), { target: { value: text } });
+    fireEvent.click(screen.getByRole("button", { name: "Send message" }));
+    await flush();
+  }
+
+  it("never sends saved goals unless the person switches sharing on; switching companion turns it off", async () => {
+    savedJourney(["Be patient with my brother", "Exercise three times a week"]);
+    render(<ChatScreen />);
+    await flush();
+    const share = screen.getByRole("checkbox", { name: /Share my 2 saved goals with Krishna/ });
+    expect(share).not.toBeChecked();
+    await sendText("Hello");
+    expect(posted.at(-1)!.goals).toBeUndefined();
+
+    fireEvent.click(share);
+    expect(screen.getByText(/sent with each message|go with each message/)).toBeInTheDocument();
+    await sendText("How do I stay steady?");
+    expect(posted.at(-1)!.goals).toEqual([
+      "Be patient with my brother",
+      "Exercise three times a week",
+    ]);
+
+    fireEvent.click(screen.getByRole("button", { name: "Shiva" }));
+    fireEvent.click(screen.getByRole("button", { name: "Start fresh" }));
+    expect(screen.getByRole("checkbox", { name: /with Shiva/ })).not.toBeChecked();
+    await sendText("And you?");
+    expect(posted.at(-1)!.goals).toBeUndefined();
+  });
+
+  it("'Remember as a goal' asks for consent first, then saves the edited text on this device", async () => {
+    render(<ChatScreen />);
+    await sendText("I want to stop snapping at my parents");
+    fireEvent.click(screen.getByRole("button", { name: "Remember as a goal" }));
+    const dialog = screen.getByRole("dialog", { name: "Remember as a goal" });
+    expect(within(dialog).getByText(/Saving on this device is off/)).toBeInTheDocument();
+    const box = within(dialog).getByRole("textbox", { name: "Goal" });
+    expect(box).toHaveValue("I want to stop snapping at my parents");
+    fireEvent.change(box, { target: { value: "Speak calmly with my parents" } });
+    expect(localStorage.getItem("sanatana-journey")).toBeNull();
+    fireEvent.click(within(dialog).getByRole("button", { name: "Turn on saving and save" }));
+    const saved = JSON.parse(localStorage.getItem("sanatana-journey")!);
+    expect(saved.enabled).toBe(true);
+    expect(saved.goals.map((g: { text: string }) => g.text)).toEqual([
+      "Speak calmly with my parents",
+    ]);
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(screen.getByText("Saved to My Dharma Journey as a goal.")).toBeInTheDocument();
   });
 });
