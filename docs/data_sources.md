@@ -86,3 +86,6 @@ read, the text now says "[a few words are unreadable in the scanned source]" ins
 - A test checks that no passage contains the damage patterns found (symbols like £ ¥ « ¬, or a
   digit inside a word). That test cannot catch every misspelling: the OCR-derived texts, which are
   labelled "cleaned from OCR" on the site, still contain some errors (Growse especially).
+- Data 1.1.2: 9 more corrections (100 in total) found while writing the Living Leela scenes: typos
+  in source transcriptions ("resected" for "reflected", "great-soured", "Vahasrava", "griev ed"),
+  a stray "Canto Sixth." heading and footnote numbers in Hume's Isa 18.

@@ -137,6 +137,13 @@ export default function AboutPage() {
           get crisis resources instead.
         </p>
         <p>
+          <strong>Switching companions:</strong> when you switch companion after a conversation, you
+          choose which earlier messages (if any) the new companion may see; only those are sent.{" "}
+          <strong>Divine Council:</strong> your question is sent to Gemini four times, once per
+          companion, and once more to compare the answers. <strong>Living Leela:</strong> the scenes
+          run entirely in your browser; your choices are not saved or sent anywhere.
+        </p>
+        <p>
           Your browser stores only two small preferences on your device: your day/night theme (
           <code className="text-sm">{STORAGE_KEYS.theme}</code>) and your last chosen companion (
           <code className="text-sm">{STORAGE_KEYS.companion}</code>). No accounts, no tracking, no

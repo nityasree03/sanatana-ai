@@ -4,12 +4,14 @@ A scripture-grounded conversational and learning website. Four AI companions ins
 tradition (Krishna, Shiva, Hanuman and Parvati) appear as animated avatars on the left, with a
 ChatGPT-style text and voice chat on the right.
 
-> **Status: Phase 4 complete (live AI evaluation pending a key).** All pages and navigation work; the four companions are animated
+> **Status: Phase 5 complete.** All pages and navigation work; the four companions are animated
 > and you can talk and listen in supported browsers. The **Scripture Explorer** holds 17
 > public-domain texts and translations (9,321 passages, with Sanskrit where it could be matched)
 > with full source and licence details and search. The chat answers with cited, verified passages
-> (Gemini when a key is set; scripture-only replies without one); every page shows an honest
-> status label. See [`docs/project_status.md`](docs/project_status.md).
+> (Gemini when a key is set; scripture-only replies without one), with a Truth Lens that separates
+> verified text from AI interpretation. You can switch companions and choose what to share, ask
+> the **Divine Council** one question for four perspectives, and explore one **Living Leela**
+> story scene per companion. Every page shows an honest status label. See [`docs/project_status.md`](docs/project_status.md).
 
 The companions are **AI simulations inspired by tradition**. They are not the deities themselves
 and do not offer divine contact, predictions or guaranteed outcomes.

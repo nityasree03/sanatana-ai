@@ -5,7 +5,8 @@ Not deployed yet. Planned for Phase 9 on Vercel (Hobby plan), only with the owne
 ## Planned steps
 
 1. Connect the GitHub repository to Vercel.
-2. Add `GEMINI_API_KEY`, `GEMINI_MODEL`, `GEMINI_FALLBACK_MODEL` and `CHAT_DAILY_LIMIT` as Vercel
+2. Add `GEMINI_API_KEY`, `GEMINI_MODEL`, `GEMINI_FALLBACK_MODEL`, `CHAT_DAILY_LIMIT` and (optional)
+   `CHAT_MINUTE_LIMIT` as Vercel
    environment variables (never in code). Do not set `AI_PROVIDER` (it is for tests only).
 3. Deploy, then run smoke tests against the live URL.
 4. Record the real live URL here only after it works.

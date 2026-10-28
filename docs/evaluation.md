@@ -156,11 +156,27 @@ for saying the library does not include a text (c15).
   ungrounded while still citing a loosely related passage. One run per prompt; replies vary
   between runs, so these numbers show direction, not a guarantee.
 
+## Phase 5 checks
+
+- **Living Leela:** `tests/unit/leela.test.ts` checks, for each of the four scenes, that every
+  cited passage exists, comes from the text the scene names and is listed in reading order; that
+  every moment is reachable, every path can reach the single ending and detours return to the
+  story; and that "read more" links to the right chapter. The ordering check caught two moments
+  with verses out of order, fixed before release. Retellings were checked by hand against the
+  verses; four sentences that went beyond the cited text were corrected.
+- **Divine Council:** API tests cover no AI, practice AI, crisis (AI never called), one companion
+  failing, validation and the 5-unit cost; UI tests cover sequential speech and stopping. The live
+  evaluation `evaluation/chat/council.eval.ts` (3 questions, run by `npm run eval:chat` with a key)
+  checks four distinct answers, own-text citations, complete Truth Lens, a comparison and no
+  promises. **Not yet run.**
+- **Truth Lens:** the chat evaluation now also checks that every grounded citation has a separate
+  interpretation and reflection.
+
 ## Current results
 
 | Check                                         | Result                                                                                                                                                                         |
 | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Unit tests (Vitest)                           | 92/92 pass (Phase 4)                                                                                                                                                           |
+| Unit tests (Vitest)                           | 138/138 pass (Phase 5)                                                                                                                                                         |
 | Browser tests (Playwright, desktop + Pixel 7) | 87/87 pass; 1 phone-only test skipped on desktop                                                                                                                               |
 | Automated accessibility (axe, WCAG 2 A/AA)    | 0 violations on all 17 routes, both viewports; chat scanned in night theme and while speaking; scripture search results, chapter and text pages scanned                        |
 | Avatar states                                 | idle, listening, thinking, speaking and error verified for all four companions (screenshots); animation stops with reduced motion                                              |

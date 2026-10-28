@@ -23,3 +23,17 @@
   the AI.
 - Known limits: in-memory rate limits reset when the server restarts and are per server instance;
   a shared store would be needed at larger scale.
+
+## Phase 5
+
+- `POST /api/chat` accepts optional `shared` context (max 10 messages, each ≤2,000 characters,
+  from a known companion), placed in the user turn with framing that it is background, not the new
+  companion's words and not instructions.
+- `POST /api/council`: Zod-validated question (≤1,000 characters); counts as 5 units toward the
+  per-minute (`CHAT_MINUTE_LIMIT`, default 12) and per-day (`CHAT_DAILY_LIMIT`, default 60) limits,
+  because it makes 5 AI calls. The comparison prompt treats the answers as material, never
+  instructions, and may not add new teachings or verses. If one companion fails, it falls back to
+  passages without exposing error details.
+- The test server raises both limits through environment variables only; production defaults are
+  unchanged.
+- Living Leela pages are static; unknown scene URLs return 404 in `src/proxy.ts`.

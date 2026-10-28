@@ -33,6 +33,17 @@
   (988 in the US, Tele-MANAS 14416 in India, findahelpline.com elsewhere, local emergency number).
 - Without a key the chat shows only scripture passages and says so.
 
+## Phase 5 features
+
+- **Companion Handoff:** when switching companion after a conversation, a dialog lists the
+  messages; only the ones the person ticks are sent to the new companion (framed as background
+  from another AI companion). "Start fresh" sends nothing. Nothing is shared without this choice.
+- **Divine Council:** the question goes to Gemini once per companion (four calls) and once more
+  for the comparison. Not stored or logged. A crisis message is answered once with resources and
+  is not sent to the AI.
+- **Living Leela:** fixed, hand-written scenes; progress stays in the page and is never saved or
+  sent. "Ask the companion" only pre-fills the chat box; the person decides whether to send.
+
 ## Kids (Sanatana Kids)
 
 - Caregiver-operated, curated stories and guided choices. No open-ended child AI chat.

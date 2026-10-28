@@ -29,7 +29,7 @@ from .ocr_fixes import apply_fixes, remaining_suspicious
 from .provenance import validate
 from .sources import SOURCES
 
-DATA_VERSION = "1.1.1"
+DATA_VERSION = "1.1.2"
 OUT = Path(__file__).resolve().parents[2] / "src" / "data" / "scripture"
 
 # Minimum counts guard against an importer silently breaking. The order here is the order

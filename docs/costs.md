@@ -19,3 +19,5 @@ Rule: no paid billing, purchases or paid datasets without the owner's explicit a
 - On the free tier Google may use prompts and replies to improve its products, and people may
   review them. This is disclosed on the About page and next to the chat box.
 - Meaning search runs a small model on our own server: no API cost.
+- A Divine Council question makes 5 AI calls (4 answers + 1 comparison) and counts as 5 messages
+  toward the per-visitor daily limit. Living Leela uses no AI.

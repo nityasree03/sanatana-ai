@@ -91,3 +91,22 @@ Browser (ChatScreen)  ──POST /api/chat { companion, messages[≤20] }──�
   not from the model; the model only explains why a passage is relevant ("Why it's here (AI)").
 - **Teaching preference:** for personal questions, passages from teaching texts (Gita, Upanishads,
   Devi Gita…) get a small ranking bonus over story passages.
+
+## Phase 5: Truth Lens, Handoff, Divine Council, Living Leela
+
+- **Shared grounded answer** (`src/lib/chat/answer.ts`): `groundedAnswer()` is used by chat and the
+  Council. It builds the prompt, asks for the JSON reply, checks citations and retries once if the
+  reply can't be read (not on quota, outage or safety blocks).
+- **Truth Lens:** every citation carries three layers: the passage text from our library
+  (📜 verified scripture), `how` (💭 AI interpretation) and `reflection` (🌱 AI-suggested
+  reflection). `ThreadPassage` shows them as separate, labelled parts.
+- **Companion Handoff:** client-side. Switching after real exchanges opens `HandoffDialog`; the
+  chosen messages are stored on the handoff divider and sent as `shared` with each later request
+  to that companion.
+- **Divine Council** (`/api/council`, `CouncilScreen`): one embedding, then per companion
+  `chatPassages(..., ownOnly: true)` and `groundedAnswer()` with Council instructions, in parallel
+  (`Promise.allSettled`); then one comparison call (`SYNTHESIS_SCHEMA`) from the answers only.
+  "Listen to all" speaks the answers in order with each companion's voice settings.
+- **Living Leela** (`src/lib/leela/scenes.ts`, `LeelaPlayer`): static scene graphs, no AI. Each
+  moment has a hand-written retelling and the passage ids it summarises; pages are prerendered and
+  only the passages a scene uses are sent to the browser.
