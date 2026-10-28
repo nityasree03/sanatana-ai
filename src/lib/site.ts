@@ -14,7 +14,7 @@ export const SITE = {
   /** Which portrait set the site uses: "illustrated" artwork or the drawn "classic" SVGs. */
   avatarStyle: "illustrated" as "illustrated" | "classic",
   /** The build phase the website is currently in. */
-  currentPhase: 4,
+  currentPhase: 5,
 } as const;
 
 /** Keys used for small browser-only preferences. Nothing here leaves the device. */

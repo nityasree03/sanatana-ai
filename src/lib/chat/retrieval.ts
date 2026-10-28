@@ -13,6 +13,8 @@ export function chatPassages(opts: {
   vector?: number[];
   companion: CompanionId;
   total?: number;
+  /** Only the companion's own texts (Divine Council: keeps the four perspectives distinct). */
+  ownOnly?: boolean;
 }): Passage[] {
   const total = opts.total ?? 6;
   const common = { query: opts.query, vector: opts.vector, teachingPreference: "auto" as const };
@@ -28,7 +30,7 @@ export function chatPassages(opts: {
     picked.push(p);
   };
   own.slice(0, 8).forEach((h, i) => i < 4 && take(h.passage));
-  all.forEach((h) => take(h.passage));
+  if (!opts.ownOnly) all.forEach((h) => take(h.passage));
   own.forEach((h) => take(h.passage));
   return picked;
 }

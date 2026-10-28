@@ -38,6 +38,8 @@ export function ArchAvatar({
   size = "lg",
   showState = true,
   variant = SITE.avatarStyle,
+  caption = true,
+  animated,
 }: {
   companionId: CompanionId;
   state?: AvatarState;
@@ -45,6 +47,10 @@ export function ArchAvatar({
   showState?: boolean;
   /** "illustrated" = expression artwork (default), "classic" = drawn SVG portraits. */
   variant?: "illustrated" | "classic";
+  /** Show the name under the arch (off when a heading nearby already names the companion). */
+  caption?: boolean;
+  /** Animate the portrait (defaults to showState). */
+  animated?: boolean;
 }) {
   const companion = getCompanion(companionId);
   // "responsive" = compact on phones, full size from tablet width up.
@@ -85,7 +91,7 @@ export function ArchAvatar({
           {variant === "illustrated" ? (
             <IllustratedPortrait
               companionId={companionId}
-              animated={showState}
+              animated={animated ?? showState}
               priority={showState}
             />
           ) : (
@@ -96,17 +102,19 @@ export function ArchAvatar({
           )}
         </div>
       </div>
-      <figcaption className="flex flex-col items-center text-center">
-        <span className="block font-display text-2xl font-semibold">{companion.name}</span>
-        {showState && (
-          <>
-            <span className="flex items-center gap-2 text-sm text-accent">
-              {state === "speaking" && <VoiceWaveform active />}
-              <span aria-live="polite">{STATE_LABEL[state]}</span>
-            </span>
-          </>
-        )}
-      </figcaption>
+      {caption && (
+        <figcaption className="flex flex-col items-center text-center">
+          <span className="block font-display text-2xl font-semibold">{companion.name}</span>
+          {showState && (
+            <>
+              <span className="flex items-center gap-2 text-sm text-accent">
+                {state === "speaking" && <VoiceWaveform active />}
+                <span aria-live="polite">{STATE_LABEL[state]}</span>
+              </span>
+            </>
+          )}
+        </figcaption>
+      )}
     </figure>
   );
 }

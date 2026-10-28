@@ -12,6 +12,18 @@ export function createPracticeProvider(): AiProvider {
     practice: true,
     async generate(req) {
       const last = req.turns.at(-1)?.text ?? "";
+      const props = (req.jsonSchema as { properties?: Record<string, unknown> } | undefined)
+        ?.properties;
+      if (props && "agree" in props) {
+        // Divine Council comparison.
+        return {
+          model: "practice",
+          text: JSON.stringify({
+            agree: ["Practice mode: a real AI would list the ideas the answers share here."],
+            differ: ["Practice mode: a real AI would list where the answers differ here."],
+          }),
+        };
+      }
       const ids = [...last.matchAll(/^\[([a-z0-9.\-]+)\]/gm)].map((m) => m[1]).slice(0, 2);
       return {
         model: "practice",

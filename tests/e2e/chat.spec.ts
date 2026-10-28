@@ -69,7 +69,7 @@ test("chat page passes accessibility checks after a conversation, in night theme
   page,
 }) => {
   await page.goto("/chat?companion=parvati");
-  await page.getByRole("button", { name: "Night theme" }).click();
+  await page.getByRole("button", { name: "Day theme: switch to night" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.getByRole("textbox", { name: "Message Parvati" }).fill("Hello");
   await page.getByRole("button", { name: "Send message" }).click();
@@ -85,7 +85,7 @@ test("chat page passes accessibility checks after a conversation, in night theme
 
 test("night theme is remembered after reload", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "Night theme" }).click();
+  await page.getByRole("button", { name: "Day theme: switch to night" }).click();
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 });

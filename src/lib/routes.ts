@@ -63,7 +63,7 @@ export const ROUTES: readonly SiteRoute[] = [
     title: "Divine Council",
     description: "Ask one question and compare four separate, cited perspectives.",
     group: "Talk",
-    status: "planned",
+    status: "ready",
     phase: 5,
   },
   {

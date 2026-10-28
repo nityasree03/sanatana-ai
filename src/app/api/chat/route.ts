@@ -75,7 +75,7 @@ function ipOf(request: Request) {
 /** POST /api/chat — one grounded reply from the chosen companion. Messages are not stored or logged. */
 export async function POST(request: Request) {
   const ip = ipOf(request);
-  const perMinute = rateLimit(`chat:${ip}`, 12);
+  const perMinute = rateLimit(`chat:${ip}`, Number(process.env.CHAT_MINUTE_LIMIT) || 12);
   if (!perMinute.ok) {
     return Response.json(
       { error: "You're sending messages quickly. Wait a moment and try again." },

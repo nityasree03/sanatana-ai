@@ -35,12 +35,12 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-pressed={isDark}
-      aria-label="Night theme"
+      // The name starts with the visible word (WCAG 2.5.3 Label in Name) and says what a press does.
+      aria-label={isDark ? "Night theme: switch to day" : "Day theme: switch to night"}
       className="inline-flex h-9 items-center gap-2 rounded-full border border-line px-3 text-sm text-muted hover:text-ink"
     >
       <span aria-hidden="true">{isDark ? "☾" : "☀"}</span>
-      <span aria-hidden="true">{isDark ? "Night" : "Day"}</span>
+      <span>{isDark ? "Night" : "Day"}</span>
     </button>
   );
 }

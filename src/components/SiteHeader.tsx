@@ -36,7 +36,7 @@ export function SiteHeader() {
           className="flex items-baseline gap-1.5 text-xl font-semibold"
           aria-label={`${SITE.name} home`}
         >
-          <span className="font-display text-2xl">Sanatana</span>
+          <span className="font-display text-2xl">Sanatana</span>{" "}
           <span className="text-accent">AI</span>
         </Link>
 
