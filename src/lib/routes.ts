@@ -101,7 +101,7 @@ export const ROUTES: readonly SiteRoute[] = [
     title: "Wisdom Knowledge Map",
     description: "A map of verified links between teachings, concepts, people and stories.",
     group: "Learn",
-    status: "planned",
+    status: "ready",
     phase: 7,
   },
   {
