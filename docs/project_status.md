@@ -51,8 +51,9 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 - Meaning search moved to the server; held-out retrieval Hit@5 0.17 (keyword) → 0.42 (hybrid +
   teaching preference). See `docs/evaluation.md`.
 - Tests: 92 unit, 87 browser (+1 skip), 25 Python; lint, types and formatting clean.
-- **Pending:** `npm run eval:chat` with a real Gemini key (18 prompts). Until it runs, the quality
-  of real AI answers is unmeasured.
+- Real Gemini evaluation, run 1: 17/18 automatic checks passed; reading the replies found 4 more
+  problems, all fixed (see `docs/evaluation.md`). Scripture data 1.1.1: 91 scanning corrections.
+- **Pending:** run 2 of `npm run eval:chat` to confirm the fixes.
 
 ## Phase 3b evidence (more translations)
 

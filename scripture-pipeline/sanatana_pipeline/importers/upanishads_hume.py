@@ -30,14 +30,14 @@ ORDINALS = (
 ).split()
 LEVEL1 = {"adhyaya": "Adhyaya", "prapathaka": "Prapathaka", "valli": "Valli", "prasna": "Question", "mundaka": "Mundaka", "question": "Question"}
 LEVEL2 = {"brahmana": "Brahmana", "khanda": "Khanda", "anuvaka": "Anuvaka", "section": "Section", "valli": "Valli"}
-# Verse numbers as OCR reads them: "1.", "i .", "io." (10), "j i ." (11), "1 2." (12).
+# Verse numbers as OCR reads them: "1.", "i .", "io." (10), "j i ." (11), "1 2." (12), "£2." (12).
 # Kena is numbered continuously with the local number in brackets: "9 (1)." = part 2, verse 1.
-VERSE = re.compile(r"^((?:\d|[iIlj])(?: ?(?:\d|[iIlo]))?)(?:\s*\((\d{1,2})\))?\s?\.\s+(.*)$")
+VERSE = re.compile(r"^((?:\d|[iIlj£])(?: ?(?:\d|[iIlo]))?)(?:\s*\((\d{1,2})\))?\s?\.\s+(.*)$")
 TITLE_KEY = {"ISA": r"[Il1][S£$]A"}
 
 
 def _verse_no(token: str) -> int | None:
-    digits = token.replace(" ", "").translate(str.maketrans("iIljoO", "111100"))
+    digits = token.replace(" ", "").translate(str.maketrans("iIlj£oO", "1111100"))
     return int(digits) if digits.isdigit() else None
 
 

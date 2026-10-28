@@ -65,8 +65,14 @@ export function parseReply(raw: string, provided: Passage[]): GroundedReply {
     if (citations.some((x) => x.id === id)) continue;
     citations.push({ id, how: typeof c.how === "string" ? c.how.trim().slice(0, 300) : "" });
   }
+  // Passage ids belong in "citations"; remove any the AI also wrote into the text, e.g. "[dm-91.8]".
+  const reply = obj.reply
+    .replace(/\s*\[[a-z][\w]*(?:[-.][\w]+)+\]/gi, "")
+    .replace(/\s+([.,;:!?])/g, "$1")
+    .trim();
+  if (!reply) throw new Error("The AI reply had no text");
   return {
-    reply: obj.reply.trim().slice(0, 2500),
+    reply: reply.slice(0, 2500),
     citations: citations.slice(0, 3),
     grounded: obj.grounded === true && citations.length > 0,
     rejectedCitations: rejected,

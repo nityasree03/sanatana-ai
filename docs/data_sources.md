@@ -70,3 +70,19 @@ Known limitations:
 
 `@huggingface/transformers` was removed in Phase 4; the tokenizer is our own code
 (`src/lib/scripture/wordpiece.ts`), tested against the reference tokenizer on 232 cases.
+
+## Scanning (OCR) corrections — data 1.1.1
+
+Texts taken from scanned books (Growse's Ramcharitmanas, Hume's Upanishads, Pargiter's Devi
+Mahatmya, Telang's Gita, Dutt's Ramayana, the Devi Gita scan) contained misread characters such as
+"Raghun4th" (Raghunath), "o£" (of), page headers ("320 AY0DHY4.") and footnotes that ran into the
+verse text. `scripture-pipeline/sanatana_pipeline/ocr_fixes.py` holds 91 hand-checked corrections
+applied at build time; the build fails if a correction stops matching. Where the scan cannot be
+read, the text now says "[a few words are unreadable in the scanned source]" instead of a guess.
+
+- Hume's Katha Upanishad 3.12 had been merged into 3.11 ("12." scanned as "£2."); it is now its
+  own passage (9,322 passages). Katha 3 then matched the Sanskrit verse count, so 489 Upanishad
+  verses now have the Sanskrit original (was 472).
+- A test checks that no passage contains the damage patterns found (symbols like £ ¥ « ¬, or a
+  digit inside a word). That test cannot catch every misspelling: the OCR-derived texts, which are
+  labelled "cleaned from OCR" on the site, still contain some errors (Growse especially).

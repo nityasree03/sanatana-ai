@@ -1,8 +1,8 @@
 {
-  "ranAt": "2026-10-28T01:06:25.394Z",
+  "ranAt": "2026-10-28T02:47:45.973Z",
   "datasetVersion": "1.2.0",
   "queries": 24,
-  "passages": 9321,
+  "passages": 9322,
   "model": "Xenova/all-MiniLM-L6-v2",
   "definitions": {
     "recallAt5": "share of a query's relevant passages (capped at 5) found in the top 5, averaged",
@@ -518,8 +518,8 @@
       "meaning": {
         "top5": [
           "bg-2.56",
+          "rcm-2.169",
           "bg-telang-2.14",
-          "rcm-2.302",
           "bg-telang-12.3",
           "bg-2.54"
         ],
@@ -531,7 +531,7 @@
           "ram-dutt-7.20.4",
           "bg-2.56",
           "ram-dutt-6.29.3",
-          "bg-telang-2.14",
+          "rcm-2.169",
           "rcm-2.209"
         ],
         "recall": 0.25,
@@ -1330,7 +1330,7 @@
           "dm-81.6",
           "bg-arnold-11.1",
           "hume-aitareya-1",
-          "bg-arnold-11.8"
+          "dm-85.4"
         ],
         "recall": 0,
         "rr": 0
@@ -1341,7 +1341,7 @@
           "dm-81.6",
           "bg-arnold-11.1",
           "hume-aitareya-1",
-          "bg-arnold-11.8"
+          "dm-85.4"
         ],
         "recall": 0,
         "rr": 0

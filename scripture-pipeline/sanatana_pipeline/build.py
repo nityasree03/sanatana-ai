@@ -25,10 +25,11 @@ from .importers.svetasvatara import import_svetasvatara
 from .importers.upanishads import import_upanishads
 from .importers.upanishads_hume import import_upanishads_hume
 from .importers.vishnu_purana import import_vishnu_purana
+from .ocr_fixes import apply_fixes, remaining_suspicious
 from .provenance import validate
 from .sources import SOURCES
 
-DATA_VERSION = "1.1.0"
+DATA_VERSION = "1.1.1"
 OUT = Path(__file__).resolve().parents[2] / "src" / "data" / "scripture"
 
 # Minimum counts guard against an importer silently breaking. The order here is the order
@@ -92,6 +93,9 @@ def build() -> dict:
         + import_devi_mahatmya(RAW)
         + import_lalita(RAW)
     )
+    fixed = apply_fixes(passages)
+    left = remaining_suspicious(passages)
+    print(f"OCR corrections applied: {fixed}; suspicious tokens left: {len(left)} {left[:10]}")
     sa_stats = attach_upanishads(passages, RAW)
     sa_dm = attach_devi_mahatmya(passages, RAW)
     print(f"Sanskrit attached: {sa_stats['attached']} Upanishad verses ({sa_stats['sections_skipped']} sections skipped: verse counts differ), {sa_dm} Devi Mahatmya passages")

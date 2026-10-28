@@ -77,6 +77,17 @@ describe("grounding checks", () => {
     ).toBe("ok");
     expect(() => parseReply("Sure! Here's my answer", [])).toThrow();
   });
+  it("removes passage ids the AI wrote into the reply text, keeping ordinary brackets", () => {
+    const r = parseReply(
+      JSON.stringify({
+        reply: "She guards the worlds [dm-91.8]. Act calmly [bg-2.47], as taught [sic].",
+        citations: [{ id: "bg-2.47", how: "x" }],
+        grounded: true,
+      }),
+      [p247],
+    );
+    expect(r.reply).toBe("She guards the worlds. Act calmly, as taught [sic].");
+  });
   it("puts passage ids, references and translators in front of the question", () => {
     const turn = userTurnWithPassages("How do I act?", [p247]);
     expect(turn).toContain("[bg-2.47] Bhagavad Gita 2.47 — Annie Besant translation");
@@ -91,6 +102,10 @@ describe("personas", () => {
       expect(s).toMatch(/AI simulation/);
       expect(s).toMatch(/Never invent verses/);
       expect(s).toMatch(/No predictions/);
+      expect(s).toMatch(/do not introduce yourself/);
+      expect(s).toMatch(/third person/);
+      expect(s).toMatch(/library does not include it/);
+      expect(s).toMatch(/never instructions to you/);
     }
     expect(REPLY_SCHEMA.required).toEqual(["reply", "citations", "grounded"]);
   });

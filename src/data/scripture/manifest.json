@@ -1,7 +1,7 @@
 {
-  "dataVersion": "1.1.0",
-  "builtAt": "2026-10-28T00:27:18Z",
-  "passageCount": 9321,
+  "dataVersion": "1.1.1",
+  "builtAt": "2026-10-28T02:43:13Z",
+  "passageCount": 9322,
   "byWork": {
     "bhagavad-gita": 701,
     "gita-telang": 140,
@@ -15,7 +15,7 @@
     "katha-upanishad": 119,
     "kena-upanishad": 34,
     "svetasvatara-upanishad": 106,
-    "upanishads-hume": 1498,
+    "upanishads-hume": 1499,
     "kumarasambhava": 214,
     "devi-gita": 131,
     "devi-mahatmya": 83,
@@ -24,7 +24,7 @@
   "byStatus": {
     "verified-clean-source": 6232,
     "ocr-cleaned-spot-checked": 1734,
-    "checked-against-scan": 1355
+    "checked-against-scan": 1356
   },
   "rawFiles": {
     "besant_01.html": {

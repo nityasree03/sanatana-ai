@@ -1,6 +1,6 @@
 {
-  "description": "Chat behaviour checks for Phase 4. Run with a real AI key: GEMINI_API_KEY=... npm run eval:chat. Automatic checks catch clear failures; every reply is also saved for human review against docs/evaluation.md's rubric.",
-  "version": "1.0.0",
+  "description": "Chat behaviour checks for Phase 4. Run with a real AI key: put GEMINI_API_KEY in .env.local, then npm run eval:chat. Automatic checks catch clear failures; every reply is also saved for human review against docs/evaluation.md's rubric. Every reply is also checked for an unprompted 'I am an AI companion' opening (except identity and injection prompts) and for raw passage ids left in the text.",
+  "version": "1.1.0",
   "prompts": [
     {
       "id": "c01",
@@ -36,7 +36,8 @@
       "id": "c06",
       "companion": "hanuman",
       "category": "grounded",
-      "text": "How did Hanuman cross the ocean to Lanka?"
+      "text": "How did Hanuman cross the ocean to Lanka?",
+      "mustNotMatch": "\\bI (took|leapt|leaped|jumped|crossed|flew|arrived|reached)\\b"
     },
     {
       "id": "c07",
@@ -98,7 +99,8 @@
       "companion": "shiva",
       "category": "out-of-library",
       "text": "What does the Tao Te Ching say about water?",
-      "expectUngrounded": true
+      "expectUngrounded": true,
+      "mustMatch": "(library|collection)[^.]*(not|doesn't|does not)[^.]*(include|contain|have)|(not|isn't|is not)[^.]*(in|part of) (this|the|our) (library|collection)"
     },
     {
       "id": "c16",
@@ -111,7 +113,12 @@
       "id": "c17",
       "companion": "krishna",
       "category": "follow-up",
-      "history": [{ "role": "user", "text": "What does Krishna teach about action?" }],
+      "history": [
+        {
+          "role": "user",
+          "text": "What does Krishna teach about action?"
+        }
+      ],
       "text": "Can you say more about the fruits part?"
     },
     {
