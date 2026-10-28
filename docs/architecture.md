@@ -158,3 +158,26 @@ src/components/shloka/       ShlokaStudio (playback queue with pauses, opt-in re
 - Only the passages a page needs are sent to the browser (evidence for the map, lesson verses,
   practice verses).
 - `pickVoice()` prefers Indian English only for English; Devanagari is read with a Hindi voice.
+
+## Phase 8: Sanatana Kids and Wisdom for Generations
+
+```
+src/lib/kids/
+  types.ts        AgeRange, Scene (text per age, passages, verse line), Activity (picture-choice |
+                  question | sequence | match), Story
+  stories/*.ts    the four stories (data only; reviewed text)
+  stories.ts      STORIES, storySteps(story, age, withActivities), mixedOrder() (fixed shuffle)
+  settings.ts     caregiver settings in sessionStorage; opt-in progress in localStorage (Zod)
+src/components/kids/
+  KidsLoader      client-only load (settings come from sessionStorage)
+  KidsApp         grown-ups screen → story shelf → player; break reminder (Dialog)
+  CaregiverSetup  GrownUpCheck, CaregiverSettings
+  StoryPlayer     scene / activity / end pages; narration via the speech adapter
+  Activities      Choice, Sequence, Match (buttons only, keyboard friendly)
+  art/            original SVG scenes and icons built from small parts (parts.tsx, parts2.tsx)
+src/lib/generations/topics.ts           8 teachings × 3 levels
+src/components/generations/             WisdomForGenerations (level + topic, VerseCard, Listen)
+```
+
+- Kids makes no API calls (only the page's own files and images load); the only server work is the
+  page passing verse references. Wisdom for Generations receives only the passages and sources it shows.

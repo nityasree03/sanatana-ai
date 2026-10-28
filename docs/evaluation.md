@@ -209,15 +209,34 @@ The blueprint's memory tests (save, delete, export, opt-out, clear, switch compa
 - **Speech:** Listen, slow playback, repeat ×3 with pauses, stop on verse change and late
   recognition events are tested with fake speech engines; real voices vary by device.
 
+## Phase 8 checks (children)
+
+- **Story data:** passages exist and belong to the story's companion; 10–12 verse lines appear word
+  for word; every scene has text for all three ages and a picture with a description; activity
+  answers are valid; order puzzles follow story order and never start solved.
+- **Gentle language:** a word list (e.g. wrong, bad, shame, punish, kill, die) must not appear in
+  anything a child reads. It caught two phrases, which were rewritten.
+- **Play-through:** all four stories reach "The end" at all three ages; switching activities off is tested on one story.
+- **Privacy:** browser tests record every request (none to `/api/`) and confirm localStorage is
+  empty unless progress is on; unit tests confirm only finished story ids are stored and can be
+  deleted.
+- **Accessibility:** keyboard-only play (focus moves to each new page), axe-clean on the grown-ups
+  screen, settings, shelf, scenes, activities and ending for every story, desktop and phone; rain
+  animation runs normally and stops with reduced motion.
+- **Wisdom for Generations:** key lines word for word; quoted verse words checked against the
+  passages; axe-clean; no server calls.
+- Not yet done: review of the stories by parents, teachers or scholars, and testing with
+  children. Both are recommended before wider use.
+
 ## Current results
 
-| Check                                         | Result                                                                                                                                                                         |
-| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Unit tests (Vitest)                           | 292/292 pass (Phase 7)                                                                                                                                                         |
-| Browser tests (Playwright, desktop + Pixel 7) | 113/113 pass; 1 phone-only test skipped on desktop                                                                                                                             |
-| Automated accessibility (axe, WCAG 2 A/AA)    | 0 violations on all 17 routes plus a lesson page, both viewports; chat scanned in night theme and while speaking; scripture search results, chapter and text pages scanned     |
-| Avatar states                                 | idle, listening, thinking, speaking and error verified for all four companions (screenshots); animation stops with reduced motion                                              |
-| Voice                                         | Tested with a controllable fake microphone and voice in Chromium. Real microphones and installed voices vary by browser and device; real-device testing is planned for Phase 9 |
-| Python tests (pytest)                         | 28/28 pass                                                                                                                                                                     |
+| Check                                         | Result                                                                                                                                                                                      |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Unit tests (Vitest)                           | 334/334 pass (Phase 8)                                                                                                                                                                      |
+| Browser tests (Playwright, desktop + Pixel 7) | 127/127 pass; 1 phone-only test skipped on desktop                                                                                                                                          |
+| Automated accessibility (axe, WCAG 2 A/AA)    | 0 violations on all 17 routes, a lesson page and every Kids story, both viewports; chat scanned in night theme and while speaking; scripture search results, chapter and text pages scanned |
+| Avatar states                                 | idle, listening, thinking, speaking and error verified for all four companions (screenshots); animation stops with reduced motion                                                           |
+| Voice                                         | Tested with a controllable fake microphone and voice in Chromium. Real microphones and installed voices vary by browser and device; real-device testing is planned for Phase 9              |
+| Python tests (pytest)                         | 28/28 pass                                                                                                                                                                                  |
 
 Automated scans do not replace manual screen-reader testing, which is planned for Phase 9.

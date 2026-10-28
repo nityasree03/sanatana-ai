@@ -4,7 +4,7 @@ A scripture-grounded conversational and learning website. Four AI companions ins
 tradition (Krishna, Shiva, Hanuman and Parvati) appear as animated avatars on the left, with a
 ChatGPT-style text and voice chat on the right.
 
-> **Status: Phase 7 complete.** All pages and navigation work; the four companions are animated
+> **Status: Phase 8 complete.** All pages and navigation work; the four companions are animated
 > and you can talk and listen in supported browsers. The **Scripture Explorer** holds 17
 > public-domain texts and translations (9,321 passages, with Sanskrit where it could be matched)
 > with full source and licence details and search. The chat answers with cited, verified passages
@@ -15,7 +15,9 @@ ChatGPT-style text and voice chat on the right.
 > Daily Sankalpa) keeps what you choose to save privately in your browser. The **Dharma Lab** maps
 > a decision into paths with companion perspectives; the **Wisdom Knowledge Map**, **Scripture
 > Learning Studio** and **Shloka Practice Studio** help you learn from the verses themselves.
-> Every page shows an honest status label. See [`docs/project_status.md`](docs/project_status.md).
+> **Sanatana Kids** offers four caregiver-led Talking Storybooks (one per companion, ages 4–5,
+> 6–9 and 10–12), and **Wisdom for Generations** explains eight teachings for a child, a teen and
+> an adult. Every page shows an honest status label. See [`docs/project_status.md`](docs/project_status.md).
 
 The companions are **AI simulations inspired by tradition**. They are not the deities themselves
 and do not offer divine contact, predictions or guaranteed outcomes.

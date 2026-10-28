@@ -84,3 +84,18 @@
 - Characters are clearly identified as AI-generated representations.
 - A COPPA and privacy review must happen before any direct use by children under 13 or any
   collection of covered child data.
+
+### How Phase 8 implements this
+
+- A grown-up check opens the settings; story time is described as something a caregiver runs and
+  stays nearby for.
+- Settings (age range, narration, speed, activities, break reminder) live in sessionStorage
+  (`sanatana-kids-session`) and disappear when the tab closes.
+- Progress is off by default. When a caregiver turns it on, `sanatana-kids-progress` holds only
+  the ids of finished stories (no name, age, answers or audio); turning it off or "Delete saved
+  progress" removes it.
+- No microphone, no chat, no AI and no server calls (tested). Narration uses the device's voice.
+- Narrators are labelled "an AI-made character, not the deity" on every story page.
+- Activities give hints, never "wrong"; a test blocks harsh or frightening words in everything a
+  child reads. Distressing details are left out and listed in each story's "our changes" note.
+- Wisdom for Generations is fixed text, with no AI and no storage.

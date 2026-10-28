@@ -16,7 +16,7 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 | 5 (M5) | Companion handoff, Divine Council, Scripture Truth Lens, four Living Leela experiences                                                                  | DONE        |
 | 6 (M6) | Life Journey Memory, Wisdom Tree, Karma Reflection Mirror, Daily Sankalpa                                                                               | DONE        |
 | 7 (M7) | Dharma Lab, Scripture Learning Studio, Wisdom Knowledge Map, Shloka Practice Studio                                                                     | DONE        |
-| 8 (M8) | Sanatana Kids with four Talking Storybooks, caregiver controls, age modes, Wisdom for Generations                                                       | NOT STARTED |
+| 8 (M8) | Sanatana Kids with four Talking Storybooks, caregiver controls, age modes, Wisdom for Generations                                                       | DONE        |
 | 9 (M9) | Evaluation, security and rights review, mobile/browser tests, Vercel deployment                                                                         | NOT STARTED |
 
 ## Features (all required for the MVP)
@@ -37,10 +37,31 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 | 12  | Scripture Learning Studio                                       | /scripture-learning            | DONE (8 lessons, 2 per companion; Sanskrit where available; Listen; 3 questions each answered by a quoted line)         |
 | 13  | Wisdom Knowledge Map                                            | /wisdom-map                    | DONE (31 nodes, 41 links, every link backed by a verse naming both ends; companion filter; table view)                  |
 | 14  | Shloka Practice Studio                                          | /shloka-practice               | DONE (12 verses; Devanagari + IAST line by line; slow Listen, repeat ×3 with pauses; optional recitation check)         |
-| 15  | Wisdom for Generations                                          | /wisdom-for-generations        | NOT STARTED                                                                                                             |
-| 16  | Sanatana Kids / Talking Storybook (4 full stories)              | /kids                          | NOT STARTED                                                                                                             |
+| 15  | Wisdom for Generations                                          | /wisdom-for-generations        | DONE (8 teachings, all four companions; child/teen/adult explanations and conversation starters; no AI)                 |
+| 16  | Sanatana Kids / Talking Storybook (4 full stories)              | /kids                          | DONE (4 cited stories, 3 age ranges, narration, picture choice, order puzzle, matching, caregiver controls)             |
 | 17  | Engineering Evaluation page                                     | /evaluation                    | NOT STARTED                                                                                                             |
 | 18  | About / Privacy / Transparency pages                            | /about                         | NOT STARTED                                                                                                             |
+
+## Phase 8 evidence (Sanatana Kids and Wisdom for Generations)
+
+- **Four Talking Storybooks:** The Mountain Umbrella (Vishnu Purana 5.10–13), Hanuman's Great Leap
+  (Valmiki Ramayana, Sundara Kanda), Nachiketa's Big Question (Katha Upanishad 1), Uma and the
+  Piece of Straw (Kena Upanishad 3–4). Each: 6–7 original SVG scenes with descriptions, text for
+  ages 4–5, 6–9 and 10–12, a verse line with reference for 10–12, narration with Play / Pause /
+  Back / Next, picture choice, question, order puzzle and matching game, a gentle takeaway, source
+  and "our changes" notes, and learning goals for the caregiver.
+- **Caregiver controls:** grown-up check (a speed bump), age range, narration and speed,
+  activities on/off, break reminder; settings for this tab only; optional progress (finished story
+  ids only), deletable.
+- **Wisdom for Generations:** 8 teachings across all four companions, each explained at three
+  levels with a conversation starter; no AI.
+- **Checks:** every scene cites existing passages of its companion; every 10–12 verse line and
+  every key line appears word for word; a gentle-words test (it caught "plan fail" and
+  "punishment"); our own phrases in single quotes, verse words in double quotes; all four stories
+  played to the end at every age; browser tests prove no `/api` calls and nothing in localStorage
+  unless progress is on; keyboard-only play; axe-clean on every story, desktop and phone; rain
+  animation off with reduced motion.
+- Tests: 334 unit, 127 browser (+1 skip), 28 Python.
 
 ## Phase 7 evidence (reflect and learn)
 

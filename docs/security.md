@@ -61,3 +61,10 @@
   suggestions; perspectives go through the same citation checks as chat (`groundedAnswer`).
 - The map, lessons and shloka verses are fixed data checked by tests; nothing from the person is
   sent to a server on those pages.
+
+## Phase 8 (children)
+
+- Kids and Wisdom for Generations have no API routes, no AI calls and no microphone; browser tests
+  fail if either page requests anything under `/api/`.
+- Stored data is validated with Zod on load (settings shape; progress = at most 50 short ids).
+- The grown-up check is documented as a speed bump, not access control.

@@ -208,6 +208,23 @@ export default function AboutPage() {
           reviewed stories and activities, not open-ended AI chat. There are no child accounts,
           tracking, ads or stored voice recordings, and no identifying information is requested.
         </p>
+        <p>
+          The four storytellers are AI-made characters inspired by tradition, not the deities. Each
+          story is retold from a text in our library, with its source and our changes shown. Story
+          time never uses the microphone and never sends anything to our server or to an AI.
+          Settings (age range, narration, activities, break reminder) are kept only until the tab is
+          closed (<code className="text-sm">sanatana-kids-session</code>). If a grown-up turns on
+          progress, only the names of finished stories are kept in this browser (
+          <code className="text-sm">sanatana-kids-progress</code>), and they can be deleted at any
+          time. The grown-up check is a simple sum that keeps little hands out of the settings; it
+          is not a lock.
+        </p>
+        <p>
+          <strong>Wisdom for Generations</strong> uses fixed explanations we wrote and checked; no
+          AI, and nothing is saved. Before this site is offered for children under 13 to use on
+          their own, or collects any information about children, it needs a legal review under the
+          US COPPA rules and other applicable laws.
+        </p>
       </Section>
 
       <Section id="status" title="Project status">
