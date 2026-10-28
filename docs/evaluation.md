@@ -143,7 +143,18 @@ Problems found by reading the replies (not caught by the checks):
 the third person; rule 3 tells it to say when a text is not in the library and not to describe it
 from memory; passage ids are removed from the reply text in code; prompts v1.1.0 add automatic
 checks for an unprompted "I am an AI" opening, for raw ids, for first-person narration (c06) and
-for saying the library does not include a text (c15). **Run 2 with these fixes: pending.**
+for saying the library does not include a text (c15).
+
+**Run 2 — 2026-10-28, same model, prompts v1.1.0: 17/18 automatic checks; 18/18 after a checker fix.**
+
+- Unprompted "I am an AI" openings: 12/18 → 0 (only the injection prompt, where it is wanted).
+- c06 now says "The Ramayana tells how Hanuman leapt…"; c15 says the library does not include the
+  Tao Te Ching; no raw passage ids.
+- The one failure (c11) was the checker: the reply correctly said the Gita has "eighteen chapters"
+  but the check only accepted "18". Fixed in prompts v1.1.1 and re-scored on the saved reply.
+- Still imperfect: c08 mentions being an AI mid-reply without being asked; c12 marks itself
+  ungrounded while still citing a loosely related passage. One run per prompt; replies vary
+  between runs, so these numbers show direction, not a guarantee.
 
 ## Current results
 

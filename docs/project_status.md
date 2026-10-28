@@ -6,18 +6,18 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 
 ## Phases
 
-| Phase  | Scope                                                                                                                                                   | Status                                      |
-| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| 0      | Project setup: Next.js + TypeScript + Tailwind, tests (Vitest, Playwright, pytest), docs, GitHub                                                        | DONE                                        |
-| 1 (M1) | Foundation: visual system, all routes and navigation, companion selection, left-avatar/right-chat layout, composer with honest "AI not connected" label | DONE                                        |
-| 2 (M2) | Four animated 2D avatars, browser speech-to-text and text-to-speech, stop/replay, fallbacks                                                             | DONE                                        |
-| 3 (M3) | Rights-cleared scripture collections, Python importer and validation, hybrid retrieval, Scripture Explorer                                              | DONE                                        |
-| 4 (M4) | Gemini provider adapter (server-only key), persona styles, grounded multi-turn chat, citations and abstention                                           | DONE (live Gemini evaluation pending a key) |
-| 5 (M5) | Companion handoff, Divine Council, Scripture Truth Lens, four Living Leela experiences                                                                  | NOT STARTED                                 |
-| 6 (M6) | Life Journey Memory, Wisdom Tree, Karma Reflection Mirror, Daily Sankalpa                                                                               | NOT STARTED                                 |
-| 7 (M7) | Dharma Lab, Scripture Learning Studio, Wisdom Knowledge Map, Shloka Practice Studio                                                                     | NOT STARTED                                 |
-| 8 (M8) | Sanatana Kids with four Talking Storybooks, caregiver controls, age modes, Wisdom for Generations                                                       | NOT STARTED                                 |
-| 9 (M9) | Evaluation, security and rights review, mobile/browser tests, Vercel deployment                                                                         | NOT STARTED                                 |
+| Phase  | Scope                                                                                                                                                   | Status      |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| 0      | Project setup: Next.js + TypeScript + Tailwind, tests (Vitest, Playwright, pytest), docs, GitHub                                                        | DONE        |
+| 1 (M1) | Foundation: visual system, all routes and navigation, companion selection, left-avatar/right-chat layout, composer with honest "AI not connected" label | DONE        |
+| 2 (M2) | Four animated 2D avatars, browser speech-to-text and text-to-speech, stop/replay, fallbacks                                                             | DONE        |
+| 3 (M3) | Rights-cleared scripture collections, Python importer and validation, hybrid retrieval, Scripture Explorer                                              | DONE        |
+| 4 (M4) | Gemini provider adapter (server-only key), persona styles, grounded multi-turn chat, citations and abstention                                           | DONE        |
+| 5 (M5) | Companion handoff, Divine Council, Scripture Truth Lens, four Living Leela experiences                                                                  | NOT STARTED |
+| 6 (M6) | Life Journey Memory, Wisdom Tree, Karma Reflection Mirror, Daily Sankalpa                                                                               | NOT STARTED |
+| 7 (M7) | Dharma Lab, Scripture Learning Studio, Wisdom Knowledge Map, Shloka Practice Studio                                                                     | NOT STARTED |
+| 8 (M8) | Sanatana Kids with four Talking Storybooks, caregiver controls, age modes, Wisdom for Generations                                                       | NOT STARTED |
+| 9 (M9) | Evaluation, security and rights review, mobile/browser tests, Vercel deployment                                                                         | NOT STARTED |
 
 ## Features (all required for the MVP)
 
@@ -53,7 +53,7 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 - Tests: 92 unit, 87 browser (+1 skip), 25 Python; lint, types and formatting clean.
 - Real Gemini evaluation, run 1: 17/18 automatic checks passed; reading the replies found 4 more
   problems, all fixed (see `docs/evaluation.md`). Scripture data 1.1.1: 91 scanning corrections.
-- **Pending:** run 2 of `npm run eval:chat` to confirm the fixes.
+- Run 2 confirmed the fixes: 18/18 (after correcting one checker regex).
 
 ## Phase 3b evidence (more translations)
 
