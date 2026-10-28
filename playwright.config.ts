@@ -10,6 +10,8 @@ export default defineConfig({
   ],
   webServer: {
     command: "npm run start",
+    // Offline stand-in AI for tests only; production never sets this.
+    env: { AI_PROVIDER: "practice" },
     url: "http://localhost:3000",
     reuseExistingServer: true,
     timeout: 120_000,

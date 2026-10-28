@@ -20,7 +20,6 @@ export function ScriptureSearch({
   const [query, setQuery] = useState("");
   const [workId, setWorkId] = useState("");
   const [companion, setCompanion] = useState("");
-  const [meaning, setMeaning] = useState(false);
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [hits, setHits] = useState<SearchHit[]>([]);
   const [usedMeaning, setUsedMeaning] = useState(false);
@@ -33,20 +32,6 @@ export function ScriptureSearch({
       setStatus({ kind: "error", message: "Type at least 2 characters." });
       return;
     }
-    let vector: number[] | undefined;
-    let meaningFailed = false;
-    if (meaning) {
-      setStatus({
-        kind: "model",
-        message: "Preparing meaning search (the first time downloads about 30 MB)…",
-      });
-      try {
-        const { embedQuery } = await import("@/lib/scripture/browserEmbed");
-        vector = await embedQuery(q);
-      } catch {
-        meaningFailed = true;
-      }
-    }
     setStatus({ kind: "searching", message: "Searching…" });
     try {
       const res = await fetch("/api/scripture/search", {
@@ -54,7 +39,6 @@ export function ScriptureSearch({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           query: q,
-          vector,
           workId: workId || undefined,
           companion: companion || undefined,
           limit: 12,
@@ -66,11 +50,9 @@ export function ScriptureSearch({
       setUsedMeaning(data.usedMeaning);
       setStatus({
         kind: "done",
-        message:
-          (data.hits.length
-            ? `${data.hits.length} passages found.`
-            : "No passages found. Try other words.") +
-          (meaningFailed ? " Meaning search could not load, so only keywords were used." : ""),
+        message: data.hits.length
+          ? `${data.hits.length} passages found.`
+          : "No passages found. Try other words.",
       });
     } catch (err) {
       setHits([]);
@@ -140,19 +122,10 @@ export function ScriptureSearch({
               ))}
             </select>
           </label>
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={meaning}
-              onChange={(e) => setMeaning(e.target.checked)}
-            />
-            Also search by meaning (experimental)
-          </label>
         </div>
         <p className="text-xs text-muted">
-          Keyword search runs on our server. Meaning search downloads a small open-source language
-          model (about 23 MB from Hugging Face) and its engine (about 7 MB from this site) into your
-          browser once; your search words are turned into numbers on your device.
+          Search runs on our server and matches both words and meaning (with a small open-source
+          language model hosted by this site). Your search words are not stored.
         </p>
       </form>
 
@@ -160,7 +133,6 @@ export function ScriptureSearch({
         {status.message}
         {status.kind === "done" &&
           hits.length > 0 &&
-          !status.message?.includes("could not load") &&
           (usedMeaning ? " Using keywords and meaning." : " Using keywords.")}
       </p>
 

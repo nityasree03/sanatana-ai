@@ -57,13 +57,37 @@ Next.js
   src/proxy.ts  unknown text/chapter paths → real 404 before rendering
   POST /api/scripture/search  Zod-validated, 60 requests/min per IP
      └─ searchScripture(): BM25 keyword ranks + optional vector ranks → reciprocal rank fusion (k=60)
-  Browser (opt-in): transformers.js turns the query into a vector; engine files from /ort/
+  Server (Phase 4): the query is turned into a vector on the server (see below)
 ```
 
 - **Why JSON files, not a database:** 9,321 passages (≈13 MB, plus 5 MB of vectors) fit in memory, need no hosting or keys,
   and are versioned with the code.
-- **Why query vectors in the browser:** the server stays free and fast (no model on Vercel), and
-  the same model is used for passages and queries. Open question for Phase 4: compute query vectors
-  on the server (or with the LLM provider) so chat retrieval does not depend on a 30 MB download.
+- **Query vectors on the server (Phase 4):** first done in the browser (opt-in, 30 MB download);
+  moved to the server so chat retrieval always has meaning search. See "Chat" below.
 - **Passage ids** are stable (`bg-2.47`, `katha-1.3.3`, `ram-5.1.41`, `devi-7.37.2-10.1`), so chat
   citations in Phase 4 can link straight to `/scriptures/<work>/<section>#<id>`.
+
+## Chat (Phase 4)
+
+```
+Browser (ChatScreen)  ──POST /api/chat { companion, messages[≤20] }──▶  route.ts
+  1. rate limits (12/min, daily cap) → Zod validation
+  2. crisis check (safety.ts) → fixed support reply, AI never called
+  3. embedQueryOnServer()  WordPiece tokenizer (wordpiece.ts) + MiniLM int8 via onnxruntime-web (WASM)
+  4. chatPassages()  hybrid search, companion's own texts first, ≤2 per chapter, 6 in total
+  5. provider = getProvider(env)
+       none     → "scripture only" reply: the passages and a notice
+       practice → deterministic stand-in (tests and screenshots only)
+       gemini   → system prompt (persona style + 9 rules) + history + passages as quoted data
+                  → JSON reply {reply, citations[{id, how}], grounded}
+  6. parseReply()  keeps only citations whose id we supplied; grounded only if one survives
+  7. response { mode, reply, citations (linked to /scriptures/…#id), related, notice }
+```
+
+- **Provider adapter** (`src/lib/ai/`): one `AiProvider` interface; Gemini uses REST with a 25 s
+  timeout, maps errors to quota / unavailable / blocked / bad-response, and tries the fallback model
+  on quota or outage. Any failure still returns passages with an honest notice.
+- **The AI never writes scripture.** Passage text shown in the "wisdom thread" comes from our data,
+  not from the model; the model only explains why a passage is relevant ("Why it's here (AI)").
+- **Teaching preference:** for personal questions, passages from teaching texts (Gita, Upanishads,
+  Devi Gita…) get a small ranking bonus over story passages.

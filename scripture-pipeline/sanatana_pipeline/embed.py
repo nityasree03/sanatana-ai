@@ -24,7 +24,7 @@ from .fetch import RAW
 from .sources import UA
 
 MODEL_ID = "Xenova/all-MiniLM-L6-v2"
-MODEL_REVISION = "main"
+MODEL_REVISION = "751bff37182d3f1213fa05d7196b954e230abad9"  # pinned commit of Xenova/all-MiniLM-L6-v2
 MODEL_FILES = {
     "model_quantized.onnx": f"https://huggingface.co/{MODEL_ID}/resolve/{MODEL_REVISION}/onnx/model_quantized.onnx",
     "tokenizer.json": f"https://huggingface.co/{MODEL_ID}/resolve/{MODEL_REVISION}/tokenizer.json",
@@ -67,7 +67,10 @@ class Embedder:
         self.input_names = {i.name for i in self.session.get_inputs()}
         self.model_sha256 = hashlib.sha256((d / "model_quantized.onnx").read_bytes()).hexdigest()
 
-    def embed(self, texts: list[str], batch: int = 32) -> np.ndarray:
+    def embed(self, texts: list[str], batch: int = 1) -> np.ndarray:
+        # batch=1 on purpose: the int8 model quantises activations per batch, so padding from
+        # other texts in a batch shifts results (cosine up to 0.98 vs single). The browser embeds
+        # one query at a time, so passages are embedded the same way.
         out = []
         for i in range(0, len(texts), batch):
             enc = self.tok.encode_batch(texts[i : i + batch])
@@ -82,6 +85,17 @@ class Embedder:
             pooled /= np.linalg.norm(pooled, axis=1, keepdims=True)  # unit length
             out.append(pooled)
         return np.vstack(out)
+
+
+def export_vocab() -> int:
+    """Write the WordPiece vocabulary (by token id) for the website's server-side tokenizer."""
+    tok = json.loads((_model_dir() / "tokenizer.json").read_text(encoding="utf-8"))
+    vocab = tok["model"]["vocab"]
+    ordered = [""] * len(vocab)
+    for token, idx in vocab.items():
+        ordered[idx] = token
+    (OUT / "minilm-vocab.json").write_text(json.dumps(ordered, ensure_ascii=False) + "\n", encoding="utf-8")
+    return len(ordered)
 
 
 def embed_all() -> dict:
@@ -109,4 +123,5 @@ def embed_all() -> dict:
 
 if __name__ == "__main__":
     p = embed_all()
+    export_vocab()
     print(f"Embedded {len(p['ids'])} passages, {p['dims']} dims, model {p['model']}")

@@ -18,10 +18,20 @@
 
 - Keyword search sends the search words to our server; nothing is stored (only an in-memory
   per-IP counter for rate limiting).
-- Meaning search is off unless the person ticks it. It downloads the MiniLM model from Hugging Face
-  (Hugging Face sees the download) and the ONNX Runtime engine from this site. The query is turned
-  into a vector on the device; the words and the vector are sent to our server to find passages.
+- Meaning search now runs on our server (Phase 4): nothing is downloaded to the device and no
+  third party sees the query.
 - Disclosed under the search box and on the About page.
+
+## Chat (Phase 4)
+
+- Messages go to our server, which finds passages and, when an AI is connected, sends the recent
+  conversation (last 10 turns) plus those passages to Google Gemini. Nothing is stored on our side
+  and message text is never logged.
+- On Gemini's free tier Google may use and human-review what is sent. People are told not to share
+  private details, next to the chat box and on the About page.
+- Messages that mention self-harm are not sent to the AI; the person gets crisis resources
+  (988 in the US, Tele-MANAS 14416 in India, findahelpline.com elsewhere, local emergency number).
+- Without a key the chat shows only scripture passages and says so.
 
 ## Kids (Sanatana Kids)
 

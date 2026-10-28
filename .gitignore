@@ -61,5 +61,5 @@ __pycache__/
 # scripture pipeline downloads (re-create with: python -m sanatana_pipeline.fetch)
 /scripture-pipeline/raw/
 
-# Copied from node_modules at build time (scripts/copy-ort.mjs)
-/public/ort/
+# Downloaded at build time (scripts/fetch-model.mjs)
+/models/

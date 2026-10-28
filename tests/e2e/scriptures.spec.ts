@@ -10,7 +10,7 @@ test("keyword search finds a verse and links to it in its chapter", async ({ pag
   await page.goto("/scriptures");
   await page.getByLabel("Search words or a question").fill("Hanuman leap ocean");
   await page.getByRole("button", { name: "Search", exact: true }).click();
-  await expect(page.getByRole("status")).toContainText("Using keywords.");
+  await expect(page.getByRole("status")).toContainText(/Using keywords/);
   const first = page.locator("ol article").first();
   await expect(first).toContainText("Ramayana");
   await expect(await axe(page)).toEqual([]);

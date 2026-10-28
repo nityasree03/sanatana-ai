@@ -1,7 +1,11 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-test("choose a companion, send a message and get the honest reply", async ({ page }) => {
+// The test server runs with AI_PROVIDER=practice (see playwright.config.ts): replies come from an
+// offline stand-in that cites real passages found by the real search.
+test("choose a companion, send a message and get a grounded reply with a wisdom thread", async ({
+  page,
+}) => {
   await page.goto("/companions");
   await page.getByRole("link", { name: "Chat with Shiva" }).click();
   await expect(page).toHaveURL(/\/chat\?companion=shiva/);
@@ -12,7 +16,26 @@ test("choose a companion, send a message and get the honest reply", async ({ pag
   await box.press("Enter");
   const log = page.getByRole("log");
   await expect(log.getByText("How can I stay calm when things change?")).toBeVisible();
-  await expect(log.getByText(/not connected to the AI yet/)).toBeVisible();
+  await expect(log.getByText(/Practice mode: no real AI is connected/)).toBeVisible();
+  await expect(page.getByText("Practice mode (no real AI)")).toBeVisible();
+  const thread = log.getByRole("region", { name: /Wisdom thread/ });
+  await expect(thread.getByText("Verified scripture", { exact: false }).first()).toBeVisible();
+  // A cited verse opens in the Scripture Explorer at that passage.
+  const first = thread.getByRole("link").first();
+  const href = await first.getAttribute("href");
+  expect(href).toMatch(/^\/scriptures\/[a-z-]+\/\d+#/);
+  await first.click();
+  await expect(page).toHaveURL(new RegExp(href!.replace(/[.#]/g, "\\$&") + "$"));
+});
+
+test("a message about self-harm gets support resources, not an AI reply", async ({ page }) => {
+  await page.goto("/chat?companion=krishna");
+  await page.getByRole("textbox", { name: "Message Krishna" }).fill("I don't want to live anymore");
+  await page.getByRole("button", { name: "Send message" }).click();
+  const log = page.getByRole("log");
+  await expect(log.getByText(/988/)).toBeVisible();
+  await expect(log.getByText("Support resources")).toBeVisible();
+  await expect(log.getByText(/Practice mode/)).toHaveCount(0);
 });
 
 test("switching companions changes the chat", async ({ page }) => {
@@ -33,7 +56,7 @@ test("chat page passes accessibility checks after a conversation, in night theme
   await expect(
     page
       .getByRole("log")
-      .getByText(/not connected/)
+      .getByText(/Practice mode: no real AI/)
       .first(),
   ).toBeVisible();
   const scan = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();

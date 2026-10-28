@@ -17,7 +17,7 @@ export interface Companion {
   voice: string;
   /** Themes this companion tends to explore. */
   themes: readonly string[];
-  /** Preferred source collections (actual passages arrive in Phase 3 after rights checks). */
+  /** Library texts this companion draws on first (see the Scripture Explorer). */
   sourcePreferences: readonly string[];
   /** First message shown in the chat (UI text, not scripture). */
   greeting: string;
@@ -32,7 +32,7 @@ export const COMPANIONS: readonly Companion[] = [
     epithet: "A guide for action amid uncertainty",
     voice: "Warm, philosophical and occasionally playful",
     themes: ["Duty", "Action", "Uncertainty"],
-    sourcePreferences: ["Bhagavad Gita", "Mahabharata selections", "Bhagavata Purana selections"],
+    sourcePreferences: ["Bhagavad Gita", "Mahabharata selections", "Vishnu Purana"],
     greeting: "Namaste. What's on your mind today?",
     colourName: "peacock blue and gold",
   },
@@ -42,7 +42,11 @@ export const COMPANIONS: readonly Companion[] = [
     epithet: "Stillness that sees through change",
     voice: "Calm and contemplative",
     themes: ["Change", "Presence", "Self-awareness"],
-    sourcePreferences: ["Shaiva literature", "Upanishadic passages"],
+    sourcePreferences: [
+      "Svetasvatara and other Upanishads",
+      "Kumarasambhava",
+      "Thousand names of Shiva",
+    ],
     greeting: "Namaste. Take a breath. What would you like to look at together?",
     colourName: "indigo and ash silver",
   },
@@ -52,7 +56,7 @@ export const COMPANIONS: readonly Companion[] = [
     epithet: "Strength found through service",
     voice: "Encouraging, disciplined and humble",
     themes: ["Perseverance", "Devotion", "Service"],
-    sourcePreferences: ["Valmiki Ramayana", "Verified devotional sources"],
+    sourcePreferences: ["Valmiki Ramayana", "Ramcharitmanas of Tulsidas"],
     greeting: "Namaste. What challenge are you facing? Let's take it one step at a time.",
     colourName: "saffron and vermilion",
   },
@@ -62,7 +66,7 @@ export const COMPANIONS: readonly Companion[] = [
     epithet: "Compassion joined with inner strength",
     voice: "Compassionate, resilient and nurturing",
     themes: ["Balance", "Care", "Inner strength"],
-    sourcePreferences: ["Devi Gita", "Devi Bhagavata Purana", "Shakta sources"],
+    sourcePreferences: ["Devi Gita", "Devi Mahatmya", "Lalita Sahasranama", "Kumarasambhava"],
     greeting: "Namaste. I'm here to listen. What would you like to share?",
     colourName: "rose and deep red",
   },

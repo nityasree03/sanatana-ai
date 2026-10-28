@@ -52,9 +52,9 @@ export const ROUTES: readonly SiteRoute[] = [
     path: "/chat",
     label: "Chat",
     title: "Chat",
-    description: "Talk by typing or speaking, with a companion beside the conversation.",
+    description: "Talk by typing or speaking; replies are grounded in verified scripture.",
     group: "Talk",
-    status: "preview",
+    status: "ready",
     phase: 4,
   },
   {

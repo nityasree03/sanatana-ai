@@ -14,13 +14,18 @@ import type { SpeechInputAdapter, SpeechOutputAdapter } from "@/lib/speech/types
 import { SPEECH_INPUT_MESSAGES, SPEECH_LANG, VOICE_SETTINGS } from "@/lib/speech/voices";
 import { createWebSpeechInput } from "@/lib/speech/webSpeechInput";
 import { createWebSpeechOutput } from "@/lib/speech/webSpeechOutput";
+import type { ChatResponse, LinkedPassage } from "@/app/api/chat/route";
 import { ArchAvatar, VoiceWaveform, type AvatarState } from "./ArchAvatar";
+import { ThreadPassage } from "./chat/ThreadPassage";
 
 export const MAX_MESSAGE_LENGTH = 2000;
 
-/** Text of the honest reply shown until the AI is connected in Phase 4. */
-export const NOT_CONNECTED_REPLY =
-  "I'm not connected to the AI yet, so I can't give you a real answer. Scripture-grounded replies arrive in Phase 4. Your message stayed in this browser tab and was not sent anywhere.";
+/** Shown when the server cannot be reached at all. */
+export const OFFLINE_REPLY =
+  "I couldn't reach the server, so I can't answer right now. Please check your connection and try again.";
+
+/** Text of the scripture-only reply when no AI is connected (the notice comes from the server). */
+export const SCRIPTURE_ONLY_INTRO = "Here are passages from the library related to what you wrote.";
 
 const SPEECH_OUTPUT_UNSUPPORTED =
   "Spoken replies aren't available in this browser. You can still read every reply here.";
@@ -32,7 +37,14 @@ type Message =
       role: "companion";
       companionId: CompanionId;
       text: string;
-      notConnected?: boolean;
+      /** The opening greeting (UI text, not sent to the AI as conversation). */
+      greeting?: boolean;
+      kind?: ChatResponse["mode"] | "offline";
+      grounded?: boolean;
+      practice?: boolean;
+      citations?: ChatResponse["citations"];
+      related?: LinkedPassage[];
+      notice?: string;
     }
   | { id: number; role: "notice"; text: string };
 
@@ -81,7 +93,13 @@ export function ChatScreen({
   );
   const nextId = useRef(1);
   const [messages, setMessages] = useState<Message[]>(() => [
-    { id: 0, role: "companion", companionId, text: getCompanion(companionId).greeting },
+    {
+      id: 0,
+      role: "companion",
+      companionId,
+      text: getCompanion(companionId).greeting,
+      greeting: true,
+    },
   ]);
   const [draft, setDraft] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -94,6 +112,8 @@ export function ChatScreen({
   const [panelOpen, setPanelOpen] = useState(true);
 
   const replyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pending = useRef<AbortController | null>(null);
+  const [aiStatus, setAiStatus] = useState<{ ai: string | null; practice: boolean } | null>(null);
   const errorTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const logRef = useRef<HTMLDivElement>(null);
   const inputId = useId();
@@ -116,6 +136,15 @@ export function ChatScreen({
   }, [companionId]);
 
   useEffect(() => {
+    const ctrl = new AbortController();
+    fetch("/api/chat", { signal: ctrl.signal })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => d && setAiStatus(d))
+      .catch(() => {});
+    return () => ctrl.abort();
+  }, []);
+
+  useEffect(() => {
     // Scroll only the message list, never the whole page.
     const log = logRef.current;
     if (log) log.scrollTop = log.scrollHeight;
@@ -126,6 +155,7 @@ export function ChatScreen({
     () => () => {
       if (replyTimer.current) clearTimeout(replyTimer.current);
       if (errorTimer.current) clearTimeout(errorTimer.current);
+      pending.current?.abort();
       input.stop();
       output.stop();
     },
@@ -225,6 +255,8 @@ export function ChatScreen({
 
   function switchCompanion(id: CompanionId) {
     if (id === companionId) return;
+    pending.current?.abort();
+    setThinking(false);
     stopSpeaking();
     stopListening();
     setCompanionId(id);
@@ -235,7 +267,13 @@ export function ChatScreen({
         role: "notice",
         text: `You're now talking with ${getCompanion(id).name}. Choosing what earlier context to share arrives in Phase 5.`,
       },
-      { id: newId(), role: "companion", companionId: id, text: getCompanion(id).greeting },
+      {
+        id: newId(),
+        role: "companion",
+        companionId: id,
+        text: getCompanion(id).greeting,
+        greeting: true,
+      },
     ]);
   }
 
@@ -261,18 +299,65 @@ export function ChatScreen({
 
     const speaker = companionId;
     const shouldSpeak = speakReplies;
-    replyTimer.current = setTimeout(() => {
-      const reply: CompanionMessage = {
-        id: newId(),
-        role: "companion",
-        companionId: speaker,
-        text: NOT_CONNECTED_REPLY,
-        notConnected: true,
-      };
+    // This companion's conversation since the last switch: real exchanges only, no greetings.
+    const lastNotice = messages.map((m) => m.role).lastIndexOf("notice");
+    const history = messages
+      .slice(lastNotice + 1)
+      .filter(
+        (m): m is Extract<Message, { role: "user" }> | CompanionMessage =>
+          m.role === "user" || (m.role === "companion" && m.kind === "ai"),
+      )
+      .map((m) => ({ role: m.role, text: m.text }))
+      .slice(-10);
+    const ctrl = new AbortController();
+    pending.current = ctrl;
+
+    const finish = (reply: CompanionMessage) => {
+      if (ctrl.signal.aborted) return;
       setMessages((m) => [...m, reply]);
       setThinking(false);
+      pending.current = null;
       if (shouldSpeak) speak(reply);
-    }, 700);
+    };
+
+    fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ companion: speaker, messages: [...history, { role: "user", text }] }),
+      signal: ctrl.signal,
+    })
+      .then(async (res) => {
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          setError(data.error ?? "Something went wrong. Please try again.");
+          setThinking(false);
+          pending.current = null;
+          return;
+        }
+        const r = data as ChatResponse;
+        finish({
+          id: newId(),
+          role: "companion",
+          companionId: speaker,
+          kind: r.mode,
+          text: r.reply ?? (r.notice ? "" : SCRIPTURE_ONLY_INTRO),
+          grounded: r.grounded,
+          practice: r.practice,
+          citations: r.citations,
+          related: r.related,
+          notice: r.notice,
+        });
+      })
+      .catch((err) => {
+        if ((err as Error).name === "AbortError") return;
+        finish({
+          id: newId(),
+          role: "companion",
+          companionId: speaker,
+          kind: "offline",
+          text: OFFLINE_REPLY,
+        });
+      });
   }
 
   function onSubmit(e: FormEvent) {
@@ -289,10 +374,13 @@ export function ChatScreen({
 
   function clearChat() {
     if (replyTimer.current) clearTimeout(replyTimer.current);
+    pending.current?.abort();
     stopSpeaking();
     stopListening();
     setThinking(false);
-    setMessages([{ id: newId(), role: "companion", companionId, text: companion.greeting }]);
+    setMessages([
+      { id: newId(), role: "companion", companionId, text: companion.greeting, greeting: true },
+    ]);
   }
 
   const remaining = MAX_MESSAGE_LENGTH - draft.length;
@@ -384,9 +472,15 @@ export function ChatScreen({
         <div className="flex items-center justify-between border-b border-line px-4 py-3">
           <p className="text-sm">
             Talking with <span className="font-semibold text-accent">{companion.name}</span>
-            <span className="ml-2 rounded-full border border-gold/60 bg-leaf px-2 py-0.5 text-xs text-leaf-ink">
-              AI not connected yet
-            </span>
+            {aiStatus && (
+              <span className="ml-2 rounded-full border border-gold/60 bg-leaf px-2 py-0.5 text-xs text-leaf-ink">
+                {aiStatus.practice
+                  ? "Practice mode (no real AI)"
+                  : aiStatus.ai
+                    ? `AI: ${aiStatus.ai}`
+                    : "AI not connected: scripture search only"}
+              </span>
+            )}
           </p>
           <button
             type="button"
@@ -434,14 +528,52 @@ export function ChatScreen({
                   >
                     <p className="mb-1 flex flex-wrap items-center gap-2 text-xs font-semibold text-accent">
                       {speaker.name}
-                      {m.notConnected && (
+                      {m.kind === "ai" && (
+                        <span className="rounded-full border border-line px-2 py-0.5 font-normal text-muted">
+                          AI interpretation{m.practice ? " · practice mode" : ""}
+                        </span>
+                      )}
+                      {m.kind === "ai" && !m.grounded && (
                         <span className="rounded-full border border-gold/60 bg-leaf px-2 py-0.5 font-normal text-leaf-ink">
-                          Not connected
+                          No passage directly addresses this: reflection only
+                        </span>
+                      )}
+                      {m.kind === "crisis" && (
+                        <span className="rounded-full border border-line px-2 py-0.5 font-normal text-muted">
+                          Support resources
                         </span>
                       )}
                       {isSpeaking && <VoiceWaveform active />}
                     </p>
-                    <p className="whitespace-pre-wrap">{m.text}</p>
+                    {m.notice && <p className="mb-1.5 text-sm text-muted">{m.notice}</p>}
+                    {m.text && <p className="whitespace-pre-wrap">{m.text}</p>}
+                    {m.citations && m.citations.length > 0 && (
+                      <section
+                        aria-label="Wisdom thread: passages this reply draws on"
+                        className="mt-3"
+                      >
+                        <h3 className="font-sans text-xs font-semibold tracking-wide text-muted uppercase">
+                          Wisdom thread
+                        </h3>
+                        <ul className="mt-1.5 space-y-2">
+                          {m.citations.map((c) => (
+                            <ThreadPassage key={c.id} passage={c.passage} how={c.how} />
+                          ))}
+                        </ul>
+                      </section>
+                    )}
+                    {m.related && m.related.length > 0 && (
+                      <details className="mt-3" open={m.kind !== "ai"}>
+                        <summary className="cursor-pointer text-xs font-semibold text-muted">
+                          {m.kind === "ai" ? "More passages to explore" : "Related passages"}
+                        </summary>
+                        <ul className="mt-1.5 space-y-2">
+                          {m.related.map((p) => (
+                            <ThreadPassage key={p.id} passage={p} />
+                          ))}
+                        </ul>
+                      </details>
+                    )}
                     <button
                       type="button"
                       onClick={() => (isSpeaking ? stopSpeaking() : speak(m))}
@@ -559,7 +691,12 @@ export function ChatScreen({
                 </span>
               )}
               {!error && !notice && (
-                <span className="text-muted">Enter to send · Shift + Enter for a new line</span>
+                <span className="text-muted">
+                  Enter to send ·{" "}
+                  {aiStatus?.ai && !aiStatus.practice
+                    ? "Messages go to our server and Google Gemini (free tier: Google may use them to improve its products). Please don't share private details."
+                    : "Messages go only to our server, to find passages. Nothing is stored."}
+                </span>
               )}
             </span>
             {remaining < 200 && (

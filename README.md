@@ -4,11 +4,12 @@ A scripture-grounded conversational and learning website. Four AI companions ins
 tradition (Krishna, Shiva, Hanuman and Parvati) appear as animated avatars on the left, with a
 ChatGPT-style text and voice chat on the right.
 
-> **Status: Phase 3b complete.** All pages and navigation work; the four companions are animated
+> **Status: Phase 4 complete (live AI evaluation pending a key).** All pages and navigation work; the four companions are animated
 > and you can talk and listen in supported browsers. The **Scripture Explorer** holds 17
 > public-domain texts and translations (9,321 passages, with Sanskrit where it could be matched)
-> with full source and licence details and search. AI answers arrive in Phase 4; every page
-> shows an honest status label. See [`docs/project_status.md`](docs/project_status.md).
+> with full source and licence details and search. The chat answers with cited, verified passages
+> (Gemini when a key is set; scripture-only replies without one); every page shows an honest
+> status label. See [`docs/project_status.md`](docs/project_status.md).
 
 The companions are **AI simulations inspired by tradition**. They are not the deities themselves
 and do not offer divine contact, predictions or guaranteed outcomes.
@@ -76,7 +77,9 @@ docs/                 requirements, architecture, status and policies
 ## Secrets
 
 Copy `.env.example` to `.env.local` and put real keys only there. `.env.local` is ignored by git.
-Never commit API keys.
+Never commit API keys. For AI replies, create a free key at <https://aistudio.google.com/apikey>
+and set `GEMINI_API_KEY` in `.env.local`, then restart `npm run dev`. `npm run eval:chat` runs the
+chat evaluation against the real model.
 
 ## Documentation
 

@@ -1,0 +1,103 @@
+{
+  "description": "Held-out everyday questions written and labelled in Phase 4 BEFORE any ranking change, by searching the passage text (not by looking at search results). Used to check that ranking changes generalise beyond queries.json.",
+  "version": "1.0.0",
+  "queries": [
+    {
+      "id": "h01",
+      "style": "life",
+      "query": "how do I stop getting so angry",
+      "relevant": ["bg-2.62", "bg-2.63", "bg-3.37", "bg-16.21"]
+    },
+    {
+      "id": "h02",
+      "style": "life",
+      "query": "my mind is restless and won't stay still",
+      "relevant": [
+        "bg-6.33",
+        "bg-6.34",
+        "bg-6.35",
+        "bg-6.26",
+        "bg-telang-6.7",
+        "bg-telang-6.8",
+        "mbh-6-30.4",
+        "mbh-6-30.6"
+      ]
+    },
+    {
+      "id": "h03",
+      "style": "life",
+      "query": "how should I treat people who are against me",
+      "relevant": [
+        "bg-6.9",
+        "bg-12.18",
+        "bg-14.25",
+        "bg-telang-12.4",
+        "bg-arnold-12.6",
+        "mbh-6-36.3",
+        "mbh-6-38.4"
+      ]
+    },
+    {
+      "id": "h04",
+      "style": "life",
+      "query": "should I do someone else's work instead of my own",
+      "relevant": ["bg-3.35", "bg-18.47", "bg-telang-3.6"]
+    },
+    {
+      "id": "h05",
+      "style": "life",
+      "query": "what happens if I try to be spiritual but fail",
+      "relevant": [
+        "bg-6.37",
+        "bg-6.38",
+        "bg-6.40",
+        "bg-6.41",
+        "bg-telang-6.9",
+        "bg-arnold-6.12",
+        "bg-arnold-6.13"
+      ]
+    },
+    {
+      "id": "h06",
+      "style": "life",
+      "query": "what kind of food should I eat",
+      "relevant": ["bg-17.7", "bg-17.8", "bg-17.9", "bg-17.10", "bg-telang-17.2", "bg-telang-17.3"]
+    },
+    {
+      "id": "h07",
+      "style": "life",
+      "query": "how should I give to charity",
+      "relevant": ["bg-17.20", "bg-17.21", "bg-17.22", "bg-telang-17.5"]
+    },
+    {
+      "id": "h08",
+      "style": "life",
+      "query": "how can I find peace of mind",
+      "relevant": ["bg-2.66", "bg-2.70", "bg-2.71", "bg-5.29"]
+    },
+    {
+      "id": "h09",
+      "style": "life",
+      "query": "will the Goddess protect me when I am afraid",
+      "relevant": ["dm-84.5", "dm-85.8"]
+    },
+    {
+      "id": "h10",
+      "style": "topic",
+      "query": "Hanuman gives Sita Rama's ring",
+      "relevant": ["ram-5.36.1", "ram-dutt-5.36.1", "ram-dutt-4.44.2"]
+    },
+    {
+      "id": "h11",
+      "style": "life",
+      "query": "how do I deal with greed",
+      "relevant": ["bg-16.21", "isa-1", "hume-isa-1"]
+    },
+    {
+      "id": "h12",
+      "style": "life",
+      "query": "I want to give up because the work is too hard",
+      "relevant": ["bg-2.3", "bg-18.48", "bg-2.40"]
+    }
+  ]
+}

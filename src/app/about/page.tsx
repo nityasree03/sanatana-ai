@@ -126,8 +126,15 @@ export default function AboutPage() {
 
       <Section id="privacy" title="Privacy">
         <p>
-          <strong>Right now (Phase {SITE.currentPhase}):</strong> chat messages are not sent
-          anywhere and are not saved. They disappear when you close or refresh the tab.
+          <strong>Chat (Phase {SITE.currentPhase}):</strong> each message you send goes to this
+          site&apos;s server, which finds related passages in the library and, when the AI is
+          connected, sends your message, the last few messages of the conversation and those
+          passages to Google&apos;s Gemini to write the reply. We do not save conversations or put
+          your words in our logs; they disappear when you close or refresh the tab. On Gemini&apos;s
+          free tier, Google may keep what is sent and use it to improve its products, and people at
+          Google may read it, so please don&apos;t share names, addresses, health details or
+          anything private. If a message mentions self-harm, it is not sent to the AI at all: you
+          get crisis resources instead.
         </p>
         <p>
           Your browser stores only two small preferences on your device: your day/night theme (
@@ -144,12 +151,10 @@ export default function AboutPage() {
           and they never start playing on their own.
         </p>
         <p>
-          <strong>Scripture search:</strong> keyword search sends your search words to this
-          site&apos;s server and nothing is stored. The optional &quot;search by meaning&quot;
-          downloads a small open-source language model (all-MiniLM-L6-v2, about 23 MB) from Hugging
-          Face and its engine from this site into your browser, once. Your search words are turned
-          into numbers on your own device; only those numbers and the words are sent to our server
-          to find passages. Hugging Face sees that your browser downloaded the model.
+          <strong>Scripture search:</strong> your search words are sent to this site&apos;s server,
+          which matches them by keywords and by meaning using a small open-source language model
+          (all-MiniLM-L6-v2) that runs on our server. Nothing is downloaded to your browser and your
+          searches are not stored.
         </p>
         <p>When later features arrive, these rules apply:</p>
         <ul className="list-disc space-y-1 pl-5">

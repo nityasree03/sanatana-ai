@@ -1,0 +1,535 @@
+{
+  "ranAt": "2026-10-28T01:06:26.340Z",
+  "datasetVersion": "1.0.0",
+  "queries": 12,
+  "passages": 9321,
+  "model": "Xenova/all-MiniLM-L6-v2",
+  "definitions": {
+    "recallAt5": "share of a query's relevant passages (capped at 5) found in the top 5, averaged",
+    "hitAt5": "share of queries with at least one relevant passage in the top 5",
+    "mrrAt10": "mean of 1/rank of the first relevant passage in the top 10 (0 if none)"
+  },
+  "summary": {
+    "all": {
+      "keyword": {
+        "recallAt5": 0.078,
+        "hitAt5": 0.167,
+        "mrrAt10": 0.12
+      },
+      "keyword+teaching": {
+        "recallAt5": 0.099,
+        "hitAt5": 0.25,
+        "mrrAt10": 0.149
+      },
+      "meaning": {
+        "recallAt5": 0.126,
+        "hitAt5": 0.25,
+        "mrrAt10": 0.203
+      },
+      "hybrid": {
+        "recallAt5": 0.149,
+        "hitAt5": 0.333,
+        "mrrAt10": 0.208
+      },
+      "hybrid+teaching": {
+        "recallAt5": 0.169,
+        "hitAt5": 0.417,
+        "mrrAt10": 0.287
+      }
+    },
+    "life": {
+      "keyword": {
+        "recallAt5": 0.055,
+        "hitAt5": 0.091,
+        "mrrAt10": 0.101
+      },
+      "keyword+teaching": {
+        "recallAt5": 0.077,
+        "hitAt5": 0.182,
+        "mrrAt10": 0.132
+      },
+      "meaning": {
+        "recallAt5": 0.138,
+        "hitAt5": 0.273,
+        "mrrAt10": 0.221
+      },
+      "hybrid": {
+        "recallAt5": 0.162,
+        "hitAt5": 0.364,
+        "mrrAt10": 0.212
+      },
+      "hybrid+teaching": {
+        "recallAt5": 0.185,
+        "hitAt5": 0.455,
+        "mrrAt10": 0.298
+      }
+    },
+    "topic": {
+      "keyword": {
+        "recallAt5": 0.333,
+        "hitAt5": 1,
+        "mrrAt10": 0.333
+      },
+      "keyword+teaching": {
+        "recallAt5": 0.333,
+        "hitAt5": 1,
+        "mrrAt10": 0.333
+      },
+      "meaning": {
+        "recallAt5": 0,
+        "hitAt5": 0,
+        "mrrAt10": 0
+      },
+      "hybrid": {
+        "recallAt5": 0,
+        "hitAt5": 0,
+        "mrrAt10": 0.167
+      },
+      "hybrid+teaching": {
+        "recallAt5": 0,
+        "hitAt5": 0,
+        "mrrAt10": 0.167
+      }
+    }
+  },
+  "perQuery": {
+    "h01": {
+      "keyword": {
+        "top5": ["kumara-5.337", "vp-1.1.3", "ram-dutt-7.40.6", "ram-dutt-2.18.2", "vp-5.6.2"],
+        "recall": 0,
+        "rr": 0
+      },
+      "keyword+teaching": {
+        "top5": [
+          "kumara-5.337",
+          "hume-chandogya-7.22.1",
+          "vp-1.1.3",
+          "ram-dutt-7.40.6",
+          "ram-dutt-2.18.2"
+        ],
+        "recall": 0,
+        "rr": 0
+      },
+      "meaning": {
+        "top5": ["ram-dutt-7.71.3", "vp-1.17.11", "bg-2.63", "ram-dutt-2.18.2", "vp-1.1.3"],
+        "recall": 0.25,
+        "rr": 0.3333333333333333
+      },
+      "hybrid": {
+        "top5": ["kumara-5.337", "ram-dutt-7.71.3", "vp-1.1.3", "vp-1.17.11", "ram-dutt-7.40.6"],
+        "recall": 0,
+        "rr": 0.16666666666666666
+      },
+      "hybrid+teaching": {
+        "top5": ["bg-2.63", "kumara-5.337", "ram-dutt-7.71.3", "hume-chandogya-7.22.1", "vp-1.1.3"],
+        "recall": 0.25,
+        "rr": 1
+      }
+    },
+    "h02": {
+      "keyword": {
+        "top5": ["mbh-6-30.6", "bg-6.34", "kumara-5.213", "bg-6.35", "hume-kaushitaki-2.1"],
+        "recall": 0.6,
+        "rr": 1
+      },
+      "keyword+teaching": {
+        "top5": ["mbh-6-30.6", "bg-6.34", "bg-6.35", "hume-kaushitaki-2.1", "hume-kena-1.5"],
+        "recall": 0.6,
+        "rr": 1
+      },
+      "meaning": {
+        "top5": ["bg-6.35", "mbh-6-30.6", "bg-2.56", "bg-6.26", "bg-2.55"],
+        "recall": 0.6,
+        "rr": 1
+      },
+      "hybrid": {
+        "top5": ["mbh-6-30.6", "bg-6.35", "bg-6.34", "bg-arnold-6.7", "mbh-6-30.4"],
+        "recall": 0.8,
+        "rr": 1
+      },
+      "hybrid+teaching": {
+        "top5": ["mbh-6-30.6", "bg-6.35", "bg-6.34", "bg-arnold-6.7", "mbh-6-30.4"],
+        "recall": 0.8,
+        "rr": 1
+      }
+    },
+    "h03": {
+      "keyword": {
+        "top5": [
+          "vp-2.13.7",
+          "vp-1.17.11",
+          "vp-1.20.3",
+          "ram-dutt-2.12.9",
+          "hume-taittiriya-1.11.2"
+        ],
+        "recall": 0,
+        "rr": 0
+      },
+      "keyword+teaching": {
+        "top5": [
+          "hume-taittiriya-1.11.2",
+          "bg-telang-2.3",
+          "mbh-6-26.2",
+          "vp-2.13.7",
+          "vp-1.17.11"
+        ],
+        "recall": 0,
+        "rr": 0
+      },
+      "meaning": {
+        "top5": ["vp-1.17.11", "mbh-5-146.3", "mbh-5-124.4", "ram-dutt-7.82.3", "mbh-5-100.3"],
+        "recall": 0,
+        "rr": 0.1
+      },
+      "hybrid": {
+        "top5": ["vp-1.17.11", "mbh-5-146.3", "mbh-5-150.3", "vp-2.13.7", "vp-1.20.3"],
+        "recall": 0,
+        "rr": 0
+      },
+      "hybrid+teaching": {
+        "top5": [
+          "vp-1.17.11",
+          "mbh-5-146.3",
+          "mbh-5-150.3",
+          "hume-taittiriya-1.11.2",
+          "bg-telang-2.3"
+        ],
+        "recall": 0,
+        "rr": 0.1111111111111111
+      }
+    },
+    "h04": {
+      "keyword": {
+        "top5": ["bg-telang-3.4", "bg-telang-16.4", "mbh-6-27.3", "devi-7.34.1-22.1", "isa-2"],
+        "recall": 0,
+        "rr": 0
+      },
+      "keyword+teaching": {
+        "top5": ["bg-telang-3.4", "bg-telang-16.4", "mbh-6-27.3", "devi-7.34.1-22.1", "isa-2"],
+        "recall": 0,
+        "rr": 0.1
+      },
+      "meaning": {
+        "top5": ["bg-18.47", "mbh-6-27.5", "ram-dutt-5.41.1", "mbh-6-27.3", "bg-3.35"],
+        "recall": 0.6666666666666666,
+        "rr": 1
+      },
+      "hybrid": {
+        "top5": ["mbh-6-27.3", "bg-telang-3.4", "bg-18.47", "bg-telang-16.4", "mbh-6-27.5"],
+        "recall": 0.3333333333333333,
+        "rr": 0.3333333333333333
+      },
+      "hybrid+teaching": {
+        "top5": ["mbh-6-27.3", "bg-telang-3.4", "bg-18.47", "bg-telang-16.4", "mbh-6-27.5"],
+        "recall": 0.3333333333333333,
+        "rr": 0.3333333333333333
+      }
+    },
+    "h05": {
+      "keyword": {
+        "top5": ["ram-dutt-2.100.8", "kumara-2.137", "ram-dutt-7.10.4", "rcm-2.3", "rcm-4.2"],
+        "recall": 0,
+        "rr": 0
+      },
+      "keyword+teaching": {
+        "top5": [
+          "ram-dutt-2.100.8",
+          "kumara-2.137",
+          "devi-7.37.38-45.1",
+          "ram-dutt-7.10.4",
+          "rcm-2.3"
+        ],
+        "recall": 0,
+        "rr": 0
+      },
+      "meaning": {
+        "top5": ["bg-arnold-3.7", "bg-18.73", "bg-4.40", "bg-telang-14.3", "bg-telang-12.2"],
+        "recall": 0,
+        "rr": 0
+      },
+      "hybrid": {
+        "top5": [
+          "bg-arnold-3.10",
+          "bg-6.37",
+          "bg-arnold-6.12",
+          "ram-dutt-2.100.8",
+          "bg-arnold-3.7"
+        ],
+        "recall": 0.4,
+        "rr": 0.5
+      },
+      "hybrid+teaching": {
+        "top5": ["bg-arnold-3.10", "bg-6.37", "bg-arnold-6.12", "bg-arnold-3.7", "bg-arnold-3.3"],
+        "recall": 0.4,
+        "rr": 0.5
+      }
+    },
+    "h06": {
+      "keyword": {
+        "top5": [
+          "vp-3.11.11",
+          "vp-3.11.12",
+          "hume-brihadaranyaka-1.5.1",
+          "vp-3.11.13",
+          "hume-maitri-6.12"
+        ],
+        "recall": 0,
+        "rr": 0
+      },
+      "keyword+teaching": {
+        "top5": [
+          "hume-brihadaranyaka-1.5.1",
+          "hume-maitri-6.12",
+          "hume-maitri-6.2",
+          "hume-chandogya-7.9.1",
+          "hume-maitri-6.13"
+        ],
+        "recall": 0,
+        "rr": 0
+      },
+      "meaning": {
+        "top5": [
+          "vp-3.11.13",
+          "vp-3.11.12",
+          "vp-3.16.1",
+          "hume-maitri-6.12",
+          "hume-chandogya-5.2.1"
+        ],
+        "recall": 0,
+        "rr": 0
+      },
+      "hybrid": {
+        "top5": [
+          "vp-3.11.12",
+          "vp-3.11.13",
+          "hume-maitri-6.12",
+          "hume-brihadaranyaka-1.5.1",
+          "hume-maitri-6.13"
+        ],
+        "recall": 0,
+        "rr": 0
+      },
+      "hybrid+teaching": {
+        "top5": [
+          "hume-maitri-6.12",
+          "vp-3.11.12",
+          "vp-3.11.13",
+          "hume-brihadaranyaka-1.5.1",
+          "hume-maitri-6.13"
+        ],
+        "recall": 0,
+        "rr": 0
+      }
+    },
+    "h07": {
+      "keyword": {
+        "top5": ["vp-5.7.6", "rcm-6.26", "hume-taittiriya-1.11.2", "vp-3.14.5", "vp-1.19.4"],
+        "recall": 0,
+        "rr": 0
+      },
+      "keyword+teaching": {
+        "top5": ["hume-taittiriya-1.11.2", "bg-telang-2.14", "vp-5.7.6", "rcm-6.26", "vp-3.14.5"],
+        "recall": 0,
+        "rr": 0
+      },
+      "meaning": {
+        "top5": ["ram-dutt-7.125.2", "bg-arnold-17.12", "vp-3.8.5", "katha-1.1.24", "vp-3.11.10"],
+        "recall": 0,
+        "rr": 0
+      },
+      "hybrid": {
+        "top5": [
+          "vp-5.7.6",
+          "ram-dutt-7.125.2",
+          "rcm-6.26",
+          "bg-arnold-17.12",
+          "hume-taittiriya-1.11.2"
+        ],
+        "recall": 0,
+        "rr": 0
+      },
+      "hybrid+teaching": {
+        "top5": [
+          "bg-arnold-17.12",
+          "hume-taittiriya-1.11.2",
+          "katha-1.1.24",
+          "bg-telang-2.14",
+          "vp-5.7.6"
+        ],
+        "recall": 0,
+        "rr": 0
+      }
+    },
+    "h08": {
+      "keyword": {
+        "top5": ["rcm-7.89.2", "bg-arnold-6.5", "katha-1.2.24", "mbh-5-78.2", "kumara-6.315"],
+        "recall": 0,
+        "rr": 0.1111111111111111
+      },
+      "keyword+teaching": {
+        "top5": ["bg-arnold-6.5", "katha-1.2.24", "bg-arnold-11.49", "bg-2.66", "hume-katha-6.12"],
+        "recall": 0.25,
+        "rr": 0.25
+      },
+      "meaning": {
+        "top5": ["mbh-6-26.11", "bg-17.16", "kena-1.5", "bg-telang-12.3", "bg-arnold-2.17"],
+        "recall": 0,
+        "rr": 0
+      },
+      "hybrid": {
+        "top5": ["mbh-6-26.11", "bg-arnold-2.21", "bg-2.66", "kumara-6.57", "dm-81.3"],
+        "recall": 0.25,
+        "rr": 0.3333333333333333
+      },
+      "hybrid+teaching": {
+        "top5": ["mbh-6-26.11", "bg-arnold-2.21", "bg-2.66", "kumara-6.57", "dm-81.3"],
+        "recall": 0.25,
+        "rr": 0.3333333333333333
+      }
+    },
+    "h09": {
+      "keyword": {
+        "top5": ["dm-91.8", "dm-84.8", "hume-brihadaranyaka-1.4.2", "dm-84.1", "ram-dutt-3.38.1"],
+        "recall": 0,
+        "rr": 0
+      },
+      "keyword+teaching": {
+        "top5": ["hume-brihadaranyaka-1.4.2", "dm-91.8", "dm-84.8", "dm-84.1", "ram-dutt-3.38.1"],
+        "recall": 0,
+        "rr": 0
+      },
+      "meaning": {
+        "top5": ["ram-dutt-2.69.3", "dm-84.7", "ram-dutt-7.30.5", "rcm-2.302", "dm-91.8"],
+        "recall": 0,
+        "rr": 0
+      },
+      "hybrid": {
+        "top5": ["dm-91.8", "dm-84.7", "dm-90.1", "dm-84.8", "ram-dutt-3.38.1"],
+        "recall": 0,
+        "rr": 0
+      },
+      "hybrid+teaching": {
+        "top5": ["dm-91.8", "dm-84.7", "dm-90.1", "dm-84.8", "hume-brihadaranyaka-1.4.2"],
+        "recall": 0,
+        "rr": 0
+      }
+    },
+    "h10": {
+      "keyword": {
+        "top5": [
+          "ram-dutt-1.3.4",
+          "rcm-5.13",
+          "ram-dutt-5.36.1",
+          "ram-dutt-1.3.3",
+          "ram-dutt-5.15.5"
+        ],
+        "recall": 0.3333333333333333,
+        "rr": 0.3333333333333333
+      },
+      "keyword+teaching": {
+        "top5": [
+          "ram-dutt-1.3.4",
+          "rcm-5.13",
+          "ram-dutt-5.36.1",
+          "ram-dutt-1.3.3",
+          "ram-dutt-5.15.5"
+        ],
+        "recall": 0.3333333333333333,
+        "rr": 0.3333333333333333
+      },
+      "meaning": {
+        "top5": [
+          "ram-5.38.65",
+          "ram-dutt-7.40.1",
+          "ram-dutt-7.40.3",
+          "ram-5.1.175",
+          "ram-dutt-5.37.5"
+        ],
+        "recall": 0,
+        "rr": 0
+      },
+      "hybrid": {
+        "top5": ["ram-5.38.65", "ram-dutt-5.15.5", "rcm-5.13", "ram-dutt-7.40.1", "ram-5.1.175"],
+        "recall": 0,
+        "rr": 0.16666666666666666
+      },
+      "hybrid+teaching": {
+        "top5": ["ram-5.38.65", "ram-dutt-5.15.5", "rcm-5.13", "ram-dutt-7.40.1", "ram-5.1.175"],
+        "recall": 0,
+        "rr": 0.16666666666666666
+      }
+    },
+    "h11": {
+      "keyword": {
+        "top5": ["bg-arnold-13.13", "bg-arnold-2.21", "rcm-2.32", "bg-1.38", "bg-1.45"],
+        "recall": 0,
+        "rr": 0
+      },
+      "keyword+teaching": {
+        "top5": ["bg-arnold-13.13", "bg-arnold-2.21", "bg-1.38", "bg-1.45", "bg-14.17"],
+        "recall": 0,
+        "rr": 0.1
+      },
+      "meaning": {
+        "top5": ["mbh-5-72.4", "bg-3.12", "rcm-7.42", "mbh-5-135.8", "bg-arnold-3.10"],
+        "recall": 0,
+        "rr": 0
+      },
+      "hybrid": {
+        "top5": ["bg-1.38", "dm-81.3", "bg-arnold-13.13", "mbh-5-72.4", "bg-arnold-2.21"],
+        "recall": 0,
+        "rr": 0
+      },
+      "hybrid+teaching": {
+        "top5": ["bg-1.38", "dm-81.3", "bg-arnold-13.13", "bg-arnold-2.21", "bg-3.12"],
+        "recall": 0,
+        "rr": 0
+      }
+    },
+    "h12": {
+      "keyword": {
+        "top5": [
+          "bg-arnold-3.3",
+          "bg-arnold-3.7",
+          "ram-dutt-5.1.15",
+          "ram-dutt-6.9.3",
+          "bg-arnold-6.2"
+        ],
+        "recall": 0,
+        "rr": 0
+      },
+      "keyword+teaching": {
+        "top5": ["bg-arnold-3.3", "bg-arnold-3.7", "bg-arnold-6.2", "mbh-6-27.3", "bg-telang-14.2"],
+        "recall": 0,
+        "rr": 0
+      },
+      "meaning": {
+        "top5": ["bg-arnold-3.4", "bg-arnold-18.22", "mbh-6-26.8", "bg-18.24", "bg-arnold-18.6"],
+        "recall": 0,
+        "rr": 0
+      },
+      "hybrid": {
+        "top5": [
+          "bg-arnold-3.4",
+          "mbh-6-26.8",
+          "bg-arnold-3.3",
+          "bg-arnold-3.7",
+          "bg-arnold-18.22"
+        ],
+        "recall": 0,
+        "rr": 0
+      },
+      "hybrid+teaching": {
+        "top5": [
+          "bg-arnold-3.4",
+          "mbh-6-26.8",
+          "bg-arnold-3.3",
+          "bg-arnold-3.7",
+          "bg-arnold-18.22"
+        ],
+        "recall": 0,
+        "rr": 0
+      }
+    }
+  }
+}

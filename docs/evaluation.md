@@ -79,12 +79,54 @@ the new texts; 33 relevant ones added) and adding Hume's translations of verses 
   companion's texts, let the AI rewrite an everyday question into scripture terms, or test a
   stronger embedding model, each measured on this set.
 
+## Phase 4: retrieval for chat
+
+**Held-out set.** Before changing any ranking, 12 new questions (11 everyday, 1 topic) were written
+and labelled by searching the text, in `heldout.json`. They were not used for tuning.
+
+**Embedding fix.** Passage vectors had been made in batches; with the int8 model each batch is
+quantised differently, so the same text could get a slightly different vector (cosine as low as
+0.977). All 9,321 passages were re-embedded one at a time; the server's query vectors now match
+Python's (test: cosine > 0.9999).
+
+**Teaching preference.** For personal questions ("how do I…", "I feel…"), passages from teaching
+texts get a small rank bonus (worth about ten places in the fusion score) over story passages.
+
+| Set (questions)        | Mode            | Recall@5 | Hit@5 | MRR@10 |
+| ---------------------- | --------------- | -------- | ----- | ------ |
+| held-out (12)          | keyword         | 0.08     | 0.17  | 0.12   |
+| held-out (12)          | meaning         | 0.13     | 0.25  | 0.20   |
+| held-out (12)          | hybrid          | 0.15     | 0.33  | 0.21   |
+| held-out (12)          | hybrid+teaching | 0.17     | 0.42  | 0.29   |
+| held-out everyday (11) | hybrid+teaching | 0.19     | 0.45  | 0.30   |
+| main (24)              | keyword         | 0.44     | 0.75  | 0.65   |
+| main (24)              | hybrid          | 0.38     | 0.71  | 0.67   |
+| main (24)              | hybrid+teaching | 0.38     | 0.71  | 0.69   |
+
+- On new everyday questions, keyword search alone found something useful in the top 5 only 1 time
+  in 11; hybrid with the teaching preference did so 5 times in 11. So chat always uses meaning
+  search, which is why it moved to the server.
+- On the original 24 questions hybrid is slightly below keyword on Hit@5 (0.71 vs 0.75), mostly on
+  topic questions. The Scripture Explorer keeps its own default; chat uses hybrid+teaching.
+- These are small sets labelled by one person; they show direction, not precise quality.
+- Still weak: fewer than half of everyday questions get a clearly relevant passage. The chat must
+  therefore be honest when passages don't fit (see the chat evaluation below).
+
+## Phase 4: chat evaluation (not yet run)
+
+`evaluation/chat/prompts.json` has 18 prompts (grounded answers, identity, predictions, invented
+verses, health, respect, prompt injection, out-of-library, crisis, follow-up, privacy) with
+automatic checks. `npm run eval:chat` runs them against the real Gemini model and writes
+`results.json`. **It has not been run yet**: it needs a Gemini key, and the build environment
+cannot reach Google's API. Until then, chat behaviour is tested only with the practice provider
+and with mocked Gemini responses (unit tests), which check our code, not the model's answers.
+
 ## Current results
 
 | Check                                         | Result                                                                                                                                                                         |
 | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Unit tests (Vitest)                           | 52/52 pass (Phase 3b)                                                                                                                                                          |
-| Browser tests (Playwright, desktop + Pixel 7) | 85/85 pass; 1 phone-only test skipped on desktop                                                                                                                               |
+| Unit tests (Vitest)                           | 92/92 pass (Phase 4)                                                                                                                                                           |
+| Browser tests (Playwright, desktop + Pixel 7) | 87/87 pass; 1 phone-only test skipped on desktop                                                                                                                               |
 | Automated accessibility (axe, WCAG 2 A/AA)    | 0 violations on all 17 routes, both viewports; chat scanned in night theme and while speaking; scripture search results, chapter and text pages scanned                        |
 | Avatar states                                 | idle, listening, thinking, speaking and error verified for all four companions (screenshots); animation stops with reduced motion                                              |
 | Voice                                         | Tested with a controllable fake microphone and voice in Chromium. Real microphones and installed voices vary by browser and device; real-device testing is planned for Phase 9 |

@@ -6,15 +6,64 @@ vi.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams(query),
 }));
 
-import { ChatScreen, MAX_MESSAGE_LENGTH, NOT_CONNECTED_REPLY } from "@/components/ChatScreen";
+import { ChatScreen, MAX_MESSAGE_LENGTH } from "@/components/ChatScreen";
 import { fakeInput, fakeOutput } from "./fakeSpeech";
+
+const REPLY = "Act, and let go of the fruits. (test reply)";
+const posted: { companion: string; messages: { role: string; text: string }[] }[] = [];
+
+function mockServer() {
+  posted.length = 0;
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async (_url: string, init?: RequestInit) => {
+      if (!init || init.method !== "POST")
+        return new Response(JSON.stringify({ ai: "Practice mode", practice: true }));
+      posted.push(JSON.parse(String(init.body)));
+      return new Response(
+        JSON.stringify({
+          mode: "ai",
+          provider: "Practice mode",
+          practice: true,
+          reply: REPLY,
+          grounded: true,
+          citations: [
+            {
+              id: "bg-2.47",
+              how: "It speaks of action without attachment.",
+              passage: {
+                id: "bg-2.47",
+                reference: "Bhagavad Gita 2.47",
+                href: "/scriptures/bhagavad-gita/2#bg-2.47",
+                translation: {
+                  text: "Thy business is with the action only, never with its fruits.",
+                  translator: "Annie Besant",
+                },
+              },
+            },
+          ],
+          related: [],
+        }),
+      );
+    }),
+  );
+}
+
+/** Let the stand-in server's promises settle. */
+async function flush() {
+  for (let i = 0; i < 6; i++) await act(async () => {});
+}
 
 beforeEach(() => {
   vi.useFakeTimers();
   localStorage.clear();
   query = "";
+  mockServer();
 });
-afterEach(() => vi.useRealTimers());
+afterEach(() => {
+  vi.useRealTimers();
+  vi.unstubAllGlobals();
+});
 
 function input() {
   return screen.getByRole("textbox", { name: /message/i });
@@ -33,15 +82,41 @@ describe("ChatScreen", () => {
     expect(screen.getByRole("heading", { name: "Chat with Krishna" })).toBeInTheDocument();
   });
 
-  it("shows the user's message, then the honest not-connected reply", () => {
+  it("shows the user's message, then the AI reply labelled as interpretation with its wisdom thread", async () => {
     render(<ChatScreen />);
     fireEvent.change(input(), { target: { value: "What is dharma?" } });
     fireEvent.click(screen.getByRole("button", { name: "Send message" }));
     expect(screen.getByText("What is dharma?")).toBeInTheDocument();
     expect(screen.getByText("Thinking…")).toBeInTheDocument();
-    act(() => vi.advanceTimersByTime(800));
-    expect(screen.getByText(NOT_CONNECTED_REPLY)).toBeInTheDocument();
+    await flush();
+    expect(screen.getByText(REPLY)).toBeInTheDocument();
+    expect(screen.getByText(/AI interpretation/)).toBeInTheDocument();
+    const thread = screen.getByRole("region", { name: /Wisdom thread/ });
+    expect(within(thread).getByRole("link", { name: "Bhagavad Gita 2.47" })).toHaveAttribute(
+      "href",
+      "/scriptures/bhagavad-gita/2#bg-2.47",
+    );
+    expect(within(thread).getByText(/never with its fruits/)).toBeInTheDocument();
     expect(input()).toHaveValue("");
+    expect(posted[0]).toEqual({
+      companion: "krishna",
+      messages: [{ role: "user", text: "What is dharma?" }],
+    });
+  });
+
+  it("sends the conversation so far, without greetings", async () => {
+    render(<ChatScreen />);
+    fireEvent.change(input(), { target: { value: "First" } });
+    fireEvent.click(screen.getByRole("button", { name: "Send message" }));
+    await flush();
+    fireEvent.change(input(), { target: { value: "Second" } });
+    fireEvent.click(screen.getByRole("button", { name: "Send message" }));
+    await flush();
+    expect(posted[1].messages).toEqual([
+      { role: "user", text: "First" },
+      { role: "companion", text: REPLY },
+      { role: "user", text: "Second" },
+    ]);
   });
 
   it("sends with Enter but not Shift+Enter", () => {
@@ -141,19 +216,19 @@ describe("ChatScreen voice", () => {
     expect(avatarState()).toBe("idle");
   });
 
-  it("reads new replies aloud only after 'Speak replies' is switched on, and mutes when off", () => {
+  it("reads new replies aloud only after 'Speak replies' is switched on, and mutes when off", async () => {
     const voice = fakeOutput();
     render(<ChatScreen speechInput={fakeInput().adapter} speechOutput={voice.adapter} />);
     fireEvent.change(input(), { target: { value: "One" } });
     fireEvent.click(screen.getByRole("button", { name: "Send message" }));
-    act(() => vi.advanceTimersByTime(800));
+    await flush();
     expect(voice.spoken).toHaveLength(0);
 
     fireEvent.click(screen.getByRole("button", { name: "Speak replies: off" }));
     fireEvent.change(input(), { target: { value: "Two" } });
     fireEvent.click(screen.getByRole("button", { name: "Send message" }));
-    act(() => vi.advanceTimersByTime(800));
-    expect(voice.spoken.map((s) => s.text)).toEqual([NOT_CONNECTED_REPLY]);
+    await flush();
+    expect(voice.spoken.map((s) => s.text)).toEqual([REPLY]);
     expect(avatarState()).toBe("speaking");
 
     fireEvent.click(screen.getByRole("button", { name: "Speak replies: on" }));

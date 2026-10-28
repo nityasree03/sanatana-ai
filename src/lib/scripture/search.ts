@@ -3,6 +3,7 @@ import type { CompanionId } from "@/lib/companions";
 import { Bm25Index } from "./bm25";
 import { EMBEDDINGS, PASSAGES } from "./data";
 import type { Passage, SearchHit } from "./types";
+import { isPersonalQuestion, isTeaching } from "./intent";
 import { cosineAll, decodeVectors } from "./vectors";
 
 let keywordIndex: Bm25Index | null = null;
@@ -25,7 +26,16 @@ export interface SearchOptions {
   workId?: string;
   companion?: CompanionId;
   limit?: number;
+  /**
+   * Prefer teaching passages for personal questions ("auto"), always ("on") or never ("off").
+   * Default "off" keeps the Explorer's plain search behaviour.
+   */
+  teachingPreference?: "auto" | "on" | "off";
 }
+
+/** Added to a teaching passage's fused score: about the gap between rank 3 and rank 13 in rank fusion,
+ * so a teaching passage moves up roughly ten places near the top. Chosen by reasoning, not tuned. */
+export const TEACH_BONUS = 1 / (60 + 2) - 1 / (60 + 12);
 
 function ranks(
   scores: Float64Array,
@@ -65,6 +75,10 @@ export function searchScripture(opts: SearchOptions): SearchHit[] {
     cur.score += 1 / (RRF_K + rank);
     cur.by.add("meaning");
     fused.set(doc, cur);
+  }
+  const pref = opts.teachingPreference ?? "off";
+  if (pref === "on" || (pref === "auto" && isPersonalQuestion(opts.query))) {
+    for (const [doc, v] of fused) if (isTeaching(PASSAGES[doc])) v.score += TEACH_BONUS;
   }
   return [...fused]
     .sort((a, b) => b[1].score - a[1].score)

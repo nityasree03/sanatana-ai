@@ -15,7 +15,7 @@ function req(body: unknown, ip = "10.0.0.1") {
 
 describe("POST /api/scripture/search", () => {
   it("returns hits for a valid query", async () => {
-    const res = await POST(req({ query: "Uma golden", limit: 3 }));
+    const res = await POST(req({ query: "Uma golden", limit: 3, meaning: false }));
     expect(res.status).toBe(200);
     const json = await res.json();
     expect(json.usedMeaning).toBe(false);

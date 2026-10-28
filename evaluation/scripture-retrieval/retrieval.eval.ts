@@ -9,10 +9,11 @@ vi.mock("server-only", () => ({}));
 import { EMBEDDINGS, PASSAGES } from "@/lib/scripture/data";
 import { searchScripture } from "@/lib/scripture/search";
 import { cosineAll, decodeVectors } from "@/lib/scripture/vectors";
-import set from "./queries.json";
+import main from "./queries.json";
+import heldout from "./heldout.json";
 import vectors from "./query_vectors.json";
 
-type Mode = "keyword" | "meaning" | "hybrid";
+type Mode = "keyword" | "keyword+teaching" | "meaning" | "hybrid" | "hybrid+teaching";
 const K = 5;
 const decoded = decodeVectors(EMBEDDINGS);
 
@@ -26,14 +27,15 @@ function rank(mode: Mode, query: string, vector: number[]): string[] {
   }
   const hits = searchScripture({
     query,
-    vector: mode === "hybrid" ? vector : undefined,
+    vector: mode.startsWith("keyword") ? undefined : vector,
     limit: 10,
+    teachingPreference: mode.endsWith("+teaching") ? "auto" : "off",
   });
   return hits.map((h) => h.passage.id);
 }
 
-test("scripture retrieval metrics", () => {
-  const modes: Mode[] = ["keyword", "meaning", "hybrid"];
+function evaluate(set: typeof main, outName: string) {
+  const modes: Mode[] = ["keyword", "keyword+teaching", "meaning", "hybrid", "hybrid+teaching"];
   const perQuery: Record<string, Record<Mode, { top5: string[]; recall: number; rr: number }>> = {};
   const summary: Record<
     string,
@@ -86,7 +88,7 @@ test("scripture retrieval metrics", () => {
     summary,
     perQuery,
   };
-  writeFileSync(join(__dirname, "results.json"), JSON.stringify(out, null, 2) + "\n");
+  writeFileSync(join(__dirname, outName), JSON.stringify(out, null, 2) + "\n");
   console.table(
     Object.fromEntries(
       Object.entries(summary).flatMap(([g, m]) =>
@@ -94,4 +96,8 @@ test("scripture retrieval metrics", () => {
       ),
     ),
   );
-});
+}
+
+test("scripture retrieval metrics (main set)", () => evaluate(main, "results.json"));
+test("scripture retrieval metrics (held-out set)", () =>
+  evaluate(heldout as typeof main, "results-heldout.json"));

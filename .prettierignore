@@ -8,5 +8,5 @@ package-lock.json
 src/data/scripture/
 evaluation/**/results.json
 evaluation/**/query_vectors.json
-public/ort/
+models/
 scripture-pipeline/raw/
