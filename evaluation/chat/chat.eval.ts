@@ -1,4 +1,4 @@
-// Chat behaviour evaluation with the real AI. Run: GEMINI_API_KEY=... npm run eval:chat
+// Chat behaviour evaluation with the real AI. Put GEMINI_API_KEY in .env.local, then: npm run eval:chat
 // Without a key the test is skipped (results.json is not changed).
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";

@@ -17,7 +17,7 @@
     "test:e2e": "playwright test",
     "test:py": "cd scripture-pipeline && python3 -m pytest -q",
     "eval:scripture": "vitest run --config vitest.eval.config.ts evaluation/scripture-retrieval",
-    "eval:chat": "vitest run --config vitest.eval.config.ts evaluation/chat"
+    "eval:chat": "node scripts/fetch-model.mjs && vitest run --config vitest.eval.config.ts evaluation/chat"
   },
   "dependencies": {
     "@fontsource-variable/noto-sans": "^5.3.0",
