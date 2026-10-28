@@ -50,3 +50,14 @@
 - Private drafts move between pages via sessionStorage, not query strings, so they don't reach
   server logs or browser history.
 - `zod` is now a declared dependency (it had only been present transitively).
+
+## Phase 7
+
+- Dharma Lab endpoints validate every field with Zod (dilemma ≤2,000 characters, context ≤500,
+  at most 8 paths and 12 points each) and share the chat's per-visitor limits; a Council
+  perspective costs 4, suggestions and single perspectives cost 1. Crisis messages get resources
+  and are not sent to the AI.
+- Suggested paths from the AI are parsed against a schema and shown as editable, labelled
+  suggestions; perspectives go through the same citation checks as chat (`groundedAnswer`).
+- The map, lessons and shloka verses are fixed data checked by tests; nothing from the person is
+  sent to a server on those pages.

@@ -159,6 +159,16 @@ export default function AboutPage() {
           Send. Calendar reminders are files you download; the site never sends notifications.
         </p>
         <p>
+          <strong>Dharma Lab:</strong> your dilemma (and what matters to you and your limits) is
+          sent to Gemini only when you press &ldquo;Suggest paths&rdquo; or ask for a perspective;
+          asking the Council sends it four times. Your draft stays in this tab (
+          <code className="text-sm">sanatana-dharma-draft</code>, cleared when the tab closes)
+          unless you save the decision to My Dharma Journey.{" "}
+          <strong>Wisdom Map, Learning Studio and Shloka Practice</strong> send nothing anywhere;
+          quiz answers are not saved. The optional recitation check in Shloka Practice uses your
+          browser&apos;s speech recognition, as described under Voice.
+        </p>
+        <p>
           <strong>Voice:</strong> the microphone only turns on when you press it, and the site never
           records or stores audio. Speech-to-text uses your browser&apos;s built-in speech
           recognition, which may send your voice to the browser maker&apos;s speech service (for

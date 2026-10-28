@@ -64,6 +64,18 @@
 - **Living Leela:** fixed, hand-written scenes; progress stays in the page and is never saved or
   sent. "Ask the companion" only pre-fills the chat box; the person decides whether to send.
 
+## Phase 7 features
+
+- **Dharma Lab:** the dilemma and fields are sent to Gemini only when the person asks for paths or
+  a perspective (four times for the Council). The draft stays in sessionStorage for the tab; a
+  decision is kept only if saved to My Dharma Journey (opt-in store), and can be exported or
+  deleted.
+- **Wisdom Map, Learning Studio, Shloka Practice:** no data leaves the browser; quiz answers and
+  practice are not saved.
+- **Recitation check:** off until the person ticks it; uses the browser's speech recognition
+  (which may send audio to the browser maker, as stated on the page); the site records and stores
+  nothing.
+
 ## Kids (Sanatana Kids)
 
 - Caregiver-operated, curated stories and guided choices. No open-ended child AI chat.

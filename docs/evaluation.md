@@ -192,15 +192,32 @@ The blueprint's memory tests (save, delete, export, opt-out, clear, switch compa
 - **Accessibility:** axe scans with no violations on /my-journey (consent, goals, tree),
   /karma-reflection and /daily-sankalpa, desktop and phone.
 
+## Phase 7 checks
+
+- **Dharma Lab:** reducer unit tests (add/edit/remove paths and points, decisions), API tests (input
+  limits, rate-limit cost, crisis handling, schema parsing), UI tests and a browser test from
+  dilemma to saved decision with an axe scan.
+- **Wisdom Map evidence:** for all 41 links, the evidence passage must name both ends as whole
+  words (aliases allowed; text nodes match by work). This removed one link whose verse did not
+  name Uma.
+- **Lessons:** all 24 answers are quoted word for word from their verse; every Devanagari key word
+  appears in the lesson's Sanskrit; answers are not always in the same position.
+- **Shloka verses:** all 12 have verified Devanagari and IAST with equal line counts. The
+  recitation comparison is tested with a faithful recitation, small recognition errors, missing
+  words and Latin-letter transcripts. It is a loose guide: no Sanskrit recogniser exists in
+  browsers, so it has not been validated against real reciters.
+- **Speech:** Listen, slow playback, repeat ×3 with pauses, stop on verse change and late
+  recognition events are tested with fake speech engines; real voices vary by device.
+
 ## Current results
 
 | Check                                         | Result                                                                                                                                                                         |
 | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Unit tests (Vitest)                           | 179/179 pass (Phase 6)                                                                                                                                                         |
-| Browser tests (Playwright, desktop + Pixel 7) | 101/101 pass; 1 phone-only test skipped on desktop                                                                                                                             |
-| Automated accessibility (axe, WCAG 2 A/AA)    | 0 violations on all 17 routes, both viewports; chat scanned in night theme and while speaking; scripture search results, chapter and text pages scanned                        |
+| Unit tests (Vitest)                           | 292/292 pass (Phase 7)                                                                                                                                                         |
+| Browser tests (Playwright, desktop + Pixel 7) | 112/112 pass; 1 phone-only test skipped on desktop                                                                                                                             |
+| Automated accessibility (axe, WCAG 2 A/AA)    | 0 violations on all 17 routes plus a lesson page, both viewports; chat scanned in night theme and while speaking; scripture search results, chapter and text pages scanned     |
 | Avatar states                                 | idle, listening, thinking, speaking and error verified for all four companions (screenshots); animation stops with reduced motion                                              |
 | Voice                                         | Tested with a controllable fake microphone and voice in Chromium. Real microphones and installed voices vary by browser and device; real-device testing is planned for Phase 9 |
-| Python tests (pytest)                         | 25/25 pass                                                                                                                                                                     |
+| Python tests (pytest)                         | 28/28 pass                                                                                                                                                                     |
 
 Automated scans do not replace manual screen-reader testing, which is planned for Phase 9.

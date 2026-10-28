@@ -133,3 +133,28 @@ src/components/ui/Dialog.tsx  shared accessible modal (focus trap, Escape, focus
 - No server storage, no accounts. The only Phase 6 server change is the optional `goals` field in
   `/api/chat`.
 - Dates use the person's local calendar ("today" is computed in the browser only).
+
+## Phase 7: Dharma Lab and learning tools
+
+```
+src/lib/dharma/
+  model.ts      Zod schemas (paths, points, perspectives, decision) and a pure reducer
+  prompts.ts    "suggest paths" schema and parser; perspective instructions
+  api.ts        shared input checks; rate-limit cost = number of AI calls
+src/app/api/dharma-lab/options      POST → 3 suggested paths (practice provider in tests)
+src/app/api/dharma-lab/perspective  POST → one companion (groundedAnswer) or the Council (4 calls)
+src/components/dharma/   DharmaLab (draft in sessionStorage), PathCard, DecisionMapSvg,
+                         PerspectivesPanel; DictateButton in components/ui
+src/lib/wisdomMap/graph.ts   nodes, links and evidence passage ids; passageMentions() check
+src/components/wisdomMap/    SVG map (role=button nodes), details panel, table of all links
+src/lib/learning/lessons.ts  8 lessons: passages, key words, questions with supporting quotes
+src/components/learning/     ListenButton, LessonQuiz
+src/lib/shloka/              verse list, line pairing, recitation comparison (Levenshtein)
+src/components/shloka/       ShlokaStudio (playback queue with pauses, opt-in recognition)
+```
+
+- Lesson pages are prerendered (`/scripture-learning/[lesson]`); the proxy returns 404 for unknown
+  lessons, as it does for scripture and Leela paths.
+- Only the passages a page needs are sent to the browser (evidence for the map, lesson verses,
+  practice verses).
+- `pickVoice()` prefers Indian English only for English; Devanagari is read with a Hindi voice.

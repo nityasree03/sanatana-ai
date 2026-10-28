@@ -1,6 +1,6 @@
 # Project status
 
-Last updated: 2026-10-27
+Last updated: 2026-10-28
 
 Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 
@@ -15,32 +15,50 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 | 4 (M4) | Gemini provider adapter (server-only key), persona styles, grounded multi-turn chat, citations and abstention                                           | DONE        |
 | 5 (M5) | Companion handoff, Divine Council, Scripture Truth Lens, four Living Leela experiences                                                                  | DONE        |
 | 6 (M6) | Life Journey Memory, Wisdom Tree, Karma Reflection Mirror, Daily Sankalpa                                                                               | DONE        |
-| 7 (M7) | Dharma Lab, Scripture Learning Studio, Wisdom Knowledge Map, Shloka Practice Studio                                                                     | NOT STARTED |
+| 7 (M7) | Dharma Lab, Scripture Learning Studio, Wisdom Knowledge Map, Shloka Practice Studio                                                                     | DONE        |
 | 8 (M8) | Sanatana Kids with four Talking Storybooks, caregiver controls, age modes, Wisdom for Generations                                                       | NOT STARTED |
 | 9 (M9) | Evaluation, security and rights review, mobile/browser tests, Vercel deployment                                                                         | NOT STARTED |
 
 ## Features (all required for the MVP)
 
-| #   | Feature                                                         | Route                          | Status                                                                                                 |
-| --- | --------------------------------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| 1   | Four selectable animated companions, unified text + speech chat | /companions, /chat             | DONE (four animated companions, text + voice, grounded Gemini replies; live evaluation 18/18)          |
-| 2   | Companion handoff with shared-context choice                    | /chat                          | DONE (dialog to choose shared messages or start fresh; divider shows what was shared)                  |
-| 3   | Divine Council                                                  | /divine-council                | DONE (four separate cited answers, AI comparison, Listen to all; live evaluation pending)              |
-| 4   | Scripture Truth Lens                                            | (in chat, council, Dharma Lab) | DONE in chat and Council (verified passage · AI interpretation · AI suggestion); Dharma Lab in Phase 7 |
-| 5   | Scripture Explorer                                              | /scriptures                    | DONE (17 texts, 9,322 passages, Sanskrit where matched; keyword + meaning search on the server)        |
-| 6   | Living Leela (one per companion)                                | /living-leela                  | DONE (Krishna, Shiva, Hanuman, Parvati scenes; 31 moments, passages and paths tested)                  |
-| 7   | Life Journey Memory                                             | /my-journey                    | DONE (opt-in, browser-only goals; edit/delete/export; share per conversation)                          |
-| 8   | Wisdom Tree                                                     | /my-journey                    | DONE (save from chat, Council, Leela, Explorer; branches by theme; search, edit, delete)               |
-| 9   | Karma Reflection Mirror                                         | /karma-reflection              | DONE (five-part private journal; discuss in chat only on request; no scores)                           |
-| 10  | Daily Sankalpa                                                  | /daily-sankalpa                | DONE (once/daily/chosen days; done today; 7-day progress; pause; calendar file)                        |
-| 11  | Dharma Lab                                                      | /dharma-lab                    | NOT STARTED                                                                                            |
-| 12  | Scripture Learning Studio                                       | /scripture-learning            | NOT STARTED                                                                                            |
-| 13  | Wisdom Knowledge Map                                            | /wisdom-map                    | NOT STARTED                                                                                            |
-| 14  | Shloka Practice Studio                                          | /shloka-practice               | NOT STARTED                                                                                            |
-| 15  | Wisdom for Generations                                          | /wisdom-for-generations        | NOT STARTED                                                                                            |
-| 16  | Sanatana Kids / Talking Storybook (4 full stories)              | /kids                          | NOT STARTED                                                                                            |
-| 17  | Engineering Evaluation page                                     | /evaluation                    | NOT STARTED                                                                                            |
-| 18  | About / Privacy / Transparency pages                            | /about                         | NOT STARTED                                                                                            |
+| #   | Feature                                                         | Route                          | Status                                                                                                                  |
+| --- | --------------------------------------------------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| 1   | Four selectable animated companions, unified text + speech chat | /companions, /chat             | DONE (four animated companions, text + voice, grounded Gemini replies; live evaluation 18/18)                           |
+| 2   | Companion handoff with shared-context choice                    | /chat                          | DONE (dialog to choose shared messages or start fresh; divider shows what was shared)                                   |
+| 3   | Divine Council                                                  | /divine-council                | DONE (four separate cited answers, AI comparison, Listen to all; live evaluation pending)                               |
+| 4   | Scripture Truth Lens                                            | (in chat, council, Dharma Lab) | DONE (verified passage · AI interpretation · AI suggestion) in chat, Council and Dharma Lab                             |
+| 5   | Scripture Explorer                                              | /scriptures                    | DONE (17 texts, 9,322 passages, Sanskrit where matched; keyword + meaning search on the server)                         |
+| 6   | Living Leela (one per companion)                                | /living-leela                  | DONE (Krishna, Shiva, Hanuman, Parvati scenes; 31 moments, passages and paths tested)                                   |
+| 7   | Life Journey Memory                                             | /my-journey                    | DONE (opt-in, browser-only goals; edit/delete/export; share per conversation)                                           |
+| 8   | Wisdom Tree                                                     | /my-journey                    | DONE (save from chat, Council, Leela, Explorer; branches by theme; search, edit, delete)                                |
+| 9   | Karma Reflection Mirror                                         | /karma-reflection              | DONE (five-part private journal; discuss in chat only on request; no scores)                                            |
+| 10  | Daily Sankalpa                                                  | /daily-sankalpa                | DONE (once/daily/chosen days; done today; 7-day progress; pause; calendar file)                                         |
+| 11  | Dharma Lab                                                      | /dharma-lab                    | DONE (typed or spoken dilemma; AI or own paths; branch map; companion or Council perspectives; decide or not yet; save) |
+| 12  | Scripture Learning Studio                                       | /scripture-learning            | DONE (8 lessons, 2 per companion; Sanskrit where available; Listen; 3 questions each answered by a quoted line)         |
+| 13  | Wisdom Knowledge Map                                            | /wisdom-map                    | DONE (31 nodes, 41 links, every link backed by a verse naming both ends; companion filter; table view)                  |
+| 14  | Shloka Practice Studio                                          | /shloka-practice               | DONE (12 verses; Devanagari + IAST line by line; slow Listen, repeat ×3 with pauses; optional recitation check)         |
+| 15  | Wisdom for Generations                                          | /wisdom-for-generations        | NOT STARTED                                                                                                             |
+| 16  | Sanatana Kids / Talking Storybook (4 full stories)              | /kids                          | NOT STARTED                                                                                                             |
+| 17  | Engineering Evaluation page                                     | /evaluation                    | NOT STARTED                                                                                                             |
+| 18  | About / Privacy / Transparency pages                            | /about                         | NOT STARTED                                                                                                             |
+
+## Phase 7 evidence (reflect and learn)
+
+- **Dharma Lab:** dilemma typed or dictated, with "what matters" and "limits"; three AI-suggested
+  paths (upsides, downsides, unknowns, first step), all editable, or your own paths; SVG branch map
+  with keyboard-operable branches; perspectives from one companion or the Council, each with Truth
+  Lens citations; "decide" or "not ready to decide"; save to My Dharma Journey, export, delete;
+  first step → Daily Sankalpa.
+- **Wisdom Knowledge Map:** 31 people, teachings, places and texts and 41 links. A test checks that
+  every link's evidence passage names both ends (whole-word match); it caught one weak link, which
+  was removed.
+- **Scripture Learning Studio:** 8 lessons (2 per companion). A test checks every passage exists and
+  that every answer's quote appears word for word in its verse; another checks each Devanagari key
+  word really appears in the lesson's Sanskrit (it caught two sandhi forms).
+- **Shloka Practice Studio:** 12 verses with verified Sanskrit and IAST paired line by line (test);
+  device voice in Hindi when available, disclosed as approximate; opt-in recitation check, labelled
+  as a rough guide.
+- Tests: 292 unit, 112 browser (+1 skip), 28 Python; axe-clean on all new pages, desktop and phone.
 
 ## Phase 6 evidence (My Dharma Journey)
 
