@@ -58,7 +58,7 @@ Legend: **DONE** = built and tested · **IN PROGRESS** · **NOT STARTED**
 - **Shloka Practice Studio:** 12 verses with verified Sanskrit and IAST paired line by line (test);
   device voice in Hindi when available, disclosed as approximate; opt-in recitation check, labelled
   as a rough guide.
-- Tests: 292 unit, 112 browser (+1 skip), 28 Python; axe-clean on all new pages, desktop and phone.
+- Tests: 292 unit, 113 browser (+1 skip), 28 Python; axe-clean on all new pages, desktop and phone.
 
 ## Phase 6 evidence (My Dharma Journey)
 
