@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import { getRoute, PRIMARY_NAV, ROUTE_GROUPS, routesInGroup } from "@/lib/routes";
 import { SITE } from "@/lib/site";
+import { PortraitToggle } from "./PortraitToggle";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function SiteHeader() {
@@ -65,6 +66,9 @@ export function SiteHeader() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
+          <div className="hidden lg:block">
+            <PortraitToggle />
+          </div>
           <ThemeToggle />
           <button
             type="button"
@@ -81,6 +85,9 @@ export function SiteHeader() {
 
       {menuOpen && (
         <nav id={menuId} aria-label="All pages" className="border-t border-line bg-card">
+          <div className="mx-auto max-w-7xl px-4 pt-4 lg:hidden">
+            <PortraitToggle />
+          </div>
           <div className="mx-auto grid max-w-7xl gap-6 px-4 py-6 sm:grid-cols-2 lg:grid-cols-5">
             {ROUTE_GROUPS.map((group) => (
               <div key={group}>

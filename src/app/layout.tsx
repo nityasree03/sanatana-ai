@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 // Applies the saved day/night theme before the first paint.
-const themeScript = `(function(){try{var t=localStorage.getItem("${STORAGE_KEYS.theme}");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`;
+const themeScript = `(function(){try{var d=document.documentElement,t=localStorage.getItem("${STORAGE_KEYS.theme}");if(t==="dark"||t==="light")d.setAttribute("data-theme",t);var p=localStorage.getItem("${STORAGE_KEYS.portraits}");if(p==="adult"||p==="child")d.setAttribute("data-portraits",p)}catch(e){}})()`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

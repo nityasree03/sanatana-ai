@@ -103,6 +103,7 @@ export function StoryPlayer({
       <div className="mt-4 grid gap-5 md:grid-cols-[auto_1fr]">
         <div className="flex flex-row items-center gap-3 md:flex-col md:items-center">
           <ArchAvatar
+            portraitSet="child"
             companionId={companion.id}
             size="sm"
             state={speaking ? "speaking" : "idle"}

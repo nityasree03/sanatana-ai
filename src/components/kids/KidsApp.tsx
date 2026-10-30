@@ -160,7 +160,13 @@ export function KidsApp({
                   data-companion={c.id}
                   className="flex gap-4 rounded-3xl border-2 border-line bg-card p-4"
                 >
-                  <ArchAvatar companionId={c.id} size="sm" showState={false} caption={false} />
+                  <ArchAvatar
+                    portraitSet="child"
+                    companionId={c.id}
+                    size="sm"
+                    showState={false}
+                    caption={false}
+                  />
                   <div className="min-w-0">
                     <h2 className="font-display text-2xl">{s.title}</h2>
                     <p className="text-sm text-muted">Told by {c.name} (AI narrator)</p>

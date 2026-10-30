@@ -11,6 +11,10 @@ export const SITE = {
   aiDisclosure:
     "The companions are AI simulations inspired by tradition. They are not the deities themselves and do not offer divine contact.",
   repoUrl: "https://github.com/nityasree03/sanatana-ai",
+  creator: "Nitya Sree Madishetty",
+  /** How the companion portraits were made (shown in the footer and on the About page). */
+  portraitCredit:
+    "Companion portraits: AI-generated with ChatGPT from original text descriptions, selected and directed by Nitya Sree Madishetty.",
   /** Which portrait set the site uses: "illustrated" artwork or the drawn "classic" SVGs. */
   avatarStyle: "illustrated" as "illustrated" | "classic",
   /** The build phase the website is currently in. */
@@ -21,4 +25,5 @@ export const SITE = {
 export const STORAGE_KEYS = {
   theme: "sanatana-theme",
   companion: "sanatana-companion",
+  portraits: "sanatana-portraits",
 } as const;

@@ -24,15 +24,15 @@ and do not offer divine contact, predictions or guaranteed outcomes.
 
 ## Tech stack
 
-| Area                | Tools                                                                |
-| ------------------- | -------------------------------------------------------------------- |
-| Website             | Next.js (App Router), React, TypeScript, Tailwind CSS                |
-| Server & validation | Next.js route handlers, Zod, in-memory rate limit                    |
-| AI                  | Gemini free tier behind a swappable provider adapter (Phase 4)       |
-| Scripture data      | Python offline pipeline, versioned JSON, BM25 + MiniLM hybrid search |
-| Speech & avatars    | Browser Web Speech APIs, illustrated expression portraits (Phase 2)  |
-| Tests               | Vitest, Playwright, pytest                                           |
-| Hosting             | GitHub + Vercel Hobby (Phase 9)                                      |
+| Area                | Tools                                                                             |
+| ------------------- | --------------------------------------------------------------------------------- |
+| Website             | Next.js (App Router), React, TypeScript, Tailwind CSS                             |
+| Server & validation | Next.js route handlers, Zod, in-memory rate limit                                 |
+| AI                  | Gemini free tier behind a swappable provider adapter (Phase 4)                    |
+| Scripture data      | Python offline pipeline, versioned JSON, BM25 + MiniLM hybrid search              |
+| Speech & avatars    | Browser Web Speech APIs, AI-generated expression portraits (child and adult sets) |
+| Tests               | Vitest, Playwright, pytest                                                        |
+| Hosting             | GitHub + Vercel Hobby (Phase 9)                                                   |
 
 ## Run it on your computer
 
@@ -93,3 +93,10 @@ chat evaluation against the real model.
 
 See the [`docs/`](docs) folder, starting with [`project_status.md`](docs/project_status.md) and
 [`architecture.md`](docs/architecture.md).
+
+## Credits
+
+Created by **Nitya Sree Madishetty**. Companion portraits: AI-generated with ChatGPT from original
+text descriptions, selected and directed by Nitya Sree Madishetty. Scripture texts and
+translations are public-domain or openly licensed editions listed in
+[`docs/data_sources.md`](docs/data_sources.md).

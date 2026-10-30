@@ -80,8 +80,11 @@ export default function AboutPage() {
             your life.
           </li>
           <li>
-            Their portraits were created for this project by its owner using AI image generation
-            (ChatGPT). They are artistic representations, not traditional or authoritative images.
+            Their portraits were made for this project by {SITE.creator} with AI image generation
+            (ChatGPT), from original text descriptions only (no existing artwork was used as a
+            reference). There are two sets, child (Bal) and adult, chosen with the portrait switch
+            in the header; Sanatana Kids always uses the child set. They are artistic
+            representations, not traditional or authoritative images.
           </li>
         </ul>
       </Section>
@@ -144,10 +147,11 @@ export default function AboutPage() {
           run entirely in your browser; your choices are not saved or sent anywhere.
         </p>
         <p>
-          Your browser stores two small preferences on your device: your day/night theme (
-          <code className="text-sm">{STORAGE_KEYS.theme}</code>) and your last chosen companion (
-          <code className="text-sm">{STORAGE_KEYS.companion}</code>). No accounts, no tracking, no
-          ads.
+          Your browser stores three small preferences on your device: your day/night theme (
+          <code className="text-sm">{STORAGE_KEYS.theme}</code>), your child or adult portrait
+          choice (<code className="text-sm">{STORAGE_KEYS.portraits}</code>) and your last chosen
+          companion (<code className="text-sm">{STORAGE_KEYS.companion}</code>). No accounts, no
+          tracking, no ads.
         </p>
         <p>
           <strong>My Dharma Journey</strong> (goals, Wisdom Tree, reflections and Sankalpas) saves

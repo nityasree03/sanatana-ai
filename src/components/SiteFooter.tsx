@@ -29,6 +29,9 @@ export function SiteFooter() {
         <div className="mt-8 space-y-2 border-t border-line pt-6 text-sm text-muted">
           <p>{SITE.aiDisclosure}</p>
           <p>
+            {SITE.name} is created by {SITE.creator}. {SITE.portraitCredit}
+          </p>
+          <p>
             Not a substitute for professional, medical, legal or emergency help. Open source on{" "}
             <a href={SITE.repoUrl} className="underline">
               GitHub

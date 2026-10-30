@@ -303,6 +303,14 @@ body {
     opacity: 0;
   }
 }
+/* Portrait set: child unless <html data-portraits="adult">. */
+.illustrated .ill-set-adult,
+html[data-portraits="adult"] .illustrated .ill-set-child {
+  display: none;
+}
+html[data-portraits="adult"] .illustrated .ill-set-adult {
+  display: block;
+}
 .illustrated .ill-layer {
   opacity: 0;
   transition: opacity 0.25s ease;

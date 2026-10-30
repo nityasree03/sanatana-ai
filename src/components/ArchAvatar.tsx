@@ -1,6 +1,6 @@
 import { getCompanion, type CompanionId } from "@/lib/companions";
 import { SITE } from "@/lib/site";
-import { IllustratedPortrait } from "./avatars/IllustratedPortrait";
+import { IllustratedPortrait, type PortraitSet } from "./avatars/IllustratedPortrait";
 import { Portrait } from "./avatars/Portrait";
 
 export type AvatarState = "idle" | "listening" | "thinking" | "speaking" | "error";
@@ -40,6 +40,7 @@ export function ArchAvatar({
   variant = SITE.avatarStyle,
   caption = true,
   animated,
+  portraitSet,
 }: {
   companionId: CompanionId;
   state?: AvatarState;
@@ -51,6 +52,8 @@ export function ArchAvatar({
   caption?: boolean;
   /** Animate the portrait (defaults to showState). */
   animated?: boolean;
+  /** Force a portrait set; otherwise the visitor's choice applies. */
+  portraitSet?: PortraitSet;
 }) {
   const companion = getCompanion(companionId);
   // "responsive" = compact on phones, full size from tablet width up.
@@ -93,6 +96,7 @@ export function ArchAvatar({
               companionId={companionId}
               animated={animated ?? showState}
               priority={showState}
+              set={portraitSet}
             />
           ) : (
             <Portrait
