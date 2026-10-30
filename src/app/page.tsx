@@ -1,104 +1,111 @@
 import Link from "next/link";
-import { ArchAvatar } from "@/components/ArchAvatar";
-import { StatusBadge } from "@/components/StatusBadge";
-import { COMPANIONS } from "@/lib/companions";
-import { ROUTE_GROUPS, routesInGroup } from "@/lib/routes";
+import { DayHero } from "@/components/home/DayHero";
+import { NightHero } from "@/components/home/NightHero";
+import { MANIFEST, WORKS } from "@/lib/scripture/data";
 import { SITE } from "@/lib/site";
 
-export default function Home() {
-  return (
-    <div className="mx-auto max-w-7xl px-4">
-      {/* Hero */}
-      <section className="grid items-center gap-10 py-14 md:grid-cols-[1.2fr_1fr]">
-        <div>
-          <p className="text-sm font-medium tracking-wider text-accent uppercase">
-            Talk · Learn · Reflect
-          </p>
-          <h1 className="mt-3 text-5xl leading-tight sm:text-6xl">{SITE.name}</h1>
-          <p className="mt-4 max-w-xl text-xl text-muted">{SITE.tagline}</p>
-          <p className="mt-4 max-w-xl text-sm text-muted">{SITE.aiDisclosure}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/chat"
-              className="rounded-full bg-accent px-6 py-3 font-medium text-on-accent hover:opacity-90"
-            >
-              Start a conversation
-            </Link>
-            <Link
-              href="/companions"
-              className="rounded-full border border-line px-6 py-3 hover:border-accent"
-            >
-              Meet the companions
-            </Link>
-          </div>
-          <p className="mt-6 inline-block rounded-2xl border border-gold/60 bg-leaf px-4 py-2 text-sm text-leaf-ink">
-            Early preview (Phase {SITE.currentPhase}): the screens are in place, but the AI is not
-            connected yet.
-          </p>
-        </div>
-        <div className="flex justify-center" data-companion="krishna">
-          <ArchAvatar companionId="krishna" showState={false} />
-        </div>
-      </section>
+const STEPS = [
+  ["Ask", "Choose a companion and ask what is on your mind, by typing or speaking."],
+  [
+    "See the verses",
+    "Each answer cites passages from public-domain translations, with chapter, verse and translator.",
+  ],
+  [
+    "Reflect",
+    "Save a leaf to your Wisdom Tree or set a small daily Sankalpa, privately in your browser.",
+  ],
+] as const;
 
-      {/* Companions */}
-      <section aria-labelledby="companions-heading" className="py-10">
-        <h2 id="companions-heading" className="text-3xl">
-          Four companions, four voices
-        </h2>
-        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {COMPANIONS.map((c) => (
-            <li key={c.id} data-companion={c.id}>
-              <Link
-                href={`/chat?companion=${c.id}`}
-                className="block h-full rounded-3xl border border-line bg-card p-5 hover:border-accent"
-              >
-                <span className="font-display text-2xl font-semibold text-accent">{c.name}</span>
-                <span className="mt-1 block text-sm">{c.epithet}</span>
-                <span className="mt-3 block text-xs text-muted">{c.voice}</span>
-              </Link>
+export default function Home() {
+  const features = [
+    [
+      "/divine-council",
+      "Divine Council",
+      "Ask one question, hear four perspectives, each with its own verses.",
+    ],
+    [
+      "/dharma-lab",
+      "Dharma Lab",
+      "Map a hard decision into paths, with upsides, downsides and unknowns.",
+    ],
+    [
+      "/living-leela",
+      "Living Leela",
+      "Step inside one story per companion and choose what to explore.",
+    ],
+    [
+      "/scriptures",
+      "Scripture Explorer",
+      `${WORKS.length} texts and ${MANIFEST.passageCount.toLocaleString("en-US")} passages, with translator, source and licence.`,
+    ],
+    [
+      "/scripture-learning",
+      "Learning Studio",
+      "8 short lessons; every answer points to the line that supports it.",
+    ],
+    [
+      "/shloka-practice",
+      "Shloka Practice",
+      "12 verses line by line in Devanagari and IAST, with slow listening.",
+    ],
+    [
+      "/my-journey",
+      "My Dharma Journey",
+      "Goals, a Wisdom Tree and daily Sankalpa, saved only in your browser.",
+    ],
+    ["/kids", "Sanatana Kids", "Four talking storybooks for children, run by a grown-up."],
+  ] as const;
+
+  return (
+    <div>
+      {/* The theme decides which hero shows (globals.css): Temple Dawn by day, Kailash Night by night. */}
+      <div className="theme-day-only">
+        <DayHero />
+      </div>
+      <div className="theme-night-only">
+        <NightHero />
+      </div>
+
+      <div className="mx-auto max-w-6xl px-4 pb-12">
+        <ol className="grid gap-4 py-10 sm:grid-cols-3" aria-label="How it works">
+          {STEPS.map(([title, text], i) => (
+            <li
+              key={title}
+              className="home-fadeup rounded-3xl border border-line bg-card p-6"
+              style={{ animationDelay: `${i * 150}ms` }}
+            >
+              <p className="text-xs font-semibold tracking-[.12em] text-muted uppercase">
+                Step {i + 1}
+              </p>
+              <h2 className="mt-1 font-display text-3xl font-bold">{title}</h2>
+              <p className="mt-1 leading-relaxed text-muted">{text}</p>
             </li>
           ))}
-        </ul>
-      </section>
+        </ol>
 
-      {/* Everything on the site, straight from the route registry */}
-      <section aria-labelledby="explore-heading" className="py-10">
-        <h2 id="explore-heading" className="text-3xl">
-          Explore
-        </h2>
-        <p className="mt-2 text-muted">
-          Every part of Sanatana AI, with an honest label showing what works today.
-        </p>
-        <div className="mt-6 space-y-8">
-          {ROUTE_GROUPS.map((group) => {
-            const routes = routesInGroup(group).filter((r) => r.path !== "/");
-            return (
-              <div key={group}>
-                <h3 className="font-sans text-sm font-semibold tracking-wider text-muted uppercase">
-                  {group}
-                </h3>
-                <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {routes.map((r) => (
-                    <li key={r.path}>
-                      <Link
-                        href={r.path}
-                        className="flex h-full flex-col gap-2 rounded-2xl border border-line bg-card p-4 hover:border-accent"
-                      >
-                        <span className="flex items-center justify-between gap-2">
-                          <span className="font-semibold">{r.label}</span>
-                          <StatusBadge status={r.status} phase={r.phase} />
-                        </span>
-                        <span className="text-sm text-muted">{r.description}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+        <section aria-labelledby="explore-heading">
+          <h2 id="explore-heading" className="font-display text-[clamp(2.1rem,4vw,3rem)] font-bold">
+            Everything in {SITE.name}
+          </h2>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {features.map(([href, title, text], i) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className="home-feat home-fadeup flex h-full flex-col gap-1.5 rounded-2xl border border-line bg-card p-5"
+                  style={{ animationDelay: `${i * 80}ms` }}
+                >
+                  <span className="font-display text-2xl font-bold">{title}</span>
+                  <span className="leading-relaxed text-muted">{text}</span>
+                  <span className="mt-auto pt-2 text-sm font-semibold text-accent">
+                    Open <span aria-hidden="true">→</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
     </div>
   );
 }

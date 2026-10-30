@@ -1,6 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import { ROUTES } from "../../src/lib/routes";
+import { settleAnimations } from "./settle";
 
 // Every page in the central registry must load, show a heading and pass an accessibility scan.
 for (const route of ROUTES) {
@@ -15,6 +16,7 @@ for (const route of ROUTES) {
       await expect(page.getByText(`It becomes functional in Phase ${route.phase}`)).toBeVisible();
     }
 
+    await settleAnimations(page);
     const scan = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
     expect(scan.violations.map((v) => `${v.id}: ${v.help}`)).toEqual([]);
     expect(errors).toEqual([]);

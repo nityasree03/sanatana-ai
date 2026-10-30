@@ -364,3 +364,144 @@ html[data-portraits="adult"] .illustrated .ill-set-adult {
     transform: translateY(14px);
   }
 }
+
+/* ---------------- Home page: Temple Dawn (day) and Kailash Night (night) ---------------- */
+.theme-night-only {
+  display: none;
+}
+[data-theme="dark"] .theme-night-only {
+  display: block;
+}
+[data-theme="dark"] .theme-day-only {
+  display: none;
+}
+.diya {
+  position: absolute;
+  bottom: -40px;
+  width: 10px;
+  height: 14px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: #f6b73c;
+  box-shadow: 0 0 14px 6px rgb(246 183 60 / 0.45);
+  opacity: 0;
+}
+.home-feat {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+.home-feat:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 30px rgb(80 50 10 / 0.12);
+}
+.orb:focus-visible {
+  outline: 3px solid #f6d68c;
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .dawn-sun {
+    animation:
+      dawn-rise 6s ease-out both,
+      dawn-glow 7s ease-in-out 6s infinite;
+  }
+  .dawn-rays {
+    transform-box: view-box;
+    transform-origin: 600px 640px;
+    animation: dawn-spin 90s linear infinite;
+  }
+  .diya {
+    animation: diya-float 14s linear infinite;
+  }
+  .arch-bob {
+    animation: arch-bob 6s ease-in-out infinite;
+  }
+  .home-fadeup {
+    animation: home-fadeup 0.9s ease-out both;
+  }
+  .star {
+    animation: star-twinkle 3.6s ease-in-out infinite;
+  }
+  .constellation {
+    stroke-dasharray: 6 10;
+    animation: constellation-dash 18s linear infinite;
+  }
+  .orb {
+    transition: transform 0.35s ease;
+    animation: orb-breathe 5s ease-in-out infinite;
+  }
+  .orb:hover {
+    transform: scale(1.06);
+  }
+}
+@keyframes dawn-rise {
+  from {
+    transform: translateY(60px);
+    opacity: 0.2;
+  }
+}
+@keyframes dawn-glow {
+  50% {
+    opacity: 0.82;
+  }
+}
+@keyframes dawn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes diya-float {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-640px);
+    opacity: 0;
+  }
+}
+@keyframes arch-bob {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes home-fadeup {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+@keyframes star-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes constellation-dash {
+  to {
+    stroke-dashoffset: -320;
+  }
+}
+@keyframes orb-breathe {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 6px rgb(246 214 140 / 0.18),
+      0 0 40px 10px rgb(246 214 140 / 0.18);
+  }
+  50% {
+    box-shadow:
+      0 0 0 10px rgb(246 214 140 / 0.28),
+      0 0 70px 18px rgb(246 214 140 / 0.28);
+  }
+}
